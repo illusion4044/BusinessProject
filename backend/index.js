@@ -1,24 +1,39 @@
-// import db from "./userdb.js";
-// import dotenv from "dotenv";
+import db from "./db.js";
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 
-// dotenv.config();
+dotenv.config();
 
-const PORT = process.env.PORT || 3001
 const app = express()
+const PORT = process.env.PORT || 3001;
 app.use(
     cors({
-        origin: "http://localhost:5174",
-        methods: ["GET", "POST", "PUT", "DELETE"], 
-        allowedHeaders: ["Content-Type", "Authorization"], 
+        origin: [
+        "http://localhost:5174",        
+        // "https://your-site.netlify.app"  
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 
-app.get('/', (req, res) => {
-    res.send('Server is running');
-});
-
 app.use(express.json());
 
-app.listen(PORT, ()=> {console.log(`server is running on ${PORT}`)})
+app.get('/', (req, res) => {
+    res.send('Hello from backend!');
+});
+
+app.get("/info", async (req, res) => {
+    try {
+        const [rows] = await db.query("SELECT * FROM Categories");
+        console.log("✅ Результат:", rows);
+        res.status(200).json(rows);
+    } catch (err) {
+        console.error("❌ Ошибка при запросе:", err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
