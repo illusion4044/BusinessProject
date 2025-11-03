@@ -1,0 +1,45 @@
+.mainPageCon2{
+    height: 1400px;
+    background-color: antiquewhite;
+}
+
+.firstGalleryItems{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.firstTopBlocks{
+    width: 80%;
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.discount{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: #EB0101;
+}
+
+.buttonsGalleryOverlay{
+    display: flex;
+    flex-direction: row;
+}
+
+.btnsGallery{
+    background: none;
+    border: none;
+}
+
+.btnGalleryLeftGround{
+    width: 50px;
+    height: 50px;
+    background-color: #B57EDC;
+}
