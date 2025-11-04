@@ -1,0 +1,105 @@
+.LoginOverlayWindow{
+    position: fixed;
+    z-index: 10;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 15%;
+    width: 952px;
+    height: 680px;
+    background-color: white;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo{
+    width: 210px;
+    height: 60px;
+    border-radius: 1rem;
+    border: 2px solid black;
+
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 27px;
+}
+
+.blurOverlay{
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.enterWord{
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 55px;
+}
+
+.loginInputs,
+.loginBlocks{
+    height: 196px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginBlocks{
+    margin-bottom: 32px;
+}
+
+.marginText{
+    margin: 0px 0px 12px 11px;
+}
+
+.inputPhoneEmail,
+.inputPassword{
+    width: 708px;
+    height: 47px;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.loginBtn {
+    width: 217px;
+    height: 49px;
+    background-color: #8A38F5;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: 24px;
+    color: #ffffff;
+    padding: 0rem 1rem 0rem 1rem;
+    border: 1px #b18597;
+    transition: transform 0.2s;
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 27px;
+    margin-top: 20px;
+}
+
+.loginBtn:hover {
+    background: #B57EDC;
+    transform: translate(0, 0.15em);
+}
+
+.registerTetxBtn{
+    color: #8A38F5;
+    font-size: 20px;
+}
+
+.registerTetxBtn:hover{
+    color: #682db5;
+    cursor: pointer;
+    text-decoration: underline;
+}
