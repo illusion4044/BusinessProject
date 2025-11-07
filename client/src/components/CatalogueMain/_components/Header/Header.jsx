@@ -14,6 +14,10 @@ export default function Header() {
         setIsBtnLoginClicked(prev => !prev);
     };
 
+    const handleCloseOverlay = () => {
+        setIsBtnLoginClicked(false); 
+    };
+
     return (
         <>
             <header className={styles.mainHeader}>
@@ -58,6 +62,7 @@ export default function Header() {
             {isBtnLoginClicked && (
                 <LoginOverlay 
                     key={isBtnLoginClicked}
+                    onClose={handleCloseOverlay}
                 />
             )}
         </>

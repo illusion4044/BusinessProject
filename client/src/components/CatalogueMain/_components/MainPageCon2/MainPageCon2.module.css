@@ -1,21 +1,33 @@
 .mainPageCon2{
     height: 1400px;
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
+    padding-top: 20px;
 }
 
-.firstGalleryItems{
+.firstGalleryItems,
+.secondGalleryItems{
+    height: 480px;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.firstGalleryItems{
+    margin-bottom: 100px;
 }
 
 
-.firstTopBlocks{
+.firstTopBlocks,
+.secondTopBlocks{
+    height: 58px;
     width: 80%;
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 .discount{
@@ -31,15 +43,123 @@
 .buttonsGalleryOverlay{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 30px;
 }
 
-.btnsGallery{
-    background: none;
-    border: none;
-}
-
-.btnGalleryLeftGround{
+.btnGalleryLeftGround,
+.btnGalleryRightGround{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
     background-color: #B57EDC;
+    border-radius: 1rem ;
+    cursor: pointer;
+}
+
+.btnIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.discount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #d90000;
+    font-size: 48px;
+}
+
+.btnsGallery {
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    background-color: #B57EDC;
+}
+
+
+.GalleryItems1,
+.GalleryItems2{
+    display: flex;
+    gap: 54px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    height: 396px;
+    width: 80%;
+}
+
+.GalleryItems1::-webkit-scrollbar {
+    height: 8px;
+}
+
+.GalleryItems1::-webkit-scrollbar-thumb {
+    background-color: #c0bfc4;
+    border-radius: 5px;
+}
+
+.card {
+    flex: 0 0 auto;
+    width: 210px;
+    height: 350px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardImage {
+    width: 80px;
+    height: 160px;
+    object-fit: contain;
+}
+
+.cardInfo {
+    text-align: center;
+}
+
+.priceNow {
+    font-weight: bold;
+    color: #6b42e8;
+    font-size: 18px;
+}
+
+.priceOld {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.discountPercent {
+    background-color: #f3e2ff;
+    color: #6b42e8;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.placeholder {
+    flex: 0 0 auto;
+    width: 212px;
+    height: 347px;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+}
+
+.recomendationText{
+    font-size: 48px;
+    font-weight: bold;
 }

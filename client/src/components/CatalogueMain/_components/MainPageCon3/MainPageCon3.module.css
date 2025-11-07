@@ -1,0 +1,38 @@
+.mainPageCon3{
+    width: 100%;
+    height: 916px;
+    background-color: #D3C0DC;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textAboutUs{
+    font-size: 48px;
+    font-weight: 500;
+}
+
+.textAbout{
+    width: 722px;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: justify;
+}
+
+.imgAbout{
+    width: 471px;
+    height: 471px;
+    background-color: aliceblue;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.blockAbout{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    gap: 83px;
+    margin-top: 98px;
+}

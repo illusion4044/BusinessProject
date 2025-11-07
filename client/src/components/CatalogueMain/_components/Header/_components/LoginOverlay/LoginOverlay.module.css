@@ -16,6 +16,24 @@
     flex-direction: column;
 }
 
+.RegisterOverlayWindow{
+    position: fixed;
+    z-index: 10;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 12%;
+    width: 952px;
+    height: 750px;
+    background-color: white;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .logo{
     width: 210px;
     height: 60px;
@@ -25,6 +43,20 @@
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 27px;
+}
+
+.btnClose{
+    height: 25px;
+    width: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 50px;
+    font-weight: 200;
+    top: 20px;
+    right: 25px;
+    cursor: pointer;
 }
 
 .blurOverlay{
@@ -44,7 +76,7 @@
 
 .loginInputs,
 .loginBlocks{
-    height: 196px;
+    /* height: 196px; */
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -59,13 +91,17 @@
 }
 
 .inputPhoneEmail,
-.inputPassword{
+.inputPassword,
+.inputName{
     width: 708px;
     height: 47px;
     border-radius: 1rem;
     border: none;
     outline: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    padding-left: 20px;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .loginBtn {
@@ -76,7 +112,7 @@
     font-weight: 500;
     font-size: 24px;
     color: #ffffff;
-    padding: 0rem 1rem 0rem 1rem;
+    padding: 0rem 1.5rem 0rem 1.5rem;
     border: 1px #b18597;
     transition: transform 0.2s;
     transform-style: preserve-3d;
@@ -93,12 +129,12 @@
     transform: translate(0, 0.15em);
 }
 
-.registerTetxBtn{
+.registerTextBtn{
     color: #8A38F5;
     font-size: 20px;
 }
 
-.registerTetxBtn:hover{
+.registerTextBtn:hover{
     color: #682db5;
     cursor: pointer;
     text-decoration: underline;
