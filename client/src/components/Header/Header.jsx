@@ -1,7 +1,7 @@
-import CatalogueMenu from '../CatalogueMenu/CatalogueMenu'
+import CatalogueMenu from './_components/CatalogueMenu/CatalogueMenu'
 import LoginOverlay from './_components/LoginOverlay/LoginOverlay';
 import styles from './Header.module.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from "react-router-dom";
 
 
@@ -14,8 +14,15 @@ export default function Header() {
         setIsBtnLoginClicked(prev => !prev);
     };
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) setIsLogined(true);
+    }, []);
+
     const handleCloseOverlay = () => {
-        setIsBtnLoginClicked(false); 
+        setIsBtnLoginClicked(false);
+        const token = localStorage.getItem("token");
+        if (token) setIsLogined(true);
     };
 
     return (
@@ -24,7 +31,7 @@ export default function Header() {
                 <div className={styles.headerItems}>
 
                     <div className={styles.Logo}>
-                        Logo
+                        <img src="images\logo.png" alt="" />
                     </div>
 
                     <CatalogueMenu />

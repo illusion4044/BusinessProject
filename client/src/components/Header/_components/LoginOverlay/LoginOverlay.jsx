@@ -4,6 +4,40 @@ import { useState } from 'react'
 export default function LoginOverlay({ onClose }) {
 
     const [isLoginMode, setIsLoginMode] = useState(true);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    async function handleLogin() {
+        try {
+            const res = await fetch("http://localhost:3001/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.message);
+                return;
+            }
+
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.role);
+
+            onClose();
+
+            if (data.role === "admin") {
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/";
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Помилка сервера");
+        }
+    }
 
     return (
         <>
@@ -23,16 +57,26 @@ export default function LoginOverlay({ onClose }) {
                             <span className={styles.marginText}>
                                 Увійдіть за номером телефону або електронною поштою
                             </span>
-                            <input type="text" className={styles.inputPhoneEmail} />
+                            <input 
+                                type="text" 
+                                className={styles.inputPhoneEmail} 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
 
                         <div className={styles.loginBlocks}>
                             <span className={styles.marginText}>Пароль</span>
-                            <input type="password" className={styles.inputPassword} />
+                            <input 
+                                type="password" 
+                                className={styles.inputPassword} 
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
                     </div>
 
-                    <button className={styles.loginBtn}>
+                    <button className={styles.loginBtn} onClick={handleLogin}>
                         Увійти
                     </button>
 

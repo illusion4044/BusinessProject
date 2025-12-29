@@ -1,0 +1,84 @@
+.card {
+    flex: 0 0 auto;
+    width: 210px;
+    height: 350px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardImage {
+    width: 185px;
+    height: 179px;
+    object-fit: contain;
+    margin-top: 12px;
+}
+
+.cardInfo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.priceNow {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #8F4CB3;
+    font-size: 32px;
+    width: 175px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.priceOld {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 24px;
+    margin-left: 5px;
+}
+
+.discountPercent {
+    background-color: #774A8D;
+    color: white;
+    border-radius: 6px;
+    height: 22px;
+    width: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.placeholder {
+    flex: 0 0 auto;
+    width: 212px;
+    height: 347px;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+}
+
+.recomendationText{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.cardName{
+    width: 175px;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.priceBlock{
+    display: flex;
+    flex-direction: row;
+    width: 175px;
+    justify-content: flex-start;
+    align-items: center;
+}

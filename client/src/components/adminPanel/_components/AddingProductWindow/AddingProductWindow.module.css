@@ -1,0 +1,16 @@
+.MainWindow{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.BackToLobby{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 32px;
+    font-weight: 500;
+}
+

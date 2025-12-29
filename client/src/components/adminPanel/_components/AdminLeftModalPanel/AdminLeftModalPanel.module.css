@@ -1,0 +1,73 @@
+.panel{
+    height: 660px;
+    width: 20%;
+    min-width: 80px;
+    border-radius: 0.5rem;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.collapsed {
+    width: 5%;
+}
+
+.collapsed .AddButtonBlock,
+.collapsed .InfoButtonBlock,
+.collapsed .logout{
+    padding: 0;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.collapsed .button {
+    justify-content: center;
+}
+
+.adminStyle{
+    padding-left: 18px;
+}
+
+.buttonBlock{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.AddButtonBlock, 
+.InfoButtonBlock, 
+.logout{
+    padding-left: 18px;
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0.5rem;
+}
+
+.InfoButtonBlock{
+    gap: 7px;
+}
+
+.AddButtonBlock:hover, 
+.InfoButtonBlock:hover {
+    background-color: rgb(220, 210, 210);
+    cursor: pointer;
+    transform: translateY(2px);
+    box-shadow: 0 2px 5px rgba(107, 155, 209, 0.3);
+}
+
+.logout:hover{
+    background-color: rgb(231, 131, 131);
+    cursor: pointer;
+    transform: translateY(2px);
+    box-shadow: 0 2px 5px rgba(107, 155, 209, 0.3);
+}

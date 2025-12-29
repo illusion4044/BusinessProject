@@ -6,6 +6,7 @@ import Cart from './components/Cart/Cart';
 import Order from './components/Order/Order';
 import Product from './components/Product/Product';
 import Payment from './components/Payment/Payment';
+import AdminPanel from './components/adminPanel/AdminPanel';
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
             <Route path="/order" element={<Order/>}/>
             <Route path="/product" element={<Product/>}/>
             <Route path="/payment" element={<Payment/>}/>
+
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
       </BrowserRouter>
     </>

@@ -1,6 +1,23 @@
+import { useState, useEffect } from 'react'
 import styles from './mainPageCon1.module.css'
 
 export default function MainPageCon1() {
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                const response = await fetch("http://localhost:3001/products");
+                const data = await response.json();
+                setProducts(data); 
+            } catch (err) {
+                console.error("Error after loading products", err);
+            }
+        }
+
+        fetchProducts();
+    }, []);
 
     return (
         <>
@@ -32,7 +49,6 @@ export default function MainPageCon1() {
                     <div className={`${styles.box4} ${styles.box}`}></div>
                 </div>
             </div>
-
         </>
     )
 }
