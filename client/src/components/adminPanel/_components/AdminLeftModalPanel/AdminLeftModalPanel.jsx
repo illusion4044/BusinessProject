@@ -13,7 +13,7 @@ export default function AdminLeftModalPanel({ setActivePage, collapsed, setColla
                 <div className={styles.buttonBlock}>
                     <div className={`${styles.button} ${styles.AddButtonBlock}`}
                         onClick={() => { 
-                            setActivePage("addProduct");
+                            setActivePage("addProduction");
                             setCollapsed(true)
                         }}>
                         <img src="images\AddButton.png" alt="" />

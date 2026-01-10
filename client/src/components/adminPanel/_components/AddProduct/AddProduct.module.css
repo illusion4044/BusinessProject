@@ -1,0 +1,105 @@
+.MainAddProductWindow {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.BackToLobby {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.BlockItems {
+    display: flex;
+    gap: 40px;
+    height: 100%;
+}
+
+.LeftPanelBlock {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 24px;
+}
+
+.imageBlock {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.imagePlaceholder {
+    width: 100px;
+    height: 100px;
+    background: #5ddcff;
+    border-radius: 10px;
+}
+
+.addPhotoBtn {
+    padding: 8px 14px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+
+.RightPanelBlock {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+}
+
+.input {
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+}
+
+.textarea {
+    height: 180px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    resize: none;
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+}
+
+.smallInput {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+}
+
+.sectionTitle {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.saveBtn {
+    margin-top: auto;
+    align-self: flex-end;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 10px;
+    cursor: pointer;
+}

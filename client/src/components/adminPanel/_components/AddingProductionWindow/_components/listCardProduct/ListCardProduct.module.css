@@ -1,0 +1,45 @@
+.card{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* justify-content: space-between; */
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+.blockImage{
+    background-color: gray;
+    width: 100px;
+    height: 80px;
+}
+.blockName{
+    width: 40%;
+    /* background-color: blue; */
+}
+.blockPrice{
+    width: 15%;
+    /* background-color:  red; */
+}
+
+.blockDiscountPrice{
+    width: 10%;
+    /* background-color:  green; */
+}
+
+.blockQty{
+    width: 15%;
+    /* background-color:  green; */
+}
+
+.Pencil:hover,
+.Trash:hover{
+    scale: 1.1;
+}
+
+.Pencil,
+.Trash{
+    width: 30px;
+    height: 30px;
+}

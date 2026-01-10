@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import styles from './AdminPanel.module.css'
 import AdminLeftModalPanel from "./_components/AdminLeftModalPanel/AdminLeftModalPanel";
-import AddingProductWindow from "./_components/AddingProductWindow/AddingProductWindow";
+import AddingProductionWindow from "./_components/AddingProductionWindow/AddingProductionWindow";
 import ProductInfo from "./_components/ProductInfo/ProductInfo";
+import AddProduct from "./_components/AddProduct/AddProduct";
 
 export default function AdminPanel () {
     const navigate = useNavigate();
@@ -37,8 +38,10 @@ export default function AdminPanel () {
                                 <h2>Ласкаво просимо до адмін панелі!</h2>
                             </div>
                         </>)}
-                        {activePage === "addProduct" && <AddingProductWindow />}
+                        {activePage === "addProduction" && <AddingProductionWindow setActivePage={setActivePage}/>} 
+                        {/* поменять на Production */}
                         {activePage === "ordersInfo" && <ProductInfo />}
+                        {activePage === "addProduct" && <AddProduct/>}
                     </div>
                 </div>
             </div>
