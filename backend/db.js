@@ -21,10 +21,10 @@ const db = mysql.createPool({
 (async () => {
     try{
         const connection = await db.getConnection();
-        console.log("✅ Подключено к базе данных");
+        console.log("✅ Connected to the DB");
         connection.release();
     } catch (err) {
-        console.error("Ошибка подключения к базе данных", err);
+        console.error("Database connection error", err);
     }
 })();
 
