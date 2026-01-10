@@ -1,4 +1,4 @@
-import ListCardProduct from './_components/listCardProduct/listCardProduct';
+import ListCardProduct from './_components/listCardProduct/ListCardProduct';
 import styles from './AddingProductionWindow.module.css'
 
 import { useEffect, useState } from 'react';
@@ -43,6 +43,7 @@ export default function AddingProductionWindow({ setActivePage }) {
                     method: "DELETE",
                     headers: {
                         "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
                     },
                 }
             );

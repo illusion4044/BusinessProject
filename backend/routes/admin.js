@@ -1,23 +1,13 @@
 import express from 'express';
 import jwt from "jsonwebtoken";
 import db from "../db.js";
+import { authenticateToken } from '../middleware/authMiddleware.js';
+import { requireRole } from '../middleware/requireRole.js';
 
 const router = express.Router();
 
-router.post('/admin/addproduct', async(req, res) => {
+router.post('/admin/addproduct', authenticateToken, requireRole("admin"), async(req, res) => {
     try{
-        const authHeader = req.headers.authorization;
-        if (!authHeader) {
-            return res.status(401).json({ message: "No token" });
-        }
-
-        const token = authHeader.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        if (decoded.role !== "admin") {
-            return res.status(403).json({ message: "Access denied" });
-        }
-
         const {
             name,
             description,
@@ -75,5 +65,21 @@ router.get("/productlist", async (req, res) => {
     }
 });
 
+router.delete("/admin/deleteproduct/:id", authenticateToken, requireRole("admin"), async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await db.query(
+            "DELETE FROM products WHERE id = ?",
+            [id]
+        );
+
+        res.json({ message: "Product deleted" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 export default router;

@@ -2,6 +2,13 @@ import styles from './AdminLeftModalPanel.module.css'
 
 export default function AdminLeftModalPanel({ setActivePage, collapsed, setCollapsed  }) {
 
+    function handleExit () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
+
+        window.location.href = "/catalogue"; 
+    }
 
     return (
         <>
@@ -28,7 +35,7 @@ export default function AdminLeftModalPanel({ setActivePage, collapsed, setColla
                 </div>
 
                 <div className={`${styles.button} ${styles.logout}`}>
-                    <img src="images\Logout.png" alt="" />
+                    <img src="images\Logout.png" onClick={handleExit} alt="" />
                     {!collapsed && "Вийти" }
                 </div>
             </div>

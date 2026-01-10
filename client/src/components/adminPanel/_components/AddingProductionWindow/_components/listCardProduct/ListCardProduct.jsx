@@ -100,9 +100,9 @@ export default function ListCardProduct ({ product, onEdit, onDelete }) {
                     />
                     <img
                         className={styles.Trash}
-                        onClick={() => onDelete(product)}
                         src="images/DeleteBtn.png"
                         alt=""
+                        onClick={() => {onDelete(product)}}
                     />
                 </>
             )}
