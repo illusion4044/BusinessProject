@@ -1,0 +1,271 @@
+.Footer {
+    background: #474A50;
+    padding: 60px 0 0 0;
+    position: relative;
+}
+
+/* .Footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+} */
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+/* First Block */
+.firstRowBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo img {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.hotlineText {
+    color: #ecf0f1;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.hours {
+    color: #95a5a6;
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+}
+
+.phoneContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.phoneContainer:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.phoneIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3498db;
+    padding: 10px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.phoneIcon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.phoneNumber {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.phoneNumber:hover {
+    color: #3498db;
+}
+
+.emailBlock {
+    margin-top: 10px;
+}
+
+.emailLabel {
+    color: #95a5a6;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.email {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.email:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+/* Second Block */
+.secondRowBlock {
+    color: white;
+    transition: 0.3s ease;
+}
+
+.blockTitle {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.secondRowBlock ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.secondRowBlock ul li {
+    transition: transform 0.2s ease;
+}
+
+.secondRowBlock ul li:hover {
+    transform: translateX(1px);
+}
+
+.secondRowBlock ul li a {
+    color: #ecf0f1;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.secondRowBlock ul li a:hover::before {
+    opacity: 1;
+    left: -5px;
+}
+
+.secondRowBlock ul li a:hover {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Third Block */
+.thirdRowBlock {
+    color: white;
+}
+
+.rowSocials {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.item {
+    width: 60px;
+    height: 60px;
+    transition: transform 0.3s ease;
+    /* filter: brightness(0) invert(1); */
+}
+
+.socialLink:hover .item {
+    transform: scale(1.1);
+    /* filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(52, 152, 219, 0.5)); */
+}
+
+/* Footer Bottom */
+.footerBottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.footerBottom p {
+    color: #95a5a6;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .firstRowBlock {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 640px) {
+    .Footer {
+        padding: 40px 0 0 0;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .phoneNumber {
+        font-size: 22px;
+    }
+
+    .email {
+        font-size: 18px;
+    }
+
+    .rowSocials {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+
+    .item {
+        width: 35px;
+        height: 35px;
+    }
+}

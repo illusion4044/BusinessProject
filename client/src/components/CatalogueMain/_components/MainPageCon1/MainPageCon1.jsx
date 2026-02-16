@@ -38,15 +38,39 @@ export default function MainPageCon1() {
                             </div>
                         </div>
 
+                        <img src="images\advertising_logo.png" alt="" />
+
+
                         <div className={styles.rounded}>
                             <div className={styles.circle}></div>
                             <div className={styles.circle}></div>
                             <div className={styles.circle}></div>
                         </div>
                     </div>
-                    <div className={`${styles.box2} ${styles.box}`}></div>
-                    <div className={`${styles.box3} ${styles.box}`}></div>
-                    <div className={`${styles.box4} ${styles.box}`}></div>
+                    <div className={`${styles.box2} ${styles.box}`}>
+                        <div className={styles.topBlock}>
+                            <p>Всі акції</p>
+                        </div>
+                        <div className={styles.bottomBlock}>
+                            <img src="images\sale_logo.png" alt="" />
+                        </div>
+                    </div>
+                    <div className={`${styles.box3} ${styles.box}`}>
+                        <div className={styles.topBlock}>
+                            <p>Рецепти</p>
+                        </div>
+                        <div className={styles.bottomBlock}>
+                            <img src="images\receip_logo.png" alt="" />
+                        </div>
+                    </div>
+                    <div className={`${styles.box4} ${styles.box}`}>
+                        <div className={styles.topBlock}>
+                            <p>Мої пропозиції</p>
+                        </div>
+                        <div className={styles.bottomBlock}>
+                            <img src="images\propositions_logo.png" alt="" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

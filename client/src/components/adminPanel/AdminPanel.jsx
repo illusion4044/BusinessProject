@@ -14,11 +14,34 @@ export default function AdminPanel () {
     const [activePage, setActivePage] = useState("defaultPade");
     const [collapsed, setCollapsed] = useState(false);
 
+    
+
     useEffect(() => {
-        if (role !== "admin") {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
             navigate("/");
+            return;
         }
-    }, [role]);
+
+        fetch("http://localhost:5000/auth/check", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Invalid token");
+            }
+            return res.json();
+        })
+        .catch(() => {
+            localStorage.clear();
+            navigate("/");
+        });
+
+    }, []);
+
 
     return (
         <>

@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import db from "../db.js";
+import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 const saltRounds = 10;
@@ -47,5 +48,9 @@ router.post("/login", async (req, res) => {
         return res.status(500).json({ message: "Помилка сервера" });
     }
 })
+
+router.get("/auth/check", authenticateToken, (req, res) => {
+    res.json({ valid: true, user: req.user });
+});
 
 export default router;

@@ -15,7 +15,7 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), async(
             price,  
             category_id,
             country,
-            trademark,
+            trademark, 
             seller,
             unit
         } = req.body;

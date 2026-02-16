@@ -1,3 +1,4 @@
+import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import styles from './CatalogueMain.module.css'
 import MainPageCon1 from './_components/MainPageCon1/MainPageCon1'
@@ -14,6 +15,7 @@ export default function CatalogueMain () {
             <MainPageCon2/>
             <MainPageCon3/>
             <MainPageCon4/>
+            <Footer/>
         </>
     )
 }
