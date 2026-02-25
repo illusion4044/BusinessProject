@@ -24,7 +24,7 @@ export default function AdminPanel () {
             return;
         }
 
-        fetch("http://localhost:5000/auth/check", {
+        fetch("http://localhost:3001/auth/check", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
