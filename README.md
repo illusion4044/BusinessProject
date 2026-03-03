@@ -8,6 +8,8 @@ git clone https://github.com/illusion4044/BusinessProject.git
 
 ### 2. Install dependencies
 ```bash
+cd BusinessProject
+
 npm install
 ```
 ## Run the Application
