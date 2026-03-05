@@ -14,13 +14,12 @@ export default function AdminPanel () {
     const [activePage, setActivePage] = useState("defaultPade");
     const [collapsed, setCollapsed] = useState(false);
 
-    
-
     useEffect(() => {
         const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
 
-        if (!token) {
-            navigate("/");
+        if (!token || role !== "admin") {
+            navigate("/catalogue");
             return;
         }
 
@@ -37,7 +36,7 @@ export default function AdminPanel () {
         })
         .catch(() => {
             localStorage.clear();
-            navigate("/");
+            navigate("/catalogue");
         });
 
     }, []);

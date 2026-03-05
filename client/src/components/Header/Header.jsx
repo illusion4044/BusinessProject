@@ -2,6 +2,7 @@ import CatalogueMenu from './_components/CatalogueMenu/CatalogueMenu'
 import LoginOverlay from './_components/LoginOverlay/LoginOverlay';
 import styles from './Header.module.css'
 import { useState, useRef, useEffect } from 'react'
+import SettingsOverlay from './_components/SettingsOverlay/SettingsOverlay';
 import { Link } from "react-router-dom";
 
 
@@ -9,6 +10,7 @@ export default function Header() {
 
     const [isLogined, setIsLogined] = useState(null)
     const [isBtnLoginClicked, setIsBtnLoginClicked] = useState(null)
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const handleLoginClick = () => {
         setIsBtnLoginClicked(prev => !prev);
@@ -52,7 +54,11 @@ export default function Header() {
                         </button>
 
                         {isLogined ? (<>
-                            <button type="button" className={styles.btnCustomer}>
+                            <button
+                                type="button"
+                                className={styles.btnCustomer}
+                                onClick={() => setIsSettingsOpen(prev => !prev)}
+                            >
                                 <img src="images\Contacts.png" alt="Contacts" className={styles.icon} />
                                 Користувач
                             </button>
@@ -71,6 +77,10 @@ export default function Header() {
                     key={isBtnLoginClicked}
                     onClose={handleCloseOverlay}
                 />
+            )}
+
+            {isSettingsOpen && (
+                <SettingsOverlay onClose={() => setIsSettingsOpen(false)} />
             )}
         </>
     )
