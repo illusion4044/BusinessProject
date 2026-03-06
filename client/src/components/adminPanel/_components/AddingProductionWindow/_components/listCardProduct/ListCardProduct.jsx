@@ -33,7 +33,14 @@ export default function ListCardProduct ({ product, onEdit, onDelete }) {
     return (
         <div className={styles.card}>
             <div className={styles.blockImage}>
-                <img src={product.image} alt="" />
+                {product.image ? (
+                    <img 
+                        src={`http://localhost:3001${product.image}`} 
+                        alt={product.name} 
+                    />
+                ) : (
+                    <div className={styles.noImage}>Немає фото</div>
+                )}
             </div>
 
             <div className={styles.blockName}>

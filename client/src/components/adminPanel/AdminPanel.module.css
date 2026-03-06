@@ -26,9 +26,50 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .content{
     width: 75%;
     height: 660px;
+}
+
+.listPageAll{
+    overflow-y: auto;
+    height: 88%;
+}
+
+.searchContainer {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.btnCons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 27px;
+    height: 30px;
+    opacity: 1;
+}
+
+.searchInput {
+    border: 1px solid #ccc;
+    border-radius: 2rem;
+    font-size: 16px;
+    outline: none;
+    width: 300px;
+    height: 26px;
+    padding-left: 55px;
+}
+
+.searchInput:focus {
+    border-color: #888;
 }

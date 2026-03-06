@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
 import styles from './AdminLeftModalPanel.module.css'
 
-export default function AdminLeftModalPanel({ setActivePage, collapsed, setCollapsed  }) {
+export default function AdminLeftModalPanel({ setActivePage, collapsed, setCollapsed,  activePage  }) {
+
+    useEffect(() => {
+        if (activePage === "defaultPage") {
+            setCollapsed(false);
+        }
+    }, [activePage, setCollapsed]);
 
     function handleExit () {
         localStorage.removeItem('token');
@@ -25,6 +32,15 @@ export default function AdminLeftModalPanel({ setActivePage, collapsed, setColla
                         }}>
                         <img src="images\AddButton.png" alt="" />
                         {!collapsed && "Додавання продукції" }
+                    </div>
+
+                    <div className={`${styles.button} ${styles.AddCategoryButtonBlock}`}
+                        onClick={() => { 
+                            setActivePage("addCategory");
+                            setCollapsed(true)
+                        }}>
+                        <img src="images\Plus.png" alt="" />
+                        {!collapsed && "Додавання категорії" }
                     </div>
 
                     <div className={`${styles.button} ${styles.InfoButtonBlock}`}

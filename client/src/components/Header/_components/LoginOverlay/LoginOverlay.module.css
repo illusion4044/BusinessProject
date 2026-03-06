@@ -34,12 +34,8 @@
     flex-direction: column;
 }
 
-.logo{
-    width: 210px;
-    height: 60px;
+.logoImg{ 
     border-radius: 1rem;
-    border: 2px solid black;
-
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 27px;

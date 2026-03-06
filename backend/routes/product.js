@@ -6,7 +6,6 @@ import db from "../db.js";
 const router = express.Router();
 const saltRounds = 10;
 
-
 router.get("/products", async (req, res) => {
     try {
         const [rows] = await db.query(`

@@ -66,9 +66,12 @@ export default function AddingProductionWindow({ setActivePage }) {
             <div className={styles.MainWindow}>
                 <div className={styles.TopPanelBlock}>
                     <div className={styles.FirstSection}>
-                        <div className={styles.BackToLobby}>
-                            <img src="images\BackRow.png" className={styles.leftRow} alt="" />
-                            Додавання продукції
+                        <div 
+                            onClick={() => setActivePage("defaultPage")} 
+                            className={styles.BackToLobby}
+                        >
+                            <img src="images/BackRow.png" className={styles.leftRow} alt="" />
+                            На головну сторінку
                         </div>
 
                         <div className={styles.searchContainer}>
@@ -94,12 +97,6 @@ export default function AddingProductionWindow({ setActivePage }) {
                         </button>
 
                         <div className={styles.btnCons}>
-                            <button
-                                className={styles.navBtns}
-                            >
-                                <img src="images\AddButton.png" alt="" />
-                                Додати категорію
-                            </button>
                             <button
                                 className={styles.navBtns}
                                 onClick={() => {

@@ -120,7 +120,8 @@ export default function LoginOverlay({ onClose }) {
                 <div key="login" className={styles.LoginOverlayWindow}>
                     <span onClick={onClose} className={styles.btnClose}>×</span>
 
-                    <div className={styles.logo}>Logo</div>
+                    <img className={styles.logoImg} src="images\logo.png" alt="" />
+
                     <span className={styles.enterWord}>
                         Ласкаво просимо
                     </span>
@@ -171,7 +172,7 @@ export default function LoginOverlay({ onClose }) {
             ) : (
                 <div key="register" className={styles.RegisterOverlayWindow}>
                     <span onClick={onClose} className={styles.btnClose}>×</span>
-                    <div className={styles.logo}>Logo</div>
+                    <img className={styles.logoImg} src="images\logo.png" alt="" />
                     <span className={styles.enterWord}>
                         Зареєструйтесь!
                     </span>

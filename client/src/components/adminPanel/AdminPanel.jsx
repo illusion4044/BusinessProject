@@ -6,13 +6,20 @@ import AdminLeftModalPanel from "./_components/AdminLeftModalPanel/AdminLeftModa
 import AddingProductionWindow from "./_components/AddingProductionWindow/AddingProductionWindow";
 import ProductInfo from "./_components/ProductInfo/ProductInfo";
 import AddProduct from "./_components/AddProduct/AddProduct";
+import ListCardProduct from "./_components/AddingProductionWindow/_components/listCardProduct/ListCardProduct";
+import AddingCategory from "./_components/AddingCategory/AddingCategory";
 
 export default function AdminPanel () {
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
 
-    const [activePage, setActivePage] = useState("defaultPade");
+    const [activePage, setActivePage] = useState("defaultPage");
     const [collapsed, setCollapsed] = useState(false);
+
+    const goToDefaultPage = () => {
+        setActivePage("defaultPage");
+        setCollapsed(false);
+    };
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -41,6 +48,62 @@ export default function AdminPanel () {
 
     }, []);
 
+    const [products, setProducts] = useState([]);
+    const [search, setSearch] = useState("");
+
+    const filteredProducts = products.filter(product => {
+        return product.name.toLowerCase().includes(search.toLowerCase())
+    });
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch("http://localhost:3001/productlist");
+                const data = await response.json();
+                setProducts(data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchProducts();
+    }, []);
+
+    const handleEdit = (updatedProduct) => {
+        setProducts(prev =>
+            prev.map(p =>
+                p.id === updatedProduct.id ? updatedProduct : p
+            )
+        );
+    };
+
+    const handleDelete = async (product) => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const response = await fetch(
+                `http://localhost:3001/admin/deleteproduct/${product.id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Delete failed");
+            }
+
+            setProducts(prev =>
+                prev.filter(p => p.id !== product.id)
+            );
+
+        } catch (err) {
+            console.error("Error after deleting:", err);
+        }
+    };
+
 
     return (
         <>
@@ -52,18 +115,39 @@ export default function AdminPanel () {
                         setActivePage={setActivePage}
                         collapsed={collapsed}
                         setCollapsed={setCollapsed}
+                        activePage={activePage}
                     />
 
                     <div className={styles.content}>
-                        {activePage === "defaultPade" && (<>
+                        {activePage === "defaultPage" && (<>
                             <div className={styles.welcome}>
                                 <h2>Ласкаво просимо до адмін панелі!</h2>
+                                <div className={styles.searchContainer}>
+                                    <img src="images\Search.png" alt="search" className={styles.searchIcon} />
+                                    <input
+                                        type="text"
+                                        placeholder="Пошук..."
+                                        value={search}
+                                        onChange={e => setSearch(e.target.value)}
+                                        className={styles.searchInput}
+                                    />
+                                </div>
+                                <div className={styles.listPageAll}>
+                                    {filteredProducts.map(product => (
+                                        <ListCardProduct
+                                            key={product.id}
+                                            product={product}
+                                            onEdit={handleEdit}
+                                            onDelete={handleDelete}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </>)}
-                        {activePage === "addProduction" && <AddingProductionWindow setActivePage={setActivePage}/>} 
-                        {/* поменять на Production */}
+                        {activePage === "addProduction" &&  <AddingProductionWindow setActivePage={setActivePage} />} 
                         {activePage === "ordersInfo" && <ProductInfo />}
-                        {activePage === "addProduct" && <AddProduct/>}
+                        {activePage === "addProduct" && <AddProduct setActivePage={setActivePage} />}
+                        {activePage === "addCategory" && <AddingCategory/>}
                     </div>
                 </div>
             </div>

@@ -3,10 +3,23 @@ import jwt from "jsonwebtoken";
 import db from "../db.js";
 import { authenticateToken } from '../middleware/authMiddleware.js';
 import { requireRole } from '../middleware/requireRole.js';
+import multer from "multer";
+import fs from "fs";
+import path from "path";
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/products/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+});
+
+const upload = multer({ storage });
 const router = express.Router();
 
-router.post('/admin/addproduct', authenticateToken, requireRole("admin"), async(req, res) => {
+router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload.single("image"), async(req, res) => {
     try{
         const {
             name,
@@ -24,10 +37,12 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), async(
             return res.status(400).json({ message: "Required fields missing" });
         }
 
+        const imagePath = req.file ? "/uploads/products/" + req.file.filename : null;
+
         const [result] = await db.query(
             `INSERT INTO products
-            (name, description, qty, price, category_id, country, trademark, seller, unit)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, [ 
+            (name, description, qty, price, category_id, country, trademark, seller, unit, image)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [ 
             name,
             description,
             qty,
@@ -36,7 +51,8 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), async(
             country,
             trademark,
             seller, 
-            unit || 'шт']
+            unit || 'шт',
+            imagePath]
         );
 
         res.status(201).json({
@@ -54,7 +70,7 @@ router.get("/productlist", async (req, res) => {
     try {
         const [rows] = await db.query(`
             SELECT 
-            p.id, p.name, p.image_data, p.qty, p.price
+            p.id, p.name, p.image, p.qty, p.price
             FROM products p
         `);
 
@@ -69,6 +85,27 @@ router.delete("/admin/deleteproduct/:id", authenticateToken, requireRole("admin"
     try {
         const { id } = req.params;
 
+        const [rows] = await db.query(
+            "SELECT image FROM products WHERE id = ?",
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        const imagePath = rows[0].image;
+
+        if (imagePath) {
+            const fullPath = path.join(process.cwd(), imagePath);
+
+            fs.unlink(fullPath, (err) => {
+                if (err) {
+                    console.log("Error deleting image:", err.message);
+                }
+            });
+        }
+
         await db.query(
             "DELETE FROM products WHERE id = ?",
             [id]
@@ -81,5 +118,85 @@ router.delete("/admin/deleteproduct/:id", authenticateToken, requireRole("admin"
         res.status(500).json({ message: "Server error" });
     }
 });
+
+//Categories
+
+router.get("/categories", async (req, res) => {
+    try {
+        const [rows] = await db.query("SELECT * FROM categories");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Server error"});
+    }
+});
+
+router.post("/admin/addcategory", authenticateToken, requireRole("admin"), async (req, res) => {
+    try {
+        const { name } = req.body;
+
+        if(!name){
+            return res.status(400).json({message:"Name required"});
+        }
+
+        const [result] = await db.query(
+            "INSERT INTO categories (name, parent_id) VALUES (?, NULL)",
+            [name]
+        );
+
+        res.json({
+            message: "Category added",
+            id: result.insertId
+        });
+
+    } catch(err){
+        console.error(err);
+        res.status(500).json({message:"Server error"});
+    }
+});
+
+router.post("/admin/addsubcategory", authenticateToken, requireRole("admin"), async (req, res) => {
+    try {
+
+        const { name, parent_id } = req.body;
+
+        if(!name || !parent_id){
+            return res.status(400).json({message:"Data missing"});
+        }
+
+        const [result] = await db.query(
+            "INSERT INTO categories (name, parent_id) VALUES (?, ?)",
+            [name, parent_id]
+        );
+
+        res.json({
+            message:"Subcategory added",
+            id: result.insertId
+        });
+
+    } catch(err){
+        console.error(err);
+        res.status(500).json({message:"Server error"});
+    }
+});
+
+router.delete("/admin/deletecategory/:id", authenticateToken, requireRole("admin"), async (req,res)=>{
+    try{
+
+        const { id } = req.params;
+
+        await db.query(
+            "DELETE FROM categories WHERE id = ? OR parent_id = ?",
+            [id, id]
+        );
+
+        res.json({message:"Category deleted"});
+
+    }catch(err){
+        console.error(err);
+        res.status(500).json({message:"Server error"});
+    }
+});
+
 
 export default router;

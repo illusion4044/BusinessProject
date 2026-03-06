@@ -9,11 +9,22 @@
     border-radius: 5px;
 }
 
-.blockImage{
-    background-color: gray;
+.blockImage img{
+    /* background-color: gray; */
     width: 100px;
     height: 80px;
 }
+
+.noImage{
+    background-color: gray;
+    width: 100px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 .blockName{
     width: 40%;
     /* background-color: blue; */

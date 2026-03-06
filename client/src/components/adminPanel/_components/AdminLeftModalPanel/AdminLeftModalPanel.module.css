@@ -43,7 +43,8 @@
 
 .AddButtonBlock, 
 .InfoButtonBlock, 
-.logout{
+.logout,
+.AddCategoryButtonBlock{
     padding-left: 18px;
     font-weight: 400;
     font-size: 20px;
@@ -58,7 +59,8 @@
 }
 
 .AddButtonBlock:hover, 
-.InfoButtonBlock:hover {
+.InfoButtonBlock:hover,
+.AddCategoryButtonBlock:hover {
     background-color: rgb(220, 210, 210);
     cursor: pointer;
     transform: translateY(2px);

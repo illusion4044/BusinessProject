@@ -37,6 +37,12 @@
     gap: 15px;
 }
 
+.imageBlock img {
+    width: 150px;
+    height: 150px;
+    border-radius: 0.5rem;
+}
+
 .imagePlaceholder {
     width: 100px;
     height: 100px;

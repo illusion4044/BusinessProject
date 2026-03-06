@@ -1,8 +1,32 @@
-import styles from './AddProduct.module.css'
+import { useState } from "react";
+import styles from './AddProduct.module.css';
 import useAddProduct from '../../hooks/useAddProduct';
 
-export default function AddProduct () {
+export default function AddProduct ({ setActivePage }) {
     const { state, setField, submitProduct } = useAddProduct();
+    const [image, setImage] = useState(null);
+
+    const handleFileChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        formData.append("name", state.name);
+        formData.append("description", state.description);
+        formData.append("price", state.price);
+        formData.append("qty", state.qty);
+        formData.append("country", state.country);
+        formData.append("trademark", state.trademark);
+        formData.append("seller", state.seller);
+        formData.append("unit", state.unit || "шт");
+
+        if (image) {
+            formData.append("image", image);
+        }
+
+        await submitProduct(formData);
+    };
 
     return (
         <div className={styles.MainAddProductWindow}>
@@ -16,21 +40,34 @@ export default function AddProduct () {
 
                 <div className={styles.LeftPanelBlock}>
                     <div className={styles.imageBlock}>
-                        <div className={styles.imagePlaceholder}></div>
-                        <button className={styles.addPhotoBtn}>Додати фото</button>
+                        {image ? (
+                            <img 
+                                src={URL.createObjectURL(image)} 
+                                className={styles.previewImage} 
+                                alt="preview"
+                            />
+                        ) : (
+                            <div className={styles.imagePlaceholder}></div>
+                        )}
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleFileChange} 
+                            className={styles.addPhotoBtn} 
+                        />
                     </div>
 
                     <input
                         className={styles.input}
                         placeholder="Додати назву товара"
-                        value={state.name}
+                        value={state.name || ""}
                         onChange={e => setField("name", e.target.value)}
                     />
 
                     <textarea
                         className={styles.textarea}
                         placeholder="Додати опис товара"
-                        value={state.description}
+                        value={state.description || ""}
                         onChange={e => setField("description", e.target.value)}
                     />
                 </div>
@@ -43,7 +80,7 @@ export default function AddProduct () {
                     <h4 className={styles.sectionTitle}>Загальна інформація</h4>
 
                     <input className={styles.input} placeholder="Країна" 
-                        value={state.country}
+                        value={state.country || ""}
                         onChange={e => setField("country", e.target.value)}
                     />
                     <input className={styles.input} placeholder="Торгова марка" 
@@ -73,11 +110,14 @@ export default function AddProduct () {
 
                     <button 
                         className={styles.saveBtn}
-                        onClick={submitProduct}
+                        onClick={() => {
+                            handleSubmit
+                            setActivePage("addProduction")
+                        }}
                     > Зберегти</button>
                 </div>
 
             </div>
         </div>
-    )
+    );
 }
