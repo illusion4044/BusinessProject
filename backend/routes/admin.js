@@ -198,5 +198,17 @@ router.delete("/admin/deletecategory/:id", authenticateToken, requireRole("admin
     }
 });
 
+router.put("/admin/editcategory/:id", authenticateToken, requireRole("admin"), async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        if (!name) return res.status(400).json({ message: "Name required" });
+        await db.query("UPDATE categories SET name = ? WHERE id = ?", [name, id]);
+        res.json({ message: "Category updated" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 export default router;
