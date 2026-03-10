@@ -3,7 +3,7 @@ import styles from './AddingProductionWindow.module.css'
 
 import { useEffect, useState } from 'react';
 
-export default function AddingProductionWindow({ setActivePage }) {
+export default function AddingProductionWindow({ setActivePage, onEditFull}) {
 
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
@@ -117,6 +117,7 @@ export default function AddingProductionWindow({ setActivePage }) {
                             product={product}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
+                            onEditFull={onEditFull}
                         />
                     ))}
                 </div>

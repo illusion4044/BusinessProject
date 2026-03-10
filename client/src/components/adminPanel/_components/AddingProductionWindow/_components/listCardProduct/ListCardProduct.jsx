@@ -1,7 +1,7 @@
 import styles from './ListCardProduct.module.css'
 import { useEffect, useState } from 'react';
 
-export default function ListCardProduct ({ product, onEdit, onDelete }) {
+export default function ListCardProduct ({ product, onEdit, onDelete, setActivePage, onEditFull  }) {
     const [isEditing, setIsEditing] = useState(false);
     const [form, setForm] = useState({
         name: product.name,
@@ -101,7 +101,7 @@ export default function ListCardProduct ({ product, onEdit, onDelete }) {
                 <>
                     <img
                         className={styles.Pencil}
-                        onClick={() => setIsEditing(true)}
+                        onClick={() => onEditFull(product)}
                         src="images/Pencil.png"
                         alt=""
                     />

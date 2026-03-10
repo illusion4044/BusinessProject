@@ -8,6 +8,7 @@ import ProductInfo from "./_components/ProductInfo/ProductInfo";
 import AddProduct from "./_components/AddProduct/AddProduct";
 import ListCardProduct from "./_components/AddingProductionWindow/_components/listCardProduct/ListCardProduct";
 import AddingCategory from "./_components/AddingCategory/AddingCategory";
+import EditProduct from "./_components/EditProduct/EditProduct";
 
 export default function AdminPanel () {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function AdminPanel () {
 
     const [activePage, setActivePage] = useState("defaultPage");
     const [collapsed, setCollapsed] = useState(false);
+    const [editingProduct, setEditingProduct] = useState(null);
 
     const goToDefaultPage = () => {
         setActivePage("defaultPage");
@@ -139,15 +141,21 @@ export default function AdminPanel () {
                                             product={product}
                                             onEdit={handleEdit}
                                             onDelete={handleDelete}
+                                            setActivePage={setActivePage}
+                                            onEditFull={(p) => {
+                                                setEditingProduct(p);
+                                                setActivePage("editProduct");
+                                            }}
                                         />
                                     ))}
                                 </div>
                             </div>
                         </>)}
-                        {activePage === "addProduction" &&  <AddingProductionWindow setActivePage={setActivePage} />} 
+                        {activePage === "addProduction" &&  <AddingProductionWindow setActivePage={setActivePage} onEditFull={(p) => {setEditingProduct(p); setActivePage("editProduct");}}/>} 
                         {activePage === "ordersInfo" && <ProductInfo />}
                         {activePage === "addProduct" && <AddProduct setActivePage={setActivePage} />}
                         {activePage === "addCategory" && <AddingCategory/>}
+                        {activePage === "editProduct" && <EditProduct setActivePage={setActivePage} product={editingProduct}/>}
                     </div>
                 </div>
             </div>

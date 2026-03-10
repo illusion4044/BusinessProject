@@ -20,6 +20,8 @@ export default function Header() {
         const token = localStorage.getItem("token");
         if (token) setIsLogined(true);
     }, []);
+    
+    const role = localStorage.getItem("role");
 
     const handleCloseOverlay = () => {
         setIsBtnLoginClicked(false);
@@ -62,6 +64,14 @@ export default function Header() {
                                 <img src="images\Contacts.png" alt="Contacts" className={styles.icon} />
                                 Користувач
                             </button>
+
+                            {role === "admin" && (
+                                <Link className={styles.link} to="/admin">
+                                    <button type="button" className={styles.btnCustomer}>
+                                        Адмін панель
+                                    </button>
+                                </Link>
+                            )}
                         </>) : (<>
                             <button onClick={handleLoginClick} type="button" className={styles.btnSignUp}>
                                 <img src="images\Contacts.png" alt="Contacts" className={styles.icon} />

@@ -16,7 +16,8 @@
 
 .collapsed .AddButtonBlock,
 .collapsed .InfoButtonBlock,
-.collapsed .logout{
+.collapsed .logout,
+.collapsed .AddCategoryButtonBlock{
     padding: 0;
 }
 

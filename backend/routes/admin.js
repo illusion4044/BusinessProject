@@ -66,6 +66,38 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload
     }
 })
 
+router.put("/admin/editproduct/:id", authenticateToken, requireRole("admin"), upload.single("image"), async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, description, qty, price, category_id, country, trademark, seller, unit } = req.body;
+
+        if (req.file) {
+            const [rows] = await db.query("SELECT image FROM products WHERE id = ?", [id]);
+            if (rows[0]?.image) {
+                const oldPath = path.join(process.cwd(), rows[0].image);
+                fs.unlink(oldPath, err => { if (err) console.log("Old image delete error:", err.message); });
+            }
+        }
+
+        const imagePath = req.file ? "/uploads/products/" + req.file.filename : undefined;
+
+        const query = imagePath
+            ? `UPDATE products SET name=?, description=?, qty=?, price=?, category_id=?, country=?, trademark=?, seller=?, unit=?, image=? WHERE id=?`
+            : `UPDATE products SET name=?, description=?, qty=?, price=?, category_id=?, country=?, trademark=?, seller=?, unit=? WHERE id=?`;
+
+        const values = imagePath
+            ? [name, description, qty, price, category_id, country, trademark, seller, unit || 'шт', imagePath, id]
+            : [name, description, qty, price, category_id, country, trademark, seller, unit || 'шт', id];
+
+        await db.query(query, values);
+        res.json({ message: "Product updated" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 router.get("/productlist", async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -113,6 +145,18 @@ router.delete("/admin/deleteproduct/:id", authenticateToken, requireRole("admin"
 
         res.json({ message: "Product deleted" });
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+router.get("/product/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [rows] = await db.query("SELECT * FROM products WHERE id = ?", [id]);
+        if (rows.length === 0) return res.status(404).json({ message: "Not found" });
+        res.json(rows[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });

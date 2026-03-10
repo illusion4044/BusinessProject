@@ -84,35 +84,34 @@ export default function AddProduct ({ setActivePage }) {
                         onChange={e => setField("country", e.target.value)}
                     />
                     <input className={styles.input} placeholder="Торгова марка" 
-                        value={state.trademark}
+                        value={state.trademark || ""}
                         onChange={e => setField("trademark", e.target.value)}
                     />
                     <input className={styles.input} placeholder="Продавець" 
-                        value={state.seller}
+                        value={state.seller || ""}
                         onChange={e => setField("seller", e.target.value)}
                     />
 
                     <div className={styles.row}>
                         <input className={styles.smallInput} placeholder="Ціна" 
-                            value={state.price}
+                            value={state.price || ""}
                             onChange={e => setField("price", e.target.value)}
                         />
                         <input className={styles.smallInput} placeholder="Кількість" 
-                            value={state.qty}
+                            value={state.qty || ""}
                             onChange={e => setField("qty", e.target.value)}
                         />
                     </div>
 
                     <input
-                        className={styles.input}
+                        className={styles.input || ""}
                         placeholder="Акційна ціна"
                     />
 
                     <button 
-                        className={styles.saveBtn}
-                        onClick={() => {
-                            handleSubmit
-                            setActivePage("addProduction")
+                        onClick={async () => {
+                            await handleSubmit();
+                            setActivePage("addProduction");
                         }}
                     > Зберегти</button>
                 </div>
