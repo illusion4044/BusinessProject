@@ -1,17 +1,17 @@
 ::-webkit-scrollbar {
-    width: 11px;           
-    height: 10px;    
-    background-color: #ffffff;  
+    width: 11px;
+    height: 10px;
+    background-color: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(156, 156, 156);  
-    border-radius: 10px; 
-    height: 20px;      
+    background-color: rgb(156, 156, 156);
+    border-radius: 10px;
+    height: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(110, 111, 116, 0.6);  
+    background-color: rgba(110, 111, 116, 0.6);
 }
 
 ::-webkit-scrollbar-button {
@@ -23,8 +23,7 @@
     background-size: 7px;
 }
 
-
-.btnCatalogue{
+.btnCatalogue {
     width: 168px;
     font-weight: 300;
     font-size: 16px;
@@ -43,11 +42,11 @@
 }
 
 .btnCatalogue:hover {
-    background: #B57EDC;
+    background: #b57edc;
     transform: translate(0, 0.15em);
 }
 
-.arrowIcon{
+.arrowIcon {
     margin-left: 15px;
 }
 
@@ -107,9 +106,15 @@
 }
 
 .subcategoryColumn h4 {
-    color: #774a8d;
-    font-size: 16px;
+    font-size: 24px;
+    color: #8000ff;
+    font-weight: 500;
     margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.subcategoryColumn h4:hover {
+    text-decoration: underline;
 }
 
 .subcategoryColumn ul {

@@ -1,3 +1,47 @@
 .mainPageCon4{
-    height: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Заголовок */
+
+.title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    margin-top: 124px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Контейнер */
+
+.content{
+    width: 80%;
+    display: flex;
+    margin-top: 20px;
+    gap: 40px;
+    margin-bottom: 120px;
+}
+
+/* Карта */
+
+.map{
+    width: 624px;
+    height: 563px;
+    border-radius: 28px;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    border: none;
+}
+
+/* Текст */
+
+.textContainer{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.6;
 }

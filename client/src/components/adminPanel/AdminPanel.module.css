@@ -58,6 +58,7 @@
     width: 27px;
     height: 30px;
     opacity: 1;
+    z-index: 0;
 }
 
 .searchInput {
