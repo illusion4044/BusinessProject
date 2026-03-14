@@ -6,7 +6,7 @@ import SettingsOverlay from './_components/SettingsOverlay/SettingsOverlay';
 import { Link } from "react-router-dom";
 
 
-export default function Header() {
+export default function Header({ onCartOpen }) {
 
     const [isLogined, setIsLogined] = useState(null)
     const [isBtnLoginClicked, setIsBtnLoginClicked] = useState(null)
@@ -50,7 +50,7 @@ export default function Header() {
                     </div>
 
                     <div className={styles.rightBtnCon}>
-                        <button type="button" className={styles.btnCart}>
+                        <button onClick={onCartOpen} type="button" className={styles.btnCart}>
                             <img src="images\Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
                             Кошик
                         </button>

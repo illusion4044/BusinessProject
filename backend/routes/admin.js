@@ -68,28 +68,108 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload
 
 router.put("/admin/editproduct/:id", authenticateToken, requireRole("admin"), upload.single("image"), async (req, res) => {
     try {
-        const { id } = req.params;
-        const { name, description, qty, price, category_id, country, trademark, seller, unit } = req.body;
 
-        if (req.file) {
-            const [rows] = await db.query("SELECT image FROM products WHERE id = ?", [id]);
+        const { id } = req.params;
+        const { name, description, qty, price, category_id, country, trademark, seller, unit, removeImage } = req.body;
+
+        let fields = [];
+        let values = [];
+
+        if (name !== undefined) {
+            fields.push("name=?");
+            values.push(name);
+        }
+
+        if (description !== undefined) {
+            fields.push("description=?");
+            values.push(description);
+        }
+
+        if (qty !== undefined) {
+            fields.push("qty=?");
+            values.push(qty);
+        }
+
+        if (price !== undefined) {
+            fields.push("price=?");
+            values.push(price);
+        }
+
+        if (category_id !== undefined) {
+            fields.push("category_id=?");
+            values.push(category_id || null);
+        }
+
+        if (country !== undefined) {
+            fields.push("country=?");
+            values.push(country);
+        }
+
+        if (trademark !== undefined) {
+            fields.push("trademark=?");
+            values.push(trademark);
+        }
+
+        if (seller !== undefined) {
+            fields.push("seller=?");
+            values.push(seller);
+        }
+
+        if (unit !== undefined) {
+            fields.push("unit=?");
+            values.push(unit);
+        }
+
+        if (removeImage === "true") {
+
+            const [rows] = await db.query(
+                "SELECT image FROM products WHERE id = ?",
+                [id]
+            );
+
             if (rows[0]?.image) {
-                const oldPath = path.join(process.cwd(), rows[0].image);
-                fs.unlink(oldPath, err => { if (err) console.log("Old image delete error:", err.message); });
+
+                const oldPath = path.join(process.cwd(), rows[0].image.replace(/^\/+/, ""));
+
+                fs.unlink(oldPath, err => {
+                    if (err) console.log("Image delete error:", err.message);
+                });
+
+                fields.push("image=NULL");
             }
         }
 
-        const imagePath = req.file ? "/uploads/products/" + req.file.filename : undefined;
+        if (req.file) {
 
-        const query = imagePath
-            ? `UPDATE products SET name=?, description=?, qty=?, price=?, category_id=?, country=?, trademark=?, seller=?, unit=?, image=? WHERE id=?`
-            : `UPDATE products SET name=?, description=?, qty=?, price=?, category_id=?, country=?, trademark=?, seller=?, unit=? WHERE id=?`;
+            const imagePath = "/uploads/products/" + req.file.filename;
 
-        const values = imagePath
-            ? [name, description, qty, price, category_id, country, trademark, seller, unit || 'шт', imagePath, id]
-            : [name, description, qty, price, category_id, country, trademark, seller, unit || 'шт', id];
+            const [rows] = await db.query(
+                "SELECT image FROM products WHERE id = ?",
+                [id]
+            );
+
+            if (rows[0]?.image) {
+
+                const oldPath = path.join(process.cwd(), rows[0].image.replace(/^\/+/, ""));
+
+                fs.unlink(oldPath, err => {
+                    if (err) console.log("Old image delete error:", err.message);
+                });
+            }
+
+            fields.push("image=?");
+            values.push(imagePath);
+        }
+
+        if (fields.length === 0) {
+            return res.status(400).json({ message: "No fields to update" });
+        }
+
+        const query = `UPDATE products SET ${fields.join(", ")} WHERE id=?`;
+        values.push(id);
 
         await db.query(query, values);
+
         res.json({ message: "Product updated" });
 
     } catch (err) {

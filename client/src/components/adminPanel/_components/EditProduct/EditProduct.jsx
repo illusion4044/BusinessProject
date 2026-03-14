@@ -8,35 +8,41 @@ export default function EditProduct({ setActivePage, product }) {
         name: "", description: "", price: "", qty: "",
         country: "", trademark: "", seller: "", unit: "шт", category_id: ""
     });
+    const [removeImage, setRemoveImage] = useState(false);
+
+    const handleRemoveImage = () => {
+        setImage(null);
+        setRemoveImage(true);
+    };
 
     useEffect(() => {
-    console.log("product prop:", product); // ← что приходит в компонент
-    if (!product?.id) {
-        console.log("NO PRODUCT ID");
-        return;
-    }
+        console.log("product prop:", product);
+        if (!product?.id) {
+            console.log("NO PRODUCT ID");
+            return;
+        }
 
-    fetch(`http://localhost:3001/product/${product.id}`)
-        .then(res => {
-            console.log("response status:", res.status);
-            return res.json();
-        })
-        .then(data => {
-            console.log("product data:", data); // ← что вернул сервер
-            setState({
-                name: data.name || "",
-                description: data.description || "",
-                price: data.price || "",
-                qty: data.qty || "",
-                country: data.country || "",
-                trademark: data.trademark || "",
-                seller: data.seller || "",
-                unit: data.unit || "шт",
-                category_id: data.category_id || ""
-            });
-        })
-        .catch(err => console.error("fetch error:", err));
-}, [product?.id]);
+        fetch(`http://localhost:3001/product/${product.id}`)
+            .then(res => {
+                console.log("response status:", res.status);
+                return res.json();
+            })
+            .then(data => {
+                console.log("product data:", data); // ← что вернул сервер
+                setState({
+                    name: data.name || "",
+                    description: data.description || "",
+                    price: data.price || "",
+                    qty: data.qty || "",
+                    country: data.country || "",
+                    trademark: data.trademark || "",
+                    seller: data.seller || "",
+                    unit: data.unit || "шт",
+                    category_id: data.category_id || ""
+                });
+            })
+            .catch(err => console.error("fetch error:", err));
+    }, [product?.id]);
 
     useEffect(() => {
         fetch("http://localhost:3001/categories")
@@ -50,19 +56,30 @@ export default function EditProduct({ setActivePage, product }) {
 
     const handleSubmit = async () => {
         const formData = new FormData();
-        Object.entries(state).forEach(([key, val]) => formData.append(key, val));
+
+        Object.entries(state).forEach(([key, val]) => {
+            if (val !== "" && val !== null) {
+                formData.append(key, val);
+            }
+        });
+
         if (image) formData.append("image", image);
+        if (removeImage) formData.append("removeImage", "true");
 
         try {
             const token = localStorage.getItem("token");
+
             const res = await fetch(`http://localhost:3001/admin/editproduct/${product.id}`, {
                 method: "PUT",
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData
             });
+
             if (!res.ok) throw new Error("Помилка при редагуванні");
+
             alert("Товар оновлено!");
             setActivePage("addProduction");
+
         } catch (err) {
             console.error(err);
             alert("Помилка сервера");
@@ -79,15 +96,33 @@ export default function EditProduct({ setActivePage, product }) {
             <div className={styles.BlockItems}>
                 <div className={styles.LeftPanelBlock}>
                     <div className={styles.imageBlock}>
-                        {image ? (
-                            <img src={URL.createObjectURL(image)} className={styles.previewImage} alt="preview" />
-                        ) : product?.image ? (
-                            <img src={`http://localhost:3001${product.image}`} className={styles.previewImage} alt="current" />
-                        ) : (
-                            <div className={styles.imagePlaceholder}></div>
-                        )}
-                        <input type="file" accept="image/*" onChange={handleFileChange} className={styles.addPhotoBtn} />
-                    </div>
+
+    {image ? (
+        <img src={URL.createObjectURL(image)} className={styles.previewImage} alt="preview" />
+    ) : product?.image && !removeImage ? (
+        <img src={`http://localhost:3001${product.image}`} className={styles.previewImage} alt="current" />
+    ) : (
+        <div className={styles.imagePlaceholder}></div>
+    )}
+
+    <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className={styles.addPhotoBtn}
+    />
+
+    {(image || product?.image) && !removeImage && (
+        <button
+            type="button"
+            onClick={handleRemoveImage}
+            className={styles.deletePhotoBtn}
+        >
+            Видалити фото
+        </button>
+    )}
+
+</div>
 
                     <input className={styles.input} placeholder="Назва товару"
                         value={state.name} onChange={e => setField("name", e.target.value)} />

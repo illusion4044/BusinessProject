@@ -105,7 +105,21 @@
     background: #7c3aed;
     color: white;
     border: none;
-    padding: 10px 26px;
+    padding: 10px 25px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.deletePhotoBtn{
+    margin-top:10px;
+    background:#ff4d4d;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.deletePhotoBtn:hover{
+    background:#e63a3a;
 }

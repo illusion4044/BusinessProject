@@ -6,11 +6,11 @@ import MainPageCon2 from './_components/MainPageCon2/MainPageCon2'
 import MainPageCon3 from './_components/MainPageCon3/MainPageCon3'
 import MainPageCon4 from './_components/MainPageCon4/MainPageCon4'
 
-export default function CatalogueMain () {
+export default function CatalogueMain ({ onCartOpen }) {
 
     return (
         <>
-            <Header/>
+            <Header onCartOpen={onCartOpen}/>
             <MainPageCon1/>
             <MainPageCon2/>
             <MainPageCon3/>
