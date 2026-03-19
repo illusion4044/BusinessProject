@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .cardImage {
@@ -70,7 +71,7 @@
 }
 
 .cardName{
-    width: 175px;
+    width: 155px;
     font-size: 12px;
     margin-top: 4px;
 }
@@ -81,4 +82,19 @@
     width: 175px;
     justify-content: flex-start;
     align-items: center;
+}
+
+.cartBtn{
+    position: absolute;
+    right: 15px;
+    bottom: 18px;
+}
+
+.sss{
+    width: 20px;
+}
+
+.rowCart{
+    display: flex;
+    flex-direction: row;
 }

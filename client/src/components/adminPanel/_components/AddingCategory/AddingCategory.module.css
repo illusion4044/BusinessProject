@@ -169,6 +169,7 @@
 }
 
 .listWrapper {
+    width: 100%;
     margin-top: 10px;
     max-height: 0;
     overflow: hidden;
@@ -176,7 +177,11 @@
 }
 
 .listOpen {
-    max-height: 2000px;
+    max-height: 310px;  
+    overflow-y: auto; 
+
+    scrollbar-width: thin;
+    scrollbar-color: #d0baff transparent;
 }
 
 .emptyState {

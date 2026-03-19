@@ -1,5 +1,6 @@
 import styles from './ListCardProduct.module.css'
 import { useEffect, useState } from 'react';
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 export default function ListCardProduct ({ product, onEdit, onDelete, setActivePage, onEditFull  }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -8,6 +9,7 @@ export default function ListCardProduct ({ product, onEdit, onDelete, setActiveP
         price: product.price,
         qty: product.qty
     });
+    const [showModal, setShowModal] = useState(false);
 
     const handleSave = async () => {
         try {
@@ -27,6 +29,14 @@ export default function ListCardProduct ({ product, onEdit, onDelete, setActiveP
 
         } catch (err) {
             console.error(err);
+        }
+    };
+
+    const handleDelete = () => {
+        const confirmDelete = window.confirm("Ви точно бажаєте видалити товар?");
+
+        if (confirmDelete) {
+            onDelete(product);
         }
     };
 
@@ -109,9 +119,19 @@ export default function ListCardProduct ({ product, onEdit, onDelete, setActiveP
                         className={styles.Trash}
                         src="images/DeleteBtn.png"
                         alt=""
-                        onClick={() => {onDelete(product)}}
+                        onClick={() => setShowModal(true)}
                     />
                 </>
+            )}
+            {showModal && (
+                <ConfirmModal
+                    text="Ви точно бажаєте видалити товар?"
+                    onConfirm={() => {
+                        onDelete(product);
+                        setShowModal(false);
+                    }}
+                    onCancel={() => setShowModal(false)}
+                />
             )}
         </div>
     );

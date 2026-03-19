@@ -152,9 +152,9 @@ export default function AdminPanel () {
                             </div>
                         </>)}
                         {activePage === "addProduction" &&  <AddingProductionWindow setActivePage={setActivePage} onEditFull={(p) => {setEditingProduct(p); setActivePage("editProduct");}}/>} 
-                        {activePage === "ordersInfo" && <ProductInfo />}
+                        {activePage === "ordersInfo" && <ProductInfo setActivePage={setActivePage}/>}
                         {activePage === "addProduct" && <AddProduct setActivePage={setActivePage} />}
-                        {activePage === "addCategory" && <AddingCategory/>}
+                        {activePage === "addCategory" && <AddingCategory setActivePage={setActivePage}/>}
                         {activePage === "editProduct" && <EditProduct setActivePage={setActivePage} product={editingProduct}/>}
                     </div>
                 </div>

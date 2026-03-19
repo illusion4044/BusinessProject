@@ -182,7 +182,7 @@ router.get("/productlist", async (req, res) => {
     try {
         const [rows] = await db.query(`
             SELECT 
-            p.id, p.name, p.image, p.qty, p.price
+            p.id, p.name, p.image, p.qty, p.price, p.category_id
             FROM products p
         `);
 

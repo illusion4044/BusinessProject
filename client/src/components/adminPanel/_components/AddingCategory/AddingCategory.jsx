@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./AddingCategory.module.css";
 
-export default function AddingCategory() {
+export default function AddingCategory({setActivePage}) {
     const [category, setCategory] = useState("");
     const [subcategory, setSubcategory] = useState("");
     const [categories, setCategories] = useState([]);
@@ -102,8 +102,8 @@ export default function AddingCategory() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <div className={styles.BackToLobby}>
-                    <img src="images/BackRow.png" className={styles.leftRow} alt="" />
+                <div onClick={() => setActivePage("defaultPage")} className={styles.BackToLobby}>
+                    <img src="images/BackRow.png"  className={styles.leftRow} alt="" />
                     Додавання категорії
                 </div>
                 {activeTab && (

@@ -11,7 +11,11 @@ export default function ProductSmallCard({ product }) {
     return (
         <div className={styles.card}>
             <img 
-                src={product.image_url || "images/NoImageCard.png"}
+                src={
+                    product.image
+                        ? `http://localhost:3001${product.image}`
+                        : "images/NoImageCard.png"
+                }
                 alt={product.name}
                 className={styles.cardImage}
             />
@@ -32,8 +36,11 @@ export default function ProductSmallCard({ product }) {
                         </span>
                     </div>
                 )}
-
-                <p className={styles.cardName}>{product.name}</p>
+                <div className={styles.rowCart}>
+                    <p className={styles.cardName}>{product.name}</p>
+                    <div className={styles.sss}></div>
+                </div>
+                    <img className={styles.cartBtn} src="images\CartBtn.png" alt="" />
             </div>
         </div>
     );

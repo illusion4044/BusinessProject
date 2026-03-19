@@ -7,10 +7,37 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
 
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const filteredProducts = products.filter(product => {
-        return product.name.toLowerCase().includes(search.toLowerCase())
+
+        const searchMatch = product.name
+            .toLowerCase()
+            .includes(search.toLowerCase());
+
+        const categoryMatch = selectedCategory
+            ? product.category_id === selectedCategory
+            : true;
+
+        return searchMatch && categoryMatch;
+
     });
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch("http://localhost:3001/categories");
+                const data = await res.json();
+                setCategories(data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -24,6 +51,7 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
         };
         fetchProducts();
     }, []);
+    
 
     const handleEdit = (updatedProduct) => {
         setProducts(prev =>
@@ -86,6 +114,33 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
                         </div>
                     </div>
                     <div className={styles.SecondSection}>
+                    <div className={styles.categoryWrapper}>
+                        {open && (
+                            <div className={styles.categoriesDropdown}>
+                                <div
+                                    className={styles.categoryItem}
+                                    onClick={() => {
+                                        setSelectedCategory(null);
+                                        setOpen(false);
+                                    }}
+                                >
+                                    Всі товари
+                                </div>
+
+                                {categories.map(cat => (
+                                    <div
+                                        key={cat.id}
+                                        className={styles.categoryItem}
+                                        onClick={() => {
+                                            setSelectedCategory(cat.id);
+                                            setOpen(false);
+                                        }}
+                                    >
+                                        {cat.name}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         <button
                             type="button"
@@ -95,7 +150,7 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
                             <img src="images\downrow.svg" alt="arrow" className={styles.arrowIcon} />
                             Категорії
                         </button>
-
+                    </div>
                         <div className={styles.btnCons}>
                             <button
                                 className={styles.navBtns}

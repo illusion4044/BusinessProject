@@ -10,7 +10,12 @@ router.get("/products", async (req, res) => {
     try {
         const [rows] = await db.query(`
             SELECT 
-            p.id, p.name, p.description, p.qty, p.price
+            p.id,
+            p.name,
+            p.description,
+            p.qty,
+            p.price,
+            p.image
             FROM products p
         `);
 
@@ -30,11 +35,12 @@ router.get("/discountgallery", async (req, res) => {
                 description, 
                 qty, 
                 price, 
+                image,
                 ROUND(discount, 0) AS discount
             FROM products
             WHERE discount > 0
             ORDER BY discount DESC
-            LIMIT 10;
+            LIMIT 15
         `);
 
         res.status(200).json(rows);

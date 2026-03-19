@@ -62,15 +62,20 @@
 }
 
 .searchInput {
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 2rem;
     font-size: 16px;
     outline: none;
     width: 300px;
-    height: 26px;
+    height: 36px;
     padding-left: 55px;
+    padding-right: 15px
 }
 
 .searchInput:focus {
-    border-color: #888;
+    border-color: #21d2d2;
+}
+
+.listPageAll{
+    scrollbar-color: #d0baff transparent;
 }

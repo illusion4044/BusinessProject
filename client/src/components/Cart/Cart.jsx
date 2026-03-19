@@ -39,10 +39,10 @@ export default function Cart({ isOpen, onClose }) {
                 </div>
             </div>
 
-            <Order
+            {/* <Order
                 isOpen={isOrderOpen}
                 onClose={() => setIsOrderOpen(false)}
-            />
+            /> */}
         </>
     )
 }

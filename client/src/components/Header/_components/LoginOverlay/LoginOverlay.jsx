@@ -117,7 +117,7 @@ export default function LoginOverlay({ onClose }) {
             <div className={styles.blurOverlay} onClick={onClose}></div>
 
             {isLoginMode ? (
-                <div key="login" className={styles.LoginOverlayWindow}>
+                <form key="login" className={styles.LoginOverlayWindow}>
                     <span onClick={onClose} className={styles.btnClose}>×</span>
 
                     <img className={styles.logoImg} src="images\logo.png" alt="" />
@@ -157,6 +157,7 @@ export default function LoginOverlay({ onClose }) {
                     <button 
                         className={styles.loginBtn} 
                         onClick={handleLogin}
+                        type="submit"
                         disabled={isLoading}
                     >
                         {isLoading ? "Завантаження..." : "Увійти"}
@@ -168,9 +169,9 @@ export default function LoginOverlay({ onClose }) {
                     >
                         Реєстрація
                     </span>
-                </div>
+                </form>
             ) : (
-                <div key="register" className={styles.RegisterOverlayWindow}>
+                <form key="register" className={styles.RegisterOverlayWindow}>
                     <span onClick={onClose} className={styles.btnClose}>×</span>
                     <img className={styles.logoImg} src="images\logo.png" alt="" />
                     <span className={styles.enterWord}>
@@ -221,6 +222,7 @@ export default function LoginOverlay({ onClose }) {
                         className={styles.loginBtn}
                         onClick={handleRegister}
                         disabled={isLoading}
+                        type="submit"
                     >
                         {isLoading ? "Завантаження..." : "Зареєструватись"}
                     </button>
@@ -231,7 +233,7 @@ export default function LoginOverlay({ onClose }) {
                     >
                         Увійти
                     </span>
-                </div>
+                </form>
             )}
         </>
     )

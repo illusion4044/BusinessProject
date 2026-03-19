@@ -29,8 +29,8 @@ function App() {
 
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>
-
             <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
       </BrowserRouter>
     </>
   )
