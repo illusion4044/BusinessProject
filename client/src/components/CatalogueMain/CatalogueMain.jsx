@@ -5,6 +5,7 @@ import MainPageCon1 from './_components/MainPageCon1/MainPageCon1'
 import MainPageCon2 from './_components/MainPageCon2/MainPageCon2'
 import MainPageCon3 from './_components/MainPageCon3/MainPageCon3'
 import MainPageCon4 from './_components/MainPageCon4/MainPageCon4'
+import MainPageCon5 from './_components/MainPageCon5/MainPageCon5'
 
 export default function CatalogueMain ({ onCartOpen }) {
 
@@ -15,6 +16,7 @@ export default function CatalogueMain ({ onCartOpen }) {
             <MainPageCon2/>
             <MainPageCon3/>
             <MainPageCon4/>
+            <MainPageCon5/>
             <Footer/>
         </>
     )

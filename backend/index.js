@@ -5,6 +5,7 @@ import cors from "cors";
 import productRoutes from './routes/product.js';
 import authRoutes from './routes/auth.js';
 import adminRoutes from './routes/admin.js'
+import ordersRouter from './routes/orders.js';
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.use("/uploads", express.static("uploads"));
 app.use('/', productRoutes);
 app.use('/', authRoutes);
 app.use('/', adminRoutes);
+app.use("/", ordersRouter);
+
 
 app.use((err, req, res, next) => {
     console.error("Unhandled error:", err);

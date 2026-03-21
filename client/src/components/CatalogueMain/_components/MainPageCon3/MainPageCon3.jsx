@@ -10,11 +10,10 @@ export default function MainPageCon3 () {
 
                 <div className={styles.blockAbout}>
                     <span className={styles.textAbout}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet enim ultricies augue elementum mattis. Nullam placerat porta ultricies. Sed fringilla ligula sit amet dui mollis, sed blandit nunc iaculis. Quisque massa nisi, feugiat ac porttitor ac, laoreet eu ante. Curabitur quis accumsan tellus. Praesent eros nisl, pharetra ornare ipsum sed, iaculis sollicitudin odio. Duis non velit nunc. Ut at sollicitudin sapien. Nulla facilisi. Sed ultricies consectetur ultrices. Nulla pulvinar lacus ac ligula fringilla, at consectetur libero posuere. Pellentesque eu mi quis diam laoreet accumsan. Integer euismod eros non pretium gravida. Aliquam in auctor orci, non pharetra sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        <b>ReFlex</b> — це бізнес із серцем, що формує нову культуру свідомого, зручного та приємного вибору прямо біля вашого дому. Ми створили простір, куди можна забігти за молоком, а вийти з новою історією, ароматною кавою чи захопливою книжкою. Наш головний орієнтир — голос клієнта, тому ми маємо сміливість відрізнятися, перетворюючи щоденні покупки на миті Вашого натхнення. 
                     </span>
 
-                    {/* <img className={styles.imgAbout} src="" alt="" /> */}
-                    <div className={styles.imgAbout}></div>
+                    <img className={styles.imgAbout} src="images\Reflex1.jpg" alt="" />
                 </div>
             </div>
         </>

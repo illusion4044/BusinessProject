@@ -17,16 +17,21 @@
 .textAbout{
     width: 722px;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
     text-align: justify;
 }
 
 .imgAbout{
-    width: 471px;
+    width: 571px;
     height: 471px;
     background-color: aliceblue;
     border-radius: 1rem;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: 0.2s ease-in;
+}
+
+.imgAbout:hover{
+    scale: 1.1;
 }
 
 .blockAbout{

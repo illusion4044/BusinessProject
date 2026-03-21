@@ -1,0 +1,49 @@
+.mainPageCon5{
+    height: 1037px;
+    background-color: #D3C0DC;
+    border-radius: 2rem 2rem 0 0;
+}
+
+.title{
+    font-size: 48px;
+    font-weight: 600;
+    padding-top: 124px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.aboutBlock{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.column1,
+.column2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.ReflexText{
+    width: 550px;
+
+    font-size: 24px;
+    font-weight: 400;
+    text-align: justify;
+}
+
+.ReflexImg{
+    width: 550px;
+    height: 320px;
+    border-radius: 1rem;
+    transition: 0.2s ease-in;
+}
+
+.ReflexImg:hover{
+    scale: 1.1;
+}

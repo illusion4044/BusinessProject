@@ -23,7 +23,7 @@ npm run dev
 
 Start server:
 ```bash
-cd server
+cd backend
 
 npm start
 ```

@@ -109,6 +109,7 @@ export default function AddProduct ({ setActivePage }) {
                     />
 
                     <button 
+                        className={styles.saveBtn}
                         onClick={async () => {
                             await handleSubmit();
                             setActivePage("addProduction");
