@@ -16,6 +16,16 @@ export default function EditProduct({ setActivePage, product }) {
     };
 
     useEffect(() => {
+        fetch("http://localhost:3001/categories")
+            .then(res => res.json())
+            .then(data => {
+                console.log("categories:", data);
+                setCategories(data);
+            })
+            .catch(console.error);
+    }, []);
+
+    useEffect(() => {
         console.log("product prop:", product);
         if (!product?.id) {
             console.log("NO PRODUCT ID");
@@ -44,13 +54,6 @@ export default function EditProduct({ setActivePage, product }) {
             .catch(err => console.error("fetch error:", err));
     }, [product?.id]);
 
-    useEffect(() => {
-        fetch("http://localhost:3001/categories")
-            .then(res => res.json())
-            .then(data => setCategories(data.filter(c => c.parent_id === null)))
-            .catch(console.error);
-    }, []);
-
     const setField = (field, value) => setState(prev => ({ ...prev, [field]: value }));
     const handleFileChange = (e) => setImage(e.target.files[0]);
 
@@ -58,7 +61,9 @@ export default function EditProduct({ setActivePage, product }) {
         const formData = new FormData();
 
         Object.entries(state).forEach(([key, val]) => {
-            if (val !== "" && val !== null) {
+            if (key === "category_id") {
+                formData.append(key, val);
+            } else if (val !== "" && val !== null) {
                 formData.append(key, val);
             }
         });
@@ -97,32 +102,32 @@ export default function EditProduct({ setActivePage, product }) {
                 <div className={styles.LeftPanelBlock}>
                     <div className={styles.imageBlock}>
 
-    {image ? (
-        <img src={URL.createObjectURL(image)} className={styles.previewImage} alt="preview" />
-    ) : product?.image && !removeImage ? (
-        <img src={`http://localhost:3001${product.image}`} className={styles.previewImage} alt="current" />
-    ) : (
-        <div className={styles.imagePlaceholder}></div>
-    )}
+                        {image ? (
+                            <img src={URL.createObjectURL(image)} className={styles.previewImage} alt="preview" />
+                        ) : product?.image && !removeImage ? (
+                            <img src={`http://localhost:3001${product.image}`} className={styles.previewImage} alt="current" />
+                        ) : (
+                            <div className={styles.imagePlaceholder}></div>
+                        )}
 
-    <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className={styles.addPhotoBtn}
-    />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className={styles.addPhotoBtn}
+                        />
 
-    {(image || product?.image) && !removeImage && (
-        <button
-            type="button"
-            onClick={handleRemoveImage}
-            className={styles.deletePhotoBtn}
-        >
-            Видалити фото
-        </button>
-    )}
+                        {(image || product?.image) && !removeImage && (
+                            <button
+                                type="button"
+                                onClick={handleRemoveImage}
+                                className={styles.deletePhotoBtn}
+                            >
+                                Видалити фото
+                            </button>
+                        )}
 
-</div>
+                    </div>
 
                     <input className={styles.input} placeholder="Назва товару"
                         value={state.name} onChange={e => setField("name", e.target.value)} />
@@ -131,12 +136,28 @@ export default function EditProduct({ setActivePage, product }) {
                 </div>
 
                 <div className={styles.RightPanelBlock}>
-                    <select className={styles.input} value={state.category_id}
-                        onChange={e => setField("category_id", e.target.value)}>
+                    <select
+                        className={styles.input}
+                        value={state.category_id || ""}
+                        onChange={e => setField("category_id", e.target.value)}
+                    >
                         <option value="">Обрати категорію</option>
-                        {categories.map(c => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}
+                        {categories
+                            .filter(c => c.parent_id === null)
+                            .map(parent => {
+                                const children = categories.filter(c => c.parent_id === parent.id);
+                                console.log("parent:", parent.name, "children:", children);
+                                return (
+                                    <optgroup key={parent.id} label={parent.name}>
+                                        {children.map(child => (
+                                            <option key={child.id} value={child.id}>
+                                                {child.name}
+                                            </option>
+                                        ))}
+                                    </optgroup>
+                                );
+                            })
+                        }
                     </select>
 
                     <h4 className={styles.sectionTitle}>Загальна інформація</h4>

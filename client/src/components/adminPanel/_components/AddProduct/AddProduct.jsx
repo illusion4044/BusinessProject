@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from './AddProduct.module.css';
 import useAddProduct from '../../hooks/useAddProduct';
 
 export default function AddProduct ({ setActivePage }) {
     const { state, setField, submitProduct } = useAddProduct();
     const [image, setImage] = useState(null);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:3001/categories")
+            .then(res => res.json())
+            .then(data => {
+                console.log("categories:", data);
+                setCategories(data);
+            })
+            .catch(console.error);
+    }, []);
 
     const handleFileChange = (e) => {
         setImage(e.target.files[0]);
@@ -20,6 +31,7 @@ export default function AddProduct ({ setActivePage }) {
         formData.append("trademark", state.trademark);
         formData.append("seller", state.seller);
         formData.append("unit", state.unit || "шт");
+        formData.append("category_id", state.category_id || "");
 
         if (image) {
             formData.append("image", image);
@@ -73,9 +85,41 @@ export default function AddProduct ({ setActivePage }) {
                 </div>
 
                 <div className={styles.RightPanelBlock}>
-                    <select className={styles.input}>
-                        <option>Обрати категорію</option>
+                    {/* <select
+                        className={styles.input}
+                        value={state.category_id || ""}
+                        onChange={e => setField("category_id", e.target.value)}
+                    >
+                        <option value="">Обрати категорію</option>
+                        {categories.map(c => (
+                            <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                    </select> */}
+
+                    <select
+                        className={styles.input}
+                        value={state.category_id || ""}
+                        onChange={e => setField("category_id", e.target.value)}
+                    >
+                        <option value="">Обрати категорію</option>
+                        {categories
+                            .filter(c => c.parent_id === null)
+                            .map(parent => {
+                                const children = categories.filter(c => c.parent_id === parent.id);
+                                console.log("parent:", parent.name, "children:", children);
+                                return (
+                                    <optgroup key={parent.id} label={parent.name}>
+                                        {children.map(child => (
+                                            <option key={child.id} value={child.id}>
+                                                {child.name}
+                                            </option>
+                                        ))}
+                                    </optgroup>
+                                );
+                            })
+                        }
                     </select>
+
 
                     <h4 className={styles.sectionTitle}>Загальна інформація</h4>
 

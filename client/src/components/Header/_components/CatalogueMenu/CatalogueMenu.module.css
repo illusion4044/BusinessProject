@@ -1,77 +1,96 @@
-::-webkit-scrollbar {
-    width: 11px;
-    height: 10px;
-    background-color: #ffffff;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgb(156, 156, 156);
-    border-radius: 10px;
-    height: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(110, 111, 116, 0.6);
-}
-
-::-webkit-scrollbar-button {
-    background-color: #dcdcdc;
-    height: 14px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 7px;
-}
-
 .btnCatalogue {
-    width: 168px;
-    font-weight: 300;
-    font-size: 16px;
+    width: clamp(80px, 12vw, 168px);
+    font-weight: 500;
+    font-size: clamp(12px, 1.1vw, 15px);
     color: #382b22;
-    height: 50px;
-    background: rgb(255, 255, 255);
-    border: 1px #b18597;
+    height: clamp(38px, 4vw, 50px);
+    background: #fff;
+    border: 1.5px solid transparent;
     border-radius: 2rem;
-    transition: transform 0.15s;
-    transform-style: preserve-3d;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: clamp(4px, 0.8vw, 8px);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .btnCatalogue:hover {
     background: #b57edc;
-    transform: translate(0, 0.15em);
+    transform: translateY(0.15em);
+    box-shadow: 0 4px 12px rgba(119, 74, 141, 0.25);
+}
+
+.catalogueIcon {
+    width: clamp(16px, 1.8vw, 20px);
+    height: clamp(16px, 1.8vw, 20px);
+    flex-shrink: 0;
 }
 
 .arrowIcon {
-    margin-left: 15px;
+    width: clamp(10px, 1.2vw, 14px);
+    opacity: 0.6;
+    flex-shrink: 0;
 }
 
 .catalogContainer {
     position: relative;
 }
 
+@media (max-width: 768px) {
+    .btnCatalogue {
+        width: clamp(38px, 6vw, 50px);
+        padding: 0;
+        gap: 0;
+    }
+
+    .btnCatalogue span,
+    .arrowIcon {
+        display: none;
+    }
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 40;
+    animation: fadeOverlay 0.2s ease;
+}
+
+@keyframes fadeOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 .dropdownCatalog {
     position: absolute;
-    top: 110%;
+    top: calc(100% + 10px);
     left: 0;
     display: flex;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
     z-index: 50;
+    overflow: hidden;
+    animation: slideDown 0.2s ease-out;
+    gap: 0;
 }
 
-/* Левая колонка категорий */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .categoryList {
-    width: 250px;
+    width: 270px;
     list-style: none;
-    padding: 10px 0;
-    margin: 0;
-    border-right: 1px solid #ddd;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-right: 1px solid #f0e6f8;
     max-height: 400px;
     overflow-y: auto;
 }
@@ -83,37 +102,84 @@
     padding: 10px 16px;
     cursor: pointer;
     color: #4a2d77;
-    transition: background 0.2s;
+    font-size: 15px;
+    font-weight: 400;
+    transition: 0.15s ease-in;
+    gap: 8px;
+}
+
+.categoryLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.categoryIcon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.categoryIcon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .categoryItem:hover,
 .activeCategory {
-    background-color: #f2e5ff;
+    background: #f5eaff;
+    padding-left: 22px;
+    color: #774a8d;
+    font-weight: 500;
 }
 
-/* Правая панель подкатегорий */
+.allProducts {
+    font-weight: 600;
+    color: #774a8d;
+    border-bottom: 1px solid #f0e6f8;
+    margin-bottom: 4px;
+}
+
+.allProducts:hover {
+    background: #ede0ff;
+}
+
 .subcategoryPanel {
     display: flex;
-    gap: 40px;
+    gap: 35px;
     padding: 20px 30px;
     background: #fff;
-    border-radius: 0 12px 12px 0;
-    min-width: 500px;
+    min-width: 450px;
+    animation: slideRight 0.35s ease-out;
+    align-self: flex-start; 
+    margin: 8px 0;
+}
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 .subcategoryColumn {
-    min-width: 150px;
+    min-width: 130px;
 }
 
 .subcategoryColumn h4 {
-    font-size: 24px;
-    color: #8000ff;
-    font-weight: 500;
-    margin-bottom: 8px;
+    font-size: 15px;
+    color: #774a8d;
+    font-weight: 700;
+    margin-bottom: 10px;
     cursor: pointer;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #ecdff5;
+    transition: color 0.15s;
 }
 
 .subcategoryColumn h4:hover {
+    color: #5a3570;
     text-decoration: underline;
 }
 
@@ -121,20 +187,63 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .subcategoryColumn li {
-    margin-bottom: 6px;
     cursor: pointer;
-    color: #333;
-    transition: color 0.2s;
+    color: #444;
+    font-size: 15px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s, padding-left 0.15s;
 }
 
 .subcategoryColumn li:hover {
     color: #774a8d;
+    background: #f5eaff;
+    padding-left: 10px;
 }
 
 .arrow {
     font-size: 16px;
-    color: #774a8d;
+    color: #b57edc;
+    transition: transform 0.15s;
+}
+
+.categoryItem:hover .arrow,
+.activeCategory .arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .dropdownCatalog {
+        flex-direction: column;
+        max-width: 95vw;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .categoryList {
+        width: 100%;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid #f0e6f8;
+        margin: 0;
+    }
+
+    .subcategoryPanel {
+        min-width: unset;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 16px;
+        margin: 0;
+    }
+
+    .subcategoryColumn {
+        min-width: 120px;
+    }
 }

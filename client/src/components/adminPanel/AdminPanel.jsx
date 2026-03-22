@@ -53,9 +53,26 @@ export default function AdminPanel () {
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
 
-    const filteredProducts = products.filter(product => {
-        return product.name.toLowerCase().includes(search.toLowerCase())
-    });
+    const filteredProducts = products
+        .filter(product => product.name.toLowerCase().includes(search.toLowerCase()))
+        .sort((a, b) => {
+            const q = search.toLowerCase();
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+
+            if (aName === q && bName !== q) return -1;
+            if (bName === q && aName !== q) return 1;
+
+            if (aName.startsWith(q) && !bName.startsWith(q)) return -1;
+            if (bName.startsWith(q) && !aName.startsWith(q)) return 1;
+
+            const aWord = aName.split(" ").some(w => w.startsWith(q));
+            const bWord = bName.split(" ").some(w => w.startsWith(q));
+            if (aWord && !bWord) return -1;
+            if (bWord && !aWord) return 1;
+
+            return aName.localeCompare(bName);
+        });
 
     useEffect(() => {
         const fetchProducts = async () => {

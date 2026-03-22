@@ -97,12 +97,12 @@
     width: 80%;
 }
 
-.GalleryItems::-webkit-scrollbar {
-    height: 8px;
+/* .GalleryItems::-webkit-scrollbar {
+    height: 10px;
 }
 
 .GalleryItems::-webkit-scrollbar-thumb {
     background-color: #c0bfc4;
     border-radius: 5px;
-}
+} */
 

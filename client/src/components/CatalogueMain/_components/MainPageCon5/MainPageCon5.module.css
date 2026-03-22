@@ -2,17 +2,21 @@
     height: 1037px;
     background-color: #D3C0DC;
     border-radius: 2rem 2rem 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .title{
     font-size: 48px;
     font-weight: 600;
-    padding-top: 124px;
     text-align: center;
     white-space: nowrap;
 }
 
 .aboutBlock{
+    width: 80%;
     margin-top: 50px;
     display: flex;
     flex-direction: row;

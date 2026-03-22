@@ -2,9 +2,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    /* justify-content: space-between; */
     border: 1px solid #ccc;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 8px;
     border-radius: 5px;
 
@@ -23,7 +22,7 @@
 }
 
 .noImage{
-    background-color: gray;
+    background-color: rgb(178, 168, 187);
     width: 100px;
     height: 80px;
     display: flex;

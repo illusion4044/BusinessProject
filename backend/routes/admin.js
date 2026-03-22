@@ -218,6 +218,8 @@ router.delete("/admin/deleteproduct/:id", authenticateToken, requireRole("admin"
             });
         }
 
+        await db.query("DELETE FROM order_items WHERE product_id = ?", [id]);
+
         await db.query(
             "DELETE FROM products WHERE id = ?",
             [id]

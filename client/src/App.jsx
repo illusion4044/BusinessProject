@@ -9,6 +9,7 @@ import Product from './components/Product/Product';
 import Payment from './components/Payment/Payment';
 import PurchaseHistory from "./components/PurchaseHistory/PurchaseHistory";
 import AdminPanel from './components/adminPanel/AdminPanel';
+import AllProducts from './components/AllProducts/AllProducts';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false)
@@ -28,6 +29,7 @@ function App() {
             <Route path="/product" element={<Product/>}/>
             <Route path="/payment" element={<Payment/>}/>
             <Route path="/orders" element={<PurchaseHistory />} />
+            <Route path="/all-products" element={<AllProducts />} />
 
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>

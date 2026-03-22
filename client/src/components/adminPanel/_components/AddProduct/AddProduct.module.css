@@ -6,64 +6,77 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-y: auto;
 }
 
 .BackToLobby {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 20px;
+    font-size: clamp(14px, 1.5vw, 20px);
     font-weight: 500;
     cursor: pointer;
+    padding: 16px 24px 0;
+    flex-shrink: 0;
 }
 
 .BlockItems {
     display: flex;
-    gap: 40px;
-    height: 100%;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .LeftPanelBlock {
     width: 45%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 24px;
+    gap: 12px;
+    padding: clamp(12px, 2vw, 24px);
+    min-width: 0;
 }
 
 .imageBlock {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.imageBlock img {
-    width: 150px;
-    height: 150px;
+.imageBlock img,
+.previewImage {
+    width: clamp(80px, 10vw, 150px);
+    height: clamp(80px, 10vw, 150px);
     border-radius: 0.5rem;
+    object-fit: contain;
 }
 
 .imagePlaceholder {
-    width: 100px;
-    height: 100px;
+    width: clamp(80px, 10vw, 100px);
+    height: clamp(80px, 10vw, 100px);
     background: #5ddcff;
     border-radius: 10px;
+    flex-shrink: 0;
 }
 
 .addPhotoBtn {
-    padding: 8px 14px;
+    padding: 6px 10px;
     border: 1px solid #aaa;
     border-radius: 6px;
     background: white;
     cursor: pointer;
+    font-size: clamp(11px, 1vw, 14px);
+    max-width: 160px;
 }
 
 .RightPanelBlock {
     width: 55%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 24px;
+    gap: 10px;
+    padding: clamp(12px, 2vw, 24px);
+    min-width: 0;
 }
 
 .input {
@@ -71,14 +84,20 @@
     padding: 0 12px;
     border-radius: 6px;
     border: 1px solid #aaa;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(12px, 1.2vw, 15px);
 }
 
 .textarea {
-    height: 180px;
+    height: clamp(100px, 15vh, 180px);
     padding: 12px;
     border-radius: 6px;
     border: 1px solid #aaa;
     resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(12px, 1.2vw, 15px);
 }
 
 .row {
@@ -92,11 +111,14 @@
     padding: 0 12px;
     border-radius: 6px;
     border: 1px solid #aaa;
+    box-sizing: border-box;
+    font-size: clamp(12px, 1.2vw, 15px);
 }
 
 .sectionTitle {
-    margin-top: 10px;
+    margin-top: 6px;
     font-weight: 500;
+    font-size: clamp(13px, 1.2vw, 16px);
 }
 
 .saveBtn {
@@ -108,18 +130,47 @@
     padding: 10px 25px;
     border-radius: 10px;
     cursor: pointer;
+    font-size: clamp(13px, 1.2vw, 15px);
+    transition: background 0.2s;
 }
 
-.deletePhotoBtn{
-    margin-top:10px;
-    background:#ff4d4d;
-    color:white;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    cursor:pointer;
+.saveBtn:hover {
+    background: #6d28d9;
 }
 
-.deletePhotoBtn:hover{
-    background:#e63a3a;
+.deletePhotoBtn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: clamp(11px, 1vw, 13px);
+}
+
+.deletePhotoBtn:hover {
+    background: #e63a3a;
+}
+
+/* Медиазапросы */
+@media (max-width: 900px) {
+    .BlockItems {
+        flex-direction: column;
+    }
+
+    .LeftPanelBlock,
+    .RightPanelBlock {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .imageBlock {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .row {
+        flex-direction: column;
+    }
 }
