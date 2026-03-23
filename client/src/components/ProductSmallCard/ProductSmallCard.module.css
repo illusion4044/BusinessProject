@@ -19,6 +19,23 @@
     margin-top: 12px;
 }
 
+.cartBtn {
+    position: absolute;
+    right: 15px;
+    bottom: 18px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.cartBtn:hover {
+    background: rgba(139, 92, 246, 0.15) !important;
+    border-radius: 50%;
+    transform: scale(1.1);
+}
+
 .cardInfo {
     display: flex;
     justify-content: center;

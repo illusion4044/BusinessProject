@@ -20,7 +20,7 @@
 
 .welcome {
     width: 100%;
-    height: 660px;
+    height: 640px;
     background-color: white;
     border-radius: 1rem;
     display: flex;
@@ -37,7 +37,7 @@
 
 .listPageAll {
     overflow-y: auto;
-    height: 88%;
+    height: 80%;
     width: 99%;
 }
 

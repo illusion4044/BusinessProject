@@ -263,3 +263,22 @@
         font-size: 13px;
     }
 }
+
+.btnCart {
+    position: relative;
+}
+
+.cartBadge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #8b5cf6;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

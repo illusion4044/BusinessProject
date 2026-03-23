@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import SettingsOverlay from './_components/SettingsOverlay/SettingsOverlay';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { useCart } from "../CartContext/CartContext";
 
 
 export default function Header({ onCartOpen }) {
@@ -17,6 +18,7 @@ export default function Header({ onCartOpen }) {
     const [searchResults, setSearchResults] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const searchRef = useRef(null);
+    const { totalCount } = useCart();
 
     const handleLoginClick = () => {
         setIsBtnLoginClicked(prev => !prev);
@@ -117,6 +119,9 @@ export default function Header({ onCartOpen }) {
                         <button onClick={onCartOpen} type="button" className={styles.btnCart}>
                             <img src="images\Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
                             Кошик
+                            {totalCount > 0 && (
+                                <span className={styles.cartBadge}>{totalCount}</span>
+                            )}
                         </button>
 
                         {isLogined ? (<>

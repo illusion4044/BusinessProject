@@ -1,6 +1,7 @@
 import './App.css'
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { CartProvider } from './components/CartContext/CartContext';
 import CatalogueMain from './components/CatalogueMain/CatalogueMain';
 import CustomerProfile from './components/CustomerProfile/CustomerProfile';
 import Cart from './components/Cart/Cart';
@@ -13,30 +14,28 @@ import AllProducts from './components/AllProducts/AllProducts';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false)
-    const handleCartOpen = () => {
-      console.log('handleCartOpen called')
-      setIsCartOpen(true)
+  const handleCartOpen = () => {
+    console.log('handleCartOpen called')
+    setIsCartOpen(true)
   }
 
   return (
-    <>
+    <CartProvider>
       <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Navigate to="/catalogue" />}/>
-            <Route path="/catalogue" element={<CatalogueMain onCartOpen={handleCartOpen}/>}/>
-            <Route path="/profile" element={<CustomerProfile/>}/>
-            <Route path="/order" element={<Order/>}/>
-            <Route path="/product" element={<Product/>}/>
-            <Route path="/payment" element={<Payment/>}/>
-            <Route path="/orders" element={<PurchaseHistory />} />
-            <Route path="/all-products" element={<AllProducts />} />
-
-            <Route path="/admin" element={<AdminPanel />} />
-          </Routes>
-            <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-
+        <Routes>
+          <Route path="/" element={<Navigate to="/catalogue" />}/>
+          <Route path="/catalogue" element={<CatalogueMain onCartOpen={handleCartOpen}/>}/>
+          <Route path="/profile" element={<CustomerProfile/>}/>
+          <Route path="/order" element={<Order/>}/>
+          <Route path="/product" element={<Product/>}/>
+          <Route path="/payment" element={<Payment/>}/>
+          <Route path="/orders" element={<PurchaseHistory />} />
+          <Route path="/all-products" element={<AllProducts />} />
+          <Route path="/admin" element={<AdminPanel />} />
+        </Routes>
+        <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       </BrowserRouter>
-    </>
+    </CartProvider>
   )
 }
 
