@@ -106,6 +106,7 @@ const PurchaseHistory = () => {
                                 <div>Ціна</div>
                                 <div>К-сть</div>
                                 <div>Сума</div>
+                                <div>Статус</div>
                             </div>
 
                             {orders.map((order) => {
@@ -151,6 +152,14 @@ const PurchaseHistory = () => {
                                                         {index === 0
                                                             ? `${Number(total).toFixed(2)}₴`
                                                             : ""}
+                                                    </div>
+
+                                                    <div className={`status status-${order.status}`}>
+                                                        {order.status === "pending"    ? "Очікує оплати" :
+                                                        order.status === "processing" ? "В обробці" :
+                                                        order.status === "shipped"    ? "Відправлено" :
+                                                        order.status === "completed"  ? "Виконано" :
+                                                        order.status === "cancelled"  ? "Скасовано" : order.status}
                                                     </div>
 
                                                 </div>

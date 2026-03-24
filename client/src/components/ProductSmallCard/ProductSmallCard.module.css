@@ -115,3 +115,105 @@
     display: flex;
     flex-direction: row;
 }
+
+/* ===== MEDIA ===== */
+
+@media (max-width: 1440px) {
+    .card {
+        width: 190px;
+        height: 330px;
+    }
+
+    .cardImage {
+        width: 165px;
+        height: 160px;
+    }
+
+    .priceNow {
+        font-size: 28px;
+        width: 155px;
+    }
+
+    .priceOld {
+        font-size: 21px;
+    }
+
+    .priceBlock {
+        width: 155px;
+    }
+
+    .cardName {
+        width: 135px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 160px;
+        height: 290px;
+    }
+
+    .cardImage {
+        width: 140px;
+        height: 140px;
+    }
+
+    .priceNow {
+        font-size: 24px;
+        width: 135px;
+    }
+
+    .priceOld {
+        font-size: 18px;
+    }
+
+    .discountPercent {
+        font-size: 13px;
+        width: 44px;
+        height: 19px;
+    }
+
+    .priceBlock {
+        width: 135px;
+    }
+
+    .cardName {
+        width: 115px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 140px;
+        height: 265px;
+    }
+
+    .cardImage {
+        width: 120px;
+        height: 120px;
+    }
+
+    .priceNow {
+        font-size: 20px;
+        width: 115px;
+    }
+
+    .priceOld {
+        font-size: 15px;
+    }
+
+    .discountPercent {
+        font-size: 11px;
+        width: 38px;
+    }
+
+    .priceBlock {
+        width: 115px;
+    }
+
+    .cardName {
+        width: 95px;
+        font-size: 10px;
+    }
+}

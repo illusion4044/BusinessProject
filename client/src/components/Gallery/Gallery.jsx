@@ -2,12 +2,13 @@ import styles from './Gallery.module.css'
 import { useRef } from 'react';
 import ProductSmallCard from '../ProductSmallCard/ProductSmallCard';
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function Gallery({ title, imageSrc, items }) {
 
     const [products, setProducts] = useState([]);
     const [discountProduct, setDiscountProducts] = useState([]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:3001/products")
@@ -35,18 +36,35 @@ export default function Gallery({ title, imageSrc, items }) {
         }
     };
 
+    const handleViewAll = () => {
+        if (title === 'Акції') {
+            navigate('/all-products?filter=discount');
+        } else {
+            navigate('/all-products');
+        }
+    };
+
     return (
         <>
             <div className={styles.mainPageCon}>
                 <div className={styles.GalleryItems}>
                     <div className={styles.TopBlocks}>
-                        <div className={title == 'Акції' ? styles.discount : styles.recomendation}>
+                        <div
+                            className={title == 'Акції' ? styles.discount : styles.recomendation}
+                            onClick={handleViewAll}
+                            style={{ cursor: 'pointer' }}
+                        >
                             {title}
                             {title == 'Акції' ? <img src="images\percent_discount.png" alt="" /> : ''}
                         </div>
 
                         <div className={styles.buttonsGalleryOverlay}>
-                            <span>Дивитись усі</span>
+                            <span
+                                onClick={handleViewAll}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Дивитись усі
+                            </span>
                             <div onClick={() => { scrollGallery("left") }} className={styles.btnGalleryLeftGround}>
                                 <button className={`${styles.btnGalleryLeft} ${styles.btnsGallery}`}>
                                     <img src="images\smallLeftRow.png" className={styles.btnIcon} alt="" />
@@ -73,7 +91,6 @@ export default function Gallery({ title, imageSrc, items }) {
                         )}
                     </div>
                 </div>
-
             </div>
         </>
     )

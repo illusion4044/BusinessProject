@@ -30,15 +30,15 @@
 }
 
 .cancelBtn{
-    padding:10px 20px;
+    padding:12px 20px;
     border:none;
     border-radius:8px;
-    background:#ccc;
+    background:#ece9e9;
     cursor:pointer;
 }
 
 .deleteBtn{
-    padding:10px 20px;
+    padding:12px 20px;
     border:none;
     border-radius:8px;
     background:#e53935;
@@ -51,5 +51,5 @@
 }
 
 .cancelBtn:hover{
-    background:#8c8686;
+    background:#dadada;
 }

@@ -13,6 +13,7 @@ router.get("/my", authenticateToken, async (req, res) => {
             o.id AS order_id,
             o.order_date,
             o.total_amount,
+            o.status,
             u.name AS first_name,
             u.surname AS last_name,
             oi.product_id,
@@ -46,6 +47,7 @@ router.get("/my", authenticateToken, async (req, res) => {
                     id: row.order_id,
                     date: row.order_date,
                     total: row.total_amount,
+                    status: row.status,
                     items: []
                 };
                 result.push(order);
@@ -64,6 +66,35 @@ router.get("/my", authenticateToken, async (req, res) => {
             orders: result
         });
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
+
+router.post("/orders", authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { items, totalAmount, comment, paymentMethod, shippingAddress } = req.body;
+
+        const [orderResult] = await db.query(
+            `INSERT INTO orders (user_id, total_amount, status, comment, payment_method, shipping_address, order_date) 
+            VALUES (?, ?, 'pending', ?, ?, ?, NOW())`,
+            [userId, totalAmount, comment || "", paymentMethod || "cash", shippingAddress || ""]
+        );
+
+        const orderId = orderResult.insertId;
+
+        for (const item of items) {
+            await db.query(
+                `INSERT INTO order_items (order_id, product_id, qty, price_at_purchase) 
+                VALUES (?, ?, ?, ?)`,
+                [orderId, item.id, item.quantity, item.price]
+            );
+        }
+
+        res.json({ success: true, orderId });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Помилка сервера" });

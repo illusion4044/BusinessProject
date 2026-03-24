@@ -95,7 +95,7 @@
 
 .history-header {
     display: grid;
-    grid-template-columns: 80px 1fr 120px 80px 120px;
+    grid-template-columns: 60px 1fr 100px 80px 120px 110px;
     font-weight: 600;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
@@ -114,10 +114,11 @@
 
 .order-block {
     display: grid;
-    grid-template-columns: 80px 1fr 120px 80px 120px;
+    grid-template-columns: 60px 1fr 100px 100px 120px 110px;
     margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
+    align-items: start;
 }
 
 .history-row {
@@ -167,27 +168,41 @@
 }
 
 .total {
-    width: 120px;
+    text-align: right;
+    padding-right: 8px;
 }
 
 .more-items {
-    grid-column: 2;
-    margin-left: 20px;
+    grid-column: 2 / 4;
     margin-top: 5px;
     color: gray;
     font-size: 12px;
+    padding: 0;
 }
 
 .details-btn {
-    grid-column: 5;
-    margin-left: 20px;
-    margin-top: 5px;
+    grid-column: 6;
+    text-align: right;
     background: none;
     border: none;
     color: #6c3ef4;
     cursor: pointer;
+    padding: 0;
+    font-size: 13px;
 }
 
 .details-btn:hover {
     text-decoration: underline;
 }
+
+.status {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    padding: 10px 0 10px 8px;
+}
+.status-pending    { color: #f59e0b; }
+.status-processing { color: #3b82f6; }
+.status-shipped    { color: #8b5cf6; }
+.status-completed  { color: #10b981; }
+.status-cancelled  { color: #ef4444; }

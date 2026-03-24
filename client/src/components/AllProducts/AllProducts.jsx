@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./AllProducts.module.css";
 import Header from "../Header/Header";
+import { useLocation } from "react-router-dom";
 import ProductSmallCard from "../ProductSmallCard/ProductSmallCard";
 
 export default function AllProducts() {
@@ -20,6 +21,21 @@ export default function AllProducts() {
         qty: true,
     });
 
+    // useEffect(() => {
+    //     fetch("http://localhost:3001/products")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setProducts(data);
+    //             const maxPrice = Math.max(...data.map(p => p.price));
+    //             const maxQty = Math.max(...data.map(p => p.qty));
+    //             setPriceRange([1, maxPrice]);
+    //             setQtyRange([1, maxQty]);
+    //             setLoading(false);
+    //         })
+    //         .catch(console.error);
+    // }, []);
+    const location = useLocation();
+
     useEffect(() => {
         fetch("http://localhost:3001/products")
             .then(res => res.json())
@@ -30,9 +46,19 @@ export default function AllProducts() {
                 setPriceRange([1, maxPrice]);
                 setQtyRange([1, maxQty]);
                 setLoading(false);
+
+                const params = new URLSearchParams(location.search);
+                if (params.get("filter") === "discount") {
+                    const discounts = [...new Set(
+                        data.filter(p => Number(p.discount) > 0)
+                            .map(p => Math.round(Number(p.discount)))
+                    )];
+                    setSelectedDiscounts(discounts);
+                    setSortBy("discount");
+                }
             })
             .catch(console.error);
-    }, []);
+    }, [location.search]);
 
     useEffect(() => {
         const handleScroll = () => setShowScrollTop(window.scrollY > 400);

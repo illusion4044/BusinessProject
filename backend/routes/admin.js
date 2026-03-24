@@ -337,4 +337,76 @@ router.put("/admin/editcategory/:id", authenticateToken, requireRole("admin"), a
     }
 });
 
+// GET всі замовлення для адміна
+router.get("/admin/orders", authenticateToken, async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+                o.id, o.status, o.total_amount, o.order_date,
+                o.comment, o.payment_method, o.shipping_address,
+                o.first_name, o.last_name, o.phone, o.email,
+                oi.qty, oi.price_at_purchase,
+                p.name AS product_name, p.image
+            FROM orders o
+            LEFT JOIN order_items oi ON o.id = oi.order_id
+            LEFT JOIN products p ON oi.product_id = p.id
+            ORDER BY o.id DESC
+        `);
+
+        const result = [];
+        rows.forEach(row => {
+            let order = result.find(o => o.id === row.id);
+            if (!order) {
+                order = {
+                    id: row.id,
+                    status: row.status,
+                    total_amount: row.total_amount,
+                    first_name: row.first_name,
+                    last_name: row.last_name,
+                    phone: row.phone,
+                    email: row.email,
+                    shipping_address: row.shipping_address,
+                    payment_method: row.payment_method,
+                    comment: row.comment,
+                    items: []
+                };
+                result.push(order);
+            }
+            if (row.product_name) {
+                order.items.push({
+                    name: row.product_name,
+                    image: row.image,
+                    quantity: row.qty,
+                    price: row.price_at_purchase
+                });
+            }
+        });
+
+        res.json(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
+router.patch("/admin/orders/:id/status", authenticateToken, async (req, res) => {
+    try {
+        const { status } = req.body;
+        await db.query("UPDATE orders SET status = ? WHERE id = ?", [status, req.params.id]);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
+router.delete("/admin/orders/:id", authenticateToken, async (req, res) => {
+    try {
+        await db.query("DELETE FROM order_items WHERE order_id = ?", [req.params.id]);
+        await db.query("DELETE FROM orders WHERE id = ?", [req.params.id]);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
 export default router;

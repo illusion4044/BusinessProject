@@ -74,4 +74,5 @@ router.get("/products/search", async (req, res) => {
     }
 });
 
+
 export default router;

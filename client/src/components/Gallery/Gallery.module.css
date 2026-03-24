@@ -97,12 +97,140 @@
     width: 80%;
 }
 
-/* .GalleryItems::-webkit-scrollbar {
-    height: 10px;
+.buttonsGalleryOverlay span {
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.2s;
 }
 
-.GalleryItems::-webkit-scrollbar-thumb {
-    background-color: #c0bfc4;
-    border-radius: 5px;
-} */
+.buttonsGalleryOverlay span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1.5px;
+    background-color: #B57EDC;
+    transition: width 0.25s ease;
+}
 
+.buttonsGalleryOverlay span:hover {
+    color: #B57EDC;
+}
+
+.buttonsGalleryOverlay span:hover::after {
+    width: 100%;
+}
+
+.buttonsGalleryOverlay span:active {
+    color: #8a4fbf;
+    transform: scale(0.97);
+}
+
+.btnGalleryLeftGround:hover,
+.btnGalleryRightGround:hover {
+    background-color: #a06bc9;
+    transform: scale(1.07);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btnGalleryLeftGround:active,
+.btnGalleryRightGround:active {
+    background-color: #7d4faa;
+    transform: scale(0.96);
+}
+
+.discount:hover,
+.recomendation:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.discount:active,
+.recomendation:active {
+    opacity: 0.6;
+}
+
+/* ===== MEDIA ===== */
+@media (max-width: 1024px) {
+    .TopBlocks {
+        width: 95%;
+    }
+
+    .GalleryItem {
+        width: 95%;
+        gap: 30px;
+    }
+
+    .discount,
+    .recomendation {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .GalleryItems {
+        height: auto;
+        margin-bottom: 60px;
+    }
+
+    .TopBlocks {
+        width: 95%;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .discount,
+    .recomendation {
+        font-size: 28px;
+        gap: 8px;
+    }
+
+    .discount img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .buttonsGalleryOverlay {
+        gap: 15px;
+    }
+
+    .btnGalleryLeftGround,
+    .btnGalleryRightGround {
+        width: 40px;
+        height: 40px;
+    }
+
+    .GalleryItem {
+        width: 95%;
+        gap: 20px;
+        height: auto;
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .discount,
+    .recomendation {
+        font-size: 22px;
+    }
+
+    .buttonsGalleryOverlay span {
+        font-size: 13px;
+    }
+
+    .btnGalleryLeftGround,
+    .btnGalleryRightGround {
+        width: 34px;
+        height: 34px;
+    }
+
+    .GalleryItem {
+        gap: 14px;
+    }
+}
