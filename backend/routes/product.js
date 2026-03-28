@@ -74,5 +74,32 @@ router.get("/products/search", async (req, res) => {
     }
 });
 
+router.get("/products/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [rows] = await db.query(
+            `SELECT p.id, p.name, p.description, p.qty, p.price, p.image,
+                p.country, p.trademark, p.seller,
+                ROUND(p.discount, 0) AS discount,
+                child.name AS subcategory,
+                parent.name AS category
+                FROM products p
+                LEFT JOIN categories child ON p.category_id = child.id
+                LEFT JOIN categories parent ON child.parent_id = parent.id
+                WHERE p.id = ?`,
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Продукт не знайдено" });
+        }
+
+        res.status(200).json(rows[0]);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 export default router;

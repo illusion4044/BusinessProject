@@ -72,13 +72,13 @@ export default function Header({ onCartOpen }) {
                 <div className={styles.headerItems}>
 
                     <div className={styles.Logo}>
-                        <img onClick={(() => navigate("/catalogue"))} src="images\logo.png" alt="" />
+                        <img onClick={(() => navigate("/catalogue"))} src="/images/logo.png" alt="" />
                     </div>
 
                     <CatalogueMenu />
 
                     <div className={styles.searchContainer} ref={searchRef}>
-                        <img src="images\Search.png" alt="search" className={styles.searchIcon} />
+                        <img src="/images/Search.png" alt="search" className={styles.searchIcon} />
                         <input
                             type="text"
                             placeholder="Пошук..."
@@ -101,7 +101,7 @@ export default function Header({ onCartOpen }) {
                                         }}
                                     >
                                         <img
-                                            src={product.image ? `http://localhost:3001${product.image}` : "images/NoImageCard.png"}
+                                            src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
                                             alt={product.name}
                                             className={styles.searchItemImage}
                                         />
@@ -117,7 +117,7 @@ export default function Header({ onCartOpen }) {
 
                     <div className={styles.rightBtnCon}>
                         <button onClick={onCartOpen} type="button" className={styles.btnCart}>
-                            <img src="images\Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
+                            <img src="/images/Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
                             Кошик
                             {totalCount > 0 && (
                                 <span className={styles.cartBadge}>{totalCount}</span>
@@ -130,7 +130,7 @@ export default function Header({ onCartOpen }) {
                                 className={styles.btnCustomer}
                                 onClick={() => setIsSettingsOpen(prev => !prev)}
                             >
-                                <img src="images\Contacts.png" alt="Contacts" className={styles.icon} />
+                                <img src="/images/Contacts.png" alt="Contacts" className={styles.icon} />
                                 Користувач
                             </button>
 

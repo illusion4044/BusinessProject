@@ -1,18 +1,19 @@
 import styles from './ProductSmallCard.module.css';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 
 export default function ProductSmallCard({ product }) {
-    const { addToCart } = useCart(); // ← додати
-
+    const { addToCart } = useCart();
+    const navigate = useNavigate();
     const discount = product.discount || 0;
     const oldPrice = discount > 0
         ? Math.round(product.price / (1 - discount / 100))
         : null;
 
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => navigate(`/product/${product.id}`)}>
             <img
-                src={product.image ? `http://localhost:3001${product.image}` : "images/NoImageCard.png"}
+                src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
                 alt={product.name}
                 className={styles.cardImage}
             />
@@ -30,9 +31,12 @@ export default function ProductSmallCard({ product }) {
                 </div>
                 <button
                     className={styles.cartBtn}
-                    onClick={() => addToCart(product)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product);
+                    }}
                 >
-                    <img src="images/CartBtn.png" alt="Додати в кошик" />
+                    <img src="/images/CartBtn.png" alt="Додати в кошик" />
                 </button>
             </div>
         </div>

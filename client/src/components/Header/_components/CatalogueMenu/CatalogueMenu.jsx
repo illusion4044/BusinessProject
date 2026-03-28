@@ -44,9 +44,9 @@ export default function CatalogueMenu() {
             className={styles.btnCatalogue}
             onClick={() => setOpen(!open)}
         >
-            <img src="images\category 1.png" alt="Catalogue" className={styles.catalogueIcon} />
+            <img src="/images/category 1.png" alt="Catalogue" className={styles.catalogueIcon} />
             Каталог
-            <img src="images\downrow.svg" alt="arrow" className={styles.arrowIcon} />
+            <img src="/images/downrow.svg" alt="arrow" className={styles.arrowIcon} />
         </button>
 
         {open && (

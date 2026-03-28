@@ -32,6 +32,7 @@ function App() {
           <Route path="/orders" element={<PurchaseHistory />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/product/:id" element={<Product/>}/>
         </Routes>
         <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       </BrowserRouter>
