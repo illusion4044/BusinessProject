@@ -21,10 +21,7 @@ const PurchaseHistory = () => {
         window.location.href = "/catalogue";
     };
 
-    const [user, setUser] = useState({
-        firstName: "Ім'я",
-        lastName: "Прізвище",
-    });
+    const [user, setUser] = useState(null);
 
     const toggleOrder = (id) => {
         setOpenOrders((prev) =>
@@ -54,8 +51,8 @@ const PurchaseHistory = () => {
 
                 const data = await res.json();
 
-                setOrders(data.orders);
-                setUser(data.user);
+                setOrders(data.orders || []);
+                setUser(data.user || { firstName: "Ім'я", lastName: "Прізвище" });
             } catch (err) {
                 console.error("Помилка:", err);
             }
@@ -74,7 +71,7 @@ const PurchaseHistory = () => {
                     <div className="user-panel">
                         <div className="user-info">
                             <img src={userIcon} alt="user" />
-                            <span>{user.firstName} {user.lastName}</span>
+                            <span>{user ? `${user.firstName} ${user.lastName}` : "Завантаження..."}</span>
                         </div>
 
                         <div className="user-actions">

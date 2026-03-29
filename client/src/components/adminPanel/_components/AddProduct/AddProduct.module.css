@@ -9,15 +9,30 @@
     overflow-y: auto;
 }
 
+.leftRow{
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
 .BackToLobby {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: clamp(14px, 1.5vw, 20px);
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     padding: 16px 24px 0;
     flex-shrink: 0;
+    width: fit-content;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    color: #1f1f1f;
+}
+
+.BackToLobby:hover {
+    color: #7c3aed;
+    /* transform: translateX(-4px); */
 }
 
 .BlockItems {

@@ -4,11 +4,11 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import styles from "./CustomerProfile.module.css";
 
+import officeIcon from "../PurchaseHistory/images/officeicon.png";
+import listIcon from "../PurchaseHistory/images/listicon.png";
+import exitIcon from "../PurchaseHistory/images/exiticon.png";
 
 const userIcon = "/images/Contacts.png";
-const officeIcon = "/images/officeicon.png";
-const listIcon = "/images/listicon.png";
-const exitIcon = "/images/exiticon.png";
 
 export default function CustomerProfile() {
     const [profile, setProfile] = useState({

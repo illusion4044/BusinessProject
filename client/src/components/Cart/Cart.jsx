@@ -41,7 +41,7 @@ export default function Cart({ isOpen, onClose }) {
                         cartItems.map(item => (
                             <div key={item.id} className={styles.cartItem}>
                                 <img
-                                    src={item.image ? `http://localhost:3001${item.image}` : "images/NoImageCard.png"}
+                                    src={item.image ? `http://localhost:3001${item.image}` : "/images/NoImageCard.png"}
                                     alt={item.name}
                                     className={styles.itemImage}
                                 />

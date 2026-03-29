@@ -10,8 +10,14 @@
     flex-direction: row;
     align-items: center;
     gap: 5px;
-    font-size: 32px;
+    font-size: clamp(20px, 2.5vw, 30px);
     font-weight: 500;
+}
+
+.leftRow{
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 .navBtns{

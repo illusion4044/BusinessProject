@@ -43,9 +43,9 @@ export default function AddProduct ({ setActivePage }) {
     return (
         <div className={styles.MainAddProductWindow}>
 
-            <div className={styles.BackToLobby}>
+            <div className={styles.BackToLobby} onClick={() => setActivePage("addProduction")} >
                 <img src="images/BackRow.png" className={styles.leftRow} alt="" />
-                Додавання товару
+                <h3>Додавання товару</h3>
             </div>
 
             <div className={styles.BlockItems}>

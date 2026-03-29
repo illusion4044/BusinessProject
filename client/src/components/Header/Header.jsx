@@ -18,7 +18,7 @@ export default function Header({ onCartOpen }) {
     const [searchResults, setSearchResults] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const searchRef = useRef(null);
-    const { totalCount } = useCart();
+    const { totalCount, openCart } = useCart();
 
     const handleLoginClick = () => {
         setIsBtnLoginClicked(prev => !prev);
@@ -116,7 +116,7 @@ export default function Header({ onCartOpen }) {
                     </div>
 
                     <div className={styles.rightBtnCon}>
-                        <button onClick={onCartOpen} type="button" className={styles.btnCart}>
+                        <button onClick={openCart} type="button" className={styles.btnCart}>
                             <img src="/images/Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
                             Кошик
                             {totalCount > 0 && (

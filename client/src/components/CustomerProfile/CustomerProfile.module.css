@@ -1,9 +1,8 @@
 .profileContainer {
     background-color: #ffffff;
-    padding: 26px;
+    padding: 30px;
     padding-top: 120px;
-    padding-bottom: 0;
-    min-height: auto;
+    min-height: 100vh;
 }
 
 .profileWrapper {
@@ -16,103 +15,67 @@
 
 .userPanel {
     background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 18px 25px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    height: 60px;
 }
 
 .userInfo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0 20px;
-    height: 100%;
-    position: relative;
-}
-
-.userInfo::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: #000000;
+    gap: 12px;
+    margin-right: 40px;
 }
 
 .userInfo img {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
 }
 
 .userInfo span {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    white-space: nowrap;
 }
 
 .userActions {
     display: flex;
+    gap: 30px;
+    width: 100%;
     align-items: center;
-    flex: 1;
-    height: 100%;
 }
 
 .navBtn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0 16px;
-    font-size: 15px;
+    border-left: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 17px;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-    flex: 1;
-    height: 100%;
+    gap: 8px;
     position: relative;
 }
 
-.navBtn:not(:first-child)::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: #000000;
-}
-
-.navBtn:nth-child(2)::before {
-    display: none;
-}
-
-.navBtn:last-child {
-    border-right: none;
-}
-
 .navBtn img {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
 }
 
 .active {
     font-weight: 700;
-    position: relative;
 }
 
 .active::after {
     content: "";
     position: absolute;
-    left: 8px;
-    right: 8px;
-    bottom: -8px;
+    left: 0;
+    bottom: -6px;
     height: 3px;
-    background: #000000;
+    width: 100%;
+    background: black;
 }
 
 .logout {
@@ -123,7 +86,7 @@
 .profileCard {
     background: #ffffff;
     border-radius: 12px;
-    padding: 28px;
+    padding: 25px;
 }
 
 .profileCard h2 {
@@ -147,12 +110,6 @@
 .field {
     display: flex;
     flex-direction: column;
-}
-
-.field label {
-    margin-bottom: 6px;
-    color: #444;
-    font-size: 14px;
 }
 
 .input {
@@ -218,11 +175,23 @@
     font-weight: 700;
     cursor: pointer;
     padding: 0 18px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.saveBtn:hover {
+    background: #5a2fd4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 62, 244, 0.35);
+}
+
+.saveBtn:active {
+    transform: scale(0.97);
 }
 
 .saveBtn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
 }
 
 @media (max-width: 768px) {
