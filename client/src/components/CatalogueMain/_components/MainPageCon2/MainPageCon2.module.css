@@ -12,3 +12,19 @@
 .secondGallery{
     height: 480px;
 }
+
+@media (max-width: 480px) {
+    .mainPageCon2 {
+        height: auto;
+        padding-top: 20px;
+        gap: 0;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .firstGallery,
+    .secondGallery{
+        height: 380px;
+    }
+}

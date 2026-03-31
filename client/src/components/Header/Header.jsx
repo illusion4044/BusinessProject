@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from "../CartContext/CartContext";
 
-
 export default function Header({ onCartOpen }) {
 
     const [isLogined, setIsLogined] = useState(null)
     const [isBtnLoginClicked, setIsBtnLoginClicked] = useState(null)
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // ← нове
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -20,25 +20,17 @@ export default function Header({ onCartOpen }) {
     const searchRef = useRef(null);
     const { totalCount, openCart } = useCart();
 
-    const handleLoginClick = () => {
-        setIsBtnLoginClicked(prev => !prev);
-    };
+    const handleLoginClick = () => setIsBtnLoginClicked(prev => !prev);
 
     useEffect(() => {
-        if (!searchQuery.trim()) {
-            setSearchResults([]);
-            return;
-        }
+        if (!searchQuery.trim()) { setSearchResults([]); return; }
         setSearchLoading(true);
         const timeout = setTimeout(() => {
             fetch(`http://localhost:3001/products/search?q=${encodeURIComponent(searchQuery)}`)
                 .then(res => res.json())
-                .then(data => {
-                    setSearchResults(data.slice(0, 6));
-                    setSearchLoading(false);
-                })
+                .then(data => { setSearchResults(data.slice(0, 6)); setSearchLoading(false); })
                 .catch(() => setSearchLoading(false));
-        }, 300); // debounce
+        }, 300);
         return () => clearTimeout(timeout);
     }, [searchQuery]);
 
@@ -66,17 +58,69 @@ export default function Header({ onCartOpen }) {
         if (token) setIsLogined(true);
     };
 
+    const mobileMenuRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (
+                mobileMenuRef.current &&
+                !mobileMenuRef.current.contains(e.target) &&
+                !e.target.closest(`.${styles.burgerBtn}`)
+            ) {
+                setIsMobileMenuOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const touchStartY = useRef(null);
+
+    const handleTouchStart = (e) => {
+        touchStartY.current = e.touches[0].clientY;
+    };
+
+    useEffect(() => {
+        function handleScroll() {
+            setIsMobileMenuOpen(false);
+        }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const handleTouchEnd = (e) => {
+        const touchEndY = e.changedTouches[0].clientY;
+        if (touchEndY - touchStartY.current > 50) {
+            setIsMobileMenuOpen(false);
+        }
+    };
+
     return (
         <>
             <header className={styles.mainHeader}>
                 <div className={styles.headerItems}>
 
+                    {/* Гамбургер */}
+                    <button
+                        className={styles.burgerBtn}
+                        onClick={() => setIsMobileMenuOpen(prev => !prev)}
+                    >
+                        <span className={isMobileMenuOpen ? styles.burgerOpen : ""}></span>
+                        <span className={isMobileMenuOpen ? styles.burgerOpen : ""}></span>
+                        <span className={isMobileMenuOpen ? styles.burgerOpen : ""}></span>
+                    </button>
+
+                    {/* Лого */}
                     <div className={styles.Logo}>
-                        <img onClick={(() => navigate("/catalogue"))} src="/images/logo.png" alt="" />
+                        <img onClick={() => navigate("/catalogue")} src="/images/logo.png" alt="" />
                     </div>
 
-                    <CatalogueMenu />
+                    {/* Каталог — ховається на мобільному */}
+                    <div className={styles.catalogueWrap}>
+                        <CatalogueMenu />
+                    </div>
 
+                    {/* Пошук — ховається на мобільному */}
                     <div className={styles.searchContainer} ref={searchRef}>
                         <img src="/images/Search.png" alt="search" className={styles.searchIcon} />
                         <input
@@ -118,7 +162,7 @@ export default function Header({ onCartOpen }) {
                     <div className={styles.rightBtnCon}>
                         <button onClick={openCart} type="button" className={styles.btnCart}>
                             <img src="/images/Shopping Basket.png" alt="Shopping Basket" className={styles.icon} />
-                            Кошик
+                            <span className={styles.btnText}>Кошик</span>
                             {totalCount > 0 && (
                                 <span className={styles.cartBadge}>{totalCount}</span>
                             )}
@@ -131,33 +175,55 @@ export default function Header({ onCartOpen }) {
                                 onClick={() => setIsSettingsOpen(prev => !prev)}
                             >
                                 <img src="/images/Contacts.png" alt="Contacts" className={styles.icon} />
-                                Користувач
+                                <span className={styles.btnText}>Користувач</span>
                             </button>
 
                             {role === "admin" && (
                                 <Link className={styles.link} to="/admin">
-                                    <button type="button" className={styles.btnCustomer}>
-                                        Адмін панель
+                                    <button type="button" className={`${styles.btnCustomer} ${styles.adminBtn}`}>
+                                        <span className={styles.btnText}>Адмін панель</span>
                                     </button>
                                 </Link>
                             )}
-                        </>) : (<>
+                        </>) : (
                             <button onClick={handleLoginClick} type="button" className={styles.btnSignUp}>
-                                <img src="images\Contacts.png" alt="Contacts" className={styles.icon} />
-                                Увійти
+                                <img src="/images/Contacts.png" alt="Contacts" className={styles.icon} />
+                                <span className={styles.btnText}>Увійти</span>
                             </button>
-                        </>)}
+                        )}
                     </div>
                 </div>
+
+                {isMobileMenuOpen && (
+                    <div 
+                        className={styles.mobileMenu} 
+                        ref={mobileMenuRef}
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        <div className={styles.mobileSearch} ref={searchRef}>
+                            <img src="/images/Search.png" alt="search" className={styles.searchIcon} />
+                            <input
+                                type="text"
+                                placeholder="Пошук..."
+                                className={styles.searchInput}
+                                value={searchQuery}
+                                onChange={e => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.mobileLinks}>
+                            <span onClick={() => { navigate("/catalogue"); setIsMobileMenuOpen(false); }}>Каталог</span>
+                            <span onClick={() => { navigate("/all-products"); setIsMobileMenuOpen(false); }}>Всі товари</span>
+                            <span onClick={() => { navigate("/profile"); setIsMobileMenuOpen(false); }}>Профіль</span>
+                            <span onClick={() => { navigate("/orders"); setIsMobileMenuOpen(false); }}>Замовлення</span>
+                        </div>
+                    </div>
+                )}
             </header>
 
             {isBtnLoginClicked && (
-                <LoginOverlay
-                    key={isBtnLoginClicked}
-                    onClose={handleCloseOverlay}
-                />
+                <LoginOverlay key={isBtnLoginClicked} onClose={handleCloseOverlay} />
             )}
-
             {isSettingsOpen && (
                 <SettingsOverlay onClose={() => setIsSettingsOpen(false)} />
             )}

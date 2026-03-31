@@ -269,3 +269,64 @@
         height: 35px;
     }
 }
+
+@media (max-width: 480px) {
+    .Footer {
+        padding: 30px 0 0 0;
+    }
+
+    .container {
+        max-width: 95%;
+        padding: 0 12px;
+        gap: 24px;
+        margin-bottom: 24px;
+        width: 85%;
+    }
+
+    .phoneNumber {
+        font-size: 18px;
+    }
+
+    .email {
+        font-size: 16px;
+    }
+
+    .blockTitle {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .secondRowBlock ul {
+        gap: 8px;
+    }
+
+    .secondRowBlock ul li a {
+        font-size: 14px;
+    }
+
+    .item {
+        width: 30px;
+        height: 30px;
+    }
+
+    .socialLink {
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .rowSocials {
+        gap: 8px;
+    }
+
+    .hotlineText {
+        font-size: 14px;
+    }
+
+    .phoneContainer {
+        padding: 10px 14px;
+    }
+
+    .footerBottom p {
+        font-size: 12px;
+    }
+}

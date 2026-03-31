@@ -47,7 +47,7 @@ export default function MainPageCon1() {
                             <div className={styles.circle}></div>
                         </div>
                     </div>
-                    <div className={`${styles.box2} ${styles.box}`}>
+                    {/* <div className={`${styles.box2} ${styles.box}`}>
                         <div className={styles.topBlock}>
                             <p>Всі акції</p>
                         </div>
@@ -70,7 +70,7 @@ export default function MainPageCon1() {
                         <div className={styles.bottomBlock}>
                             <img src="images\propositions_logo.png" alt="" />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

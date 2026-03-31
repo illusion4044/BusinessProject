@@ -215,22 +215,37 @@
 }
 
 @media (max-width: 480px) {
-    .discount,
-    .recomendation {
-        font-size: 22px;
+    .GalleryItems {
+        margin-bottom: 30px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 12px;
     }
 
-    .buttonsGalleryOverlay span {
-        font-size: 13px;
+    .TopBlocks {
+        width: 95%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .discount,
+    .recomendation {
+        font-size: 20px;
+    }
+
+    .GalleryItem {
+        width: 95%;
+        gap: 12px;
+        padding: 10px 0;
     }
 
     .btnGalleryLeftGround,
     .btnGalleryRightGround {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
     }
 
-    .GalleryItem {
-        gap: 14px;
+    .buttonsGalleryOverlay span {
+        font-size: 12px;
     }
 }
