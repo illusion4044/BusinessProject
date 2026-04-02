@@ -138,27 +138,58 @@
 
 @media screen and (max-width: 1600px) {
     .LoginOverlayWindow {
-        width: 800px;
-        height: 590px;
-    }
-
-    .logoImg{ 
-        border-radius: 1rem;
-        font-size: 30px;
-        font-weight: bold;
-        margin-bottom: 27px;
+        width: 700px;
+        height: auto;
+        padding: 40px;
         margin-top: 20px;
     }
 
-    .loginBtn {
-        margin-bottom: 12px;
-        margin-top: 10px;
+    .RegisterOverlayWindow {
+        margin-top: 20px;
+        width: 700px;
+        height: auto;
+        padding: 40px;
     }
 
-    .enterWord{
-        font-size: 30px;
-        font-weight: bold;
-        margin-bottom: 40px;
+    .logoImg {
+        width: 150px;
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+
+    .enterWord {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .inputPhoneEmail,
+    .inputPassword,
+    .inputName {
+        width: 560px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .loginBlocks {
+        margin-bottom: 20px;
+    }
+
+    .loginBtn {
+        width: 200px;
+        height: 46px;
+        font-size: 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .registerTextBtn {
+        font-size: 18px;
+    }
+
+    .btnClose {
+        font-size: 40px;
+        top: 16px;
+        right: 20px;
     }
 }
 
