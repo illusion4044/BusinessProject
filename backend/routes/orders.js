@@ -4,42 +4,112 @@ import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// router.get("/my", authenticateToken, async (req, res) => {
+//     try {
+//         const userId = req.user.id;
+
+//         const [rows] = await db.query(`
+//         SELECT 
+//             o.id AS order_id,
+//             o.order_date,
+//             o.total_amount,
+//             o.status,
+//             u.name AS first_name,
+//             u.surname AS last_name,
+//             oi.product_id,
+//             oi.qty,
+//             oi.price_at_purchase,
+//             p.name,
+//             p.image
+//         FROM orders o
+//         JOIN users u ON o.user_id = u.id
+//         JOIN order_items oi ON o.id = oi.order_id
+//         JOIN products p ON oi.product_id = p.id
+//         WHERE o.user_id = ?
+//         ORDER BY o.id DESC
+//     `, [userId]);
+
+//         let user = null;
+//         const result = [];
+
+//         rows.forEach(row => {
+//             if (!user) {
+//                 user = {
+//                     firstName: row.first_name || "Ім'я",
+//                     lastName: row.last_name || "Прізвище"
+//                 };
+//             }
+
+//             let order = result.find(o => o.id === row.order_id);
+
+//             if (!order) {
+//                 order = {
+//                     id: row.order_id,
+//                     date: row.order_date,
+//                     total: row.total_amount,
+//                     status: row.status,
+//                     items: []
+//                 };
+//                 result.push(order);
+//             }
+
+//             order.items.push({
+//                 name: row.name,
+//                 price: row.price_at_purchase,
+//                 quantity: row.qty,
+//                 image: row.image
+//             });
+//         });
+
+//         res.json({
+//             user,
+//             orders: result
+//         });
+
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Помилка сервера" });
+//     }
+// });
+
+
 router.get("/my", authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
 
-        const [rows] = await db.query(`
-        SELECT 
-            o.id AS order_id,
-            o.order_date,
-            o.total_amount,
-            o.status,
-            u.name AS first_name,
-            u.surname AS last_name,
-            oi.product_id,
-            oi.qty,
-            oi.price_at_purchase,
-            p.name,
-            p.image
-        FROM orders o
-        JOIN users u ON o.user_id = u.id
-        JOIN order_items oi ON o.id = oi.order_id
-        JOIN products p ON oi.product_id = p.id
-        WHERE o.user_id = ?
-        ORDER BY o.id DESC
-    `, [userId]);
+        // 🔹 1. Отримуємо користувача окремо
+        const [[userRow]] = await db.query(
+            "SELECT name, surname FROM users WHERE id = ?",
+            [userId]
+        );
 
-        let user = null;
+        const user = {
+            firstName: userRow?.name || "Ім'я",
+            lastName: userRow?.surname || "Прізвище"
+        };
+
+        // 🔹 2. Отримуємо замовлення
+        const [rows] = await db.query(`
+            SELECT 
+                o.id AS order_id,
+                o.order_date,
+                o.total_amount,
+                o.status,
+                oi.product_id,
+                oi.qty,
+                oi.price_at_purchase,
+                p.name,
+                p.image
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN products p ON oi.product_id = p.id
+            WHERE o.user_id = ?
+            ORDER BY o.id DESC
+        `, [userId]);
+
         const result = [];
 
         rows.forEach(row => {
-            if (!user) {
-                user = {
-                    firstName: row.first_name,
-                    lastName: row.last_name
-                };
-            }
-
             let order = result.find(o => o.id === row.order_id);
 
             if (!order) {
@@ -97,6 +167,55 @@ router.post("/orders", authenticateToken, async (req, res) => {
         res.json({ success: true, orderId });
     } catch (err) {
         console.error(err);
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
+router.get("/profile", authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const [[user]] = await db.query(
+            "SELECT name, surname, email, number, gender FROM users WHERE id = ?",
+            [userId]
+        );
+
+        if (!user) return res.status(404).json({ message: "Користувача не знайдено" });
+
+        res.json({
+            firstName: user.name || "",
+            lastName: user.surname || "",
+            email: user.email || "",
+            phone: user.number || "",
+            gender: user.gender || "m"
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Помилка сервера" });
+    }
+});
+
+router.put("/profile", authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { firstName, lastName, phone, email, gender } = req.body;
+
+        await db.query(
+            `UPDATE users 
+                SET name = ?, surname = ?, number = ?, email = ?, gender = ?
+                WHERE id = ?`,
+            [
+                firstName || "",
+                lastName || "",
+                phone || null,
+                email || "",
+                gender || "m",
+                userId
+            ]
+        );
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Profile update error:", err);
         res.status(500).json({ message: "Помилка сервера" });
     }
 });

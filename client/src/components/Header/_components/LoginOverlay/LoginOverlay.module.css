@@ -1,61 +1,69 @@
-.LoginOverlayWindow{
+.LoginOverlayWindow {
     position: fixed;
     z-index: 10;
     margin: 0 auto;
     left: 0;
     right: 0;
-    top: 15%;
-    width: 952px;
-    height: 680px;
+    top: 50%;
+    transform: translateY(-50%);  /* ← центрування по вертикалі */
+    width: clamp(320px, 60vw, 952px);
+    height: auto;
+    max-height: 90vh;  /* ← не виходить за екран */
+    overflow-y: auto;
     background-color: white;
     border-radius: 2rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: clamp(20px, 4vh, 50px) clamp(20px, 4vw, 60px);
+    box-sizing: border-box;
 }
 
-.RegisterOverlayWindow{
+.RegisterOverlayWindow {
     position: fixed;
     z-index: 10;
     margin: 0 auto;
     left: 0;
     right: 0;
-    top: 12%;
-    width: 952px;
-    height: 750px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(320px, 60vw, 952px);
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
     background-color: white;
     border-radius: 2rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: clamp(20px, 4vh, 50px) clamp(20px, 4vw, 60px);
+    box-sizing: border-box;
 }
 
-.logoImg{ 
+.logoImg {
     border-radius: 1rem;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 27px;
+    width: clamp(100px, 12vw, 180px);
+    height: auto;
+    margin-bottom: clamp(12px, 2vh, 27px);
 }
 
-.btnClose{
+.btnClose {
     height: 25px;
     width: 27px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    font-size: 50px;
+    font-size: clamp(32px, 4vw, 50px);
     font-weight: 200;
-    top: 20px;
-    right: 25px;
+    top: 16px;
+    right: 20px;
     cursor: pointer;
 }
 
-.blurOverlay{
+.blurOverlay {
     position: fixed;
     top: 0;
     z-index: 9;
@@ -64,60 +72,61 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.enterWord{
-    font-size: 38px;
+.enterWord {
+    font-size: clamp(20px, 3vw, 38px);
     font-weight: bold;
-    margin-bottom: 55px;
+    margin-bottom: clamp(16px, 3vh, 55px);
+    text-align: center;
 }
 
 .loginInputs,
-.loginBlocks{
-    /* height: 196px; */
+.loginBlocks {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
 }
 
-.loginBlocks{
-    margin-bottom: 32px;
+.loginBlocks {
+    margin-bottom: clamp(12px, 2vh, 32px);
 }
 
-.marginText{
-    margin: 0px 0px 12px 11px;
+.marginText {
+    margin: 0 0 8px 8px;
+    font-size: clamp(12px, 1.2vw, 16px);
 }
 
 .inputPhoneEmail,
 .inputPassword,
-.inputName{
-    width: 708px;
-    height: 47px;
+.inputName {
+    width: 100%;
+    height: clamp(40px, 5vh, 52px);
     border-radius: 1rem;
     border: none;
     outline: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     padding-left: 20px;
-    font-size: 18px;
+    font-size: clamp(14px, 1.5vw, 18px);
     font-weight: 400;
+    box-sizing: border-box;
 }
 
 .loginBtn {
-    width: 217px;
-    height: 49px;
+    width: clamp(160px, 20vw, 217px);
+    height: clamp(42px, 5vh, 52px);
     background-color: #8A38F5;
     border-radius: 1rem;
     font-weight: 500;
-    font-size: 24px;
+    font-size: clamp(16px, 2vw, 24px);
     color: #ffffff;
-    padding: 0rem 1.5rem 0rem 1.5rem;
-    border: 1px #b18597;
-    transition: transform 0.2s;
-    transform-style: preserve-3d;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-bottom: 27px;
-    margin-top: 20px;
+    margin-bottom: clamp(12px, 2vh, 27px);
+    margin-top: clamp(8px, 2vh, 20px);
 }
 
 .loginBtn:hover {
@@ -125,133 +134,56 @@
     transform: translate(0, 0.15em);
 }
 
-.registerTextBtn{
+.registerTextBtn {
     color: #8A38F5;
-    font-size: 20px;
+    font-size: clamp(14px, 1.5vw, 20px);
+    cursor: pointer;
 }
 
-.registerTextBtn:hover{
+.registerTextBtn:hover {
     color: #682db5;
-    cursor: pointer;
     text-decoration: underline;
 }
 
-@media screen and (max-width: 1600px) {
-    .LoginOverlayWindow {
-        width: 700px;
-        height: auto;
-        padding: 40px;
-        margin-top: 20px;
-    }
-
+/* ===== Вертикальні медіа ===== */
+@media (max-height: 700px) {
+    .LoginOverlayWindow,
     .RegisterOverlayWindow {
-        margin-top: 20px;
-        width: 700px;
-        height: auto;
-        padding: 40px;
+        top: 10px;
+        transform: none;
+        max-height: calc(100vh - 20px);
     }
 
     .logoImg {
-        width: 150px;
-        margin-bottom: 20px;
-        margin-top: 0;
+        width: 80px;
+        margin-bottom: 8px;
     }
 
     .enterWord {
-        font-size: 24px;
-        margin-bottom: 30px;
-    }
-
-    .inputPhoneEmail,
-    .inputPassword,
-    .inputName {
-        width: 560px;
-        height: 44px;
-        font-size: 16px;
+        font-size: 18px;
+        margin-bottom: 12px;
     }
 
     .loginBlocks {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .loginBtn {
-        width: 200px;
-        height: 46px;
-        font-size: 20px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-    }
-
-    .registerTextBtn {
-        font-size: 18px;
-    }
-
-    .btnClose {
-        font-size: 40px;
-        top: 16px;
-        right: 20px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        height: 38px;
     }
 }
 
 @media (max-width: 480px) {
     .LoginOverlayWindow,
     .RegisterOverlayWindow {
-        width: 85%;
-        height: auto;
-        top: 10%;
-        padding: 24px 20px;
+        width: 92%;
         border-radius: 1.2rem;
-    }
-
-    .logoImg {
-        width: 120px;
-        margin-bottom: 16px;
-    }
-
-    .enterWord {
-        font-size: 22px;
-        margin-bottom: 24px;
-        text-align: center;
-    }
-
-    .inputPhoneEmail,
-    .inputPassword,
-    .inputName {
-        width: 100%;
-        height: 42px;
-        font-size: 15px;
-        box-sizing: border-box;
-    }
-
-    .loginBlocks {
-        margin-bottom: 16px;
-        width: 100%;
-    }
-
-    .loginInputs {
-        width: 100%;
-    }
-
-    .marginText {
-        font-size: 13px;
-        margin-left: 6px;
+        padding: 20px 16px;
     }
 
     .loginBtn {
         width: 100%;
-        font-size: 18px;
-        height: 44px;
-        margin-top: 12px;
-        margin-bottom: 16px;
-    }
-
-    .registerTextBtn {
-        font-size: 16px;
-    }
-
-    .btnClose {
-        font-size: 36px;
-        top: 12px;
-        right: 16px;
     }
 }

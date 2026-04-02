@@ -16,44 +16,30 @@ export default function CustomerProfile() {
         lastName: "",
         phone: "",
         email: "",
-        gender: "m"
+        gender: "male"
     });
     const [statusMessage, setStatusMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const saved = localStorage.getItem("profile");
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                setProfile((prev) => ({ ...prev, ...parsed }));
-            } catch (err) {
-                console.error("Не вдалося розпарсити profile з localStorage", err);
-            }
-        }
-
         const token = localStorage.getItem("token");
-        if (token) {
-            fetch("http://localhost:3001/my", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.user) {
-                        setProfile((prev) => ({
-                            ...prev,
-                            firstName: data.user.firstName || prev.firstName,
-                            lastName: data.user.lastName || prev.lastName,
-                        }));
-                    }
-                })
-                .catch((err) => {
-                    console.warn("Не вдалося отримати дані профілю з /my", err);
+        if (!token) return;
+
+        fetch("http://localhost:3001/profile", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setProfile({
+                    firstName: data.firstName || "",
+                    lastName: data.lastName || "",
+                    phone: data.phone || "",
+                    email: data.email || "",
+                    gender: data.gender || "m",
                 });
-        }
+            })
+            .catch((err) => console.error("Помилка завантаження профілю:", err));
     }, []);
 
     const handleChange = (field) => (event) => {
@@ -71,22 +57,17 @@ export default function CustomerProfile() {
         setStatusMessage("");
 
         try {
-            const profileData = { ...profile };
-            localStorage.setItem("profile", JSON.stringify(profileData));
-
             const token = localStorage.getItem("token");
-            if (token) {
-                await fetch("http://localhost:3001/profile", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(profileData),
-                }).catch(() => {
+            const res = await fetch("http://localhost:3001/profile", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(profile),
+            });
 
-                });
-            }
+            if (!res.ok) throw new Error("Помилка збереження");
 
             setStatusMessage("Дані успішно збережено");
         } catch (err) {

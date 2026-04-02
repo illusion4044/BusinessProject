@@ -43,6 +43,11 @@ export default function LoginOverlay({ onClose }) {
 
             localStorage.setItem("token", data.token);
             localStorage.setItem("role", data.role);
+            if (data.name) {
+                const parts = data.name.trim().split(" ");
+                localStorage.setItem("firstName", parts[0] || "");
+                localStorage.setItem("lastName", parts[1] || "");
+            }
 
             onClose();
 
@@ -98,6 +103,11 @@ export default function LoginOverlay({ onClose }) {
 
             localStorage.setItem("token", data.token);
             localStorage.setItem("role", data.role);
+            if (data.name) {
+                const parts = data.name.trim().split(" ");
+                localStorage.setItem("firstName", parts[0] || "");
+                localStorage.setItem("lastName", parts[1] || "");
+            }
 
             alert(data.message || "Реєстрація успішна!");
             onClose();

@@ -195,13 +195,13 @@ export default function Header({ onCartOpen }) {
                 </div>
 
                 {isMobileMenuOpen && (
-                    <div 
-                        className={styles.mobileMenu} 
+                    <div
+                        className={styles.mobileMenu}
                         ref={mobileMenuRef}
                         onTouchStart={handleTouchStart}
                         onTouchEnd={handleTouchEnd}
                     >
-                        <div className={styles.mobileSearch} ref={searchRef}>
+                        <div className={styles.mobileSearch}>
                             <img src="/images/Search.png" alt="search" className={styles.searchIcon} />
                             <input
                                 type="text"
@@ -210,6 +210,35 @@ export default function Header({ onCartOpen }) {
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
                             />
+                            {/* ← додай дропдаун сюди */}
+                            {(searchResults.length > 0 || searchLoading) && (
+                                <div className={styles.searchDropdown}>
+                                    {searchLoading ? (
+                                        <div className={styles.searchLoading}>Завантаження...</div>
+                                    ) : searchResults.map(product => (
+                                        <div
+                                            key={product.id}
+                                            className={styles.searchItem}
+                                            onClick={() => {
+                                                setSearchQuery("");
+                                                setSearchResults([]);
+                                                setIsMobileMenuOpen(false);
+                                                navigate(`/product/${product.id}`);
+                                            }}
+                                        >
+                                            <img
+                                                src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
+                                                alt={product.name}
+                                                className={styles.searchItemImage}
+                                            />
+                                            <div className={styles.searchItemInfo}>
+                                                <span className={styles.searchItemName}>{product.name}</span>
+                                                <span className={styles.searchItemPrice}>{product.price}₴</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <div className={styles.mobileLinks}>
                             <span onClick={() => { navigate("/catalogue"); setIsMobileMenuOpen(false); }}>Каталог</span>

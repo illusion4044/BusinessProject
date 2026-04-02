@@ -1,193 +1,140 @@
-body{
+body {
     background-color: white;
 }
 
-.mainPageCon1{
-    margin-top: 194px;
-    height: 714px;
-}
-
-.wrapperGalleryBlock {
+.mainPageCon1 {
     margin-top: 97px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-auto-rows: 70px;
-    grid-row-gap: 1em;
+    /* padding: clamp(60px, 8vw, 30px); */
+    padding: clamp(10px, 5vw, 80px);
+    box-sizing: border-box;
 }
 
-.box{
-    background-color: rgba(255, 255, 255, 0.543);
-    border-radius: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.box1 {
-    grid-column-start: 2;
-    grid-column-end: 7;
-    grid-row-start: 1;
-    grid-row-end: 7;
+.carousel {
     position: relative;
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    border-radius: clamp(0.75rem, 2vw, 2rem);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    background: #e8e8e8;
+    aspect-ratio: 16 / 6;
 }
 
-.box1 img{
+.slidesWrapper {
     width: 100%;
     height: 100%;
-    border-radius: 2rem;
+    position: relative;
 }
 
-.box2 {
-    grid-column-start: 8;
-    grid-column-end: 10;
-    grid-row-start: 1;
-    grid-row-end: 3;
-
-    display: flex;
-    flex-direction: column;
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
 }
 
-.topBlock{
-    height: 50%;
-    font-size: 24px;  
-    font-weight: 600; 
+.slideActive {
+    opacity: 1;
 }
 
-.topBlock p {
-    padding-left: 35px;
-    padding-top: 5px;
-}
-
-.bottomBlock{
+.slideImg {
     width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.bottomBlock img {
-    padding-right: 20px;
-    padding-bottom: 20px;
-}
-
-.box3 {
-    grid-column-start: 8;
-    grid-column-end: 10;
-    grid-row-start: 3;
-    grid-row-end: 5;
-
-    display: flex;
-    flex-direction: column;
-}
-.box4 {
-    grid-column-start: 8;
-    grid-column-end: 10;
-    grid-row-start: 5;
-    grid-row-end: 7;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.btnGalleryLeftGround,
-.btnGalleryRightGround{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    width: 55px;
-    height: 55px;
-    background-color: rgba(248, 248, 248, 0.521);
-    transition: transform 0.2s;
-}
-
-.buttonsConOverlay{
-    position: absolute;
-    display: flex;
-    width: 98%;
     height: 100%;
-    justify-content: space-between;
-    align-items: center;
+    object-fit: cover;
 }
 
-.btnGalleryLeftGround:hover,
-.btnGalleryRightGround:hover{
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transform: translate(0, 0.15em);
-}
-
-.btnsGallery{
-    border: none;
-    background-color: transparent;
-}
-
-.rounded{
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
+/* Кнопки */
+.btnLeft,
+.btnRight {
     position: absolute;
-    bottom: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(30px, 4vw, 55px);
+    height: clamp(30px, 4vw, 55px);
+    background: rgba(248, 248, 248, 0.7);
+    border-radius: clamp(0.5rem, 1vw, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
 }
 
-.circle{
-    width: 15px;
-    height: 15px;
-    border-radius: 2rem;
-    background-color: rgb(255, 255, 255);
+.btnLeft {
+    left: clamp(8px, 2vw, 20px);
+}
+
+.btnRight {
+    right: clamp(8px, 2vw, 20px);
+}
+
+.btnLeft:hover,
+.btnRight:hover {
+    background: rgba(255,255,255,0.95);
+    transform: translateY(-50%) scale(1.07);
+}
+
+.btnLeft img,
+.btnRight img {
+    width: clamp(14px, 2vw, 26px);
+    height: clamp(14px, 2vw, 26px);
+}
+
+/* Dots */
+.dots {
+    position: absolute;
+    bottom: clamp(8px, 2vh, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: clamp(5px, 1vw, 10px);
+    z-index: 2;
+}
+
+.dot {
+    width: clamp(8px, 1.2vw, 15px);
+    height: clamp(8px, 1.2vw, 15px);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.dotActive {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* ===== MEDIA ===== */
+@media (max-width: 1024px) {
+    .mainPageCon1{
+        height: 320px;
+    }
+    .carousel {
+        aspect-ratio: 16 / 7;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainPageCon1{
+        height: 220px;
+    }
+    .carousel {
+        aspect-ratio: 16 / 8;
+    }
 }
 
 @media (max-width: 480px) {
-    .mainPageCon1 {
-        margin-top: 100px;
-        height: auto;
+    .mainPageCon1{
+        height: 320px;
     }
-
-    .wrapperGalleryBlock {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 0 12px;
+    .carousel {
+        aspect-ratio: 16 / 9;
     }
+}
 
-    .box1 {
-        height: 200px;
-        border-radius: 1rem;
-    }
-
-    .box2, .box3, .box4 {
-        height: 80px;
-        border-radius: 1rem;
-    }
-
-    .topBlock {
-        font-size: 16px;
-    }
-
-    .topBlock p {
-        padding-left: 16px;
-        padding-top: 8px;
-    }
-
-    .bottomBlock img {
-        width: 50px;
-        padding-right: 12px;
-        padding-bottom: 12px;
-    }
-
-    .btnGalleryLeftGround,
-    .btnGalleryRightGround {
-        width: 36px;
-        height: 36px;
-    }
-
-    .circle {
-        width: 10px;
-        height: 10px;
-    }
-
-    .rounded {
-        bottom: 12px;
+@media (max-height: 600px) {
+    .carousel {
+        aspect-ratio: 16 / 5;
     }
 }

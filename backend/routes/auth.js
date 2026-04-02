@@ -41,7 +41,9 @@ router.post("/login", async (req, res) => {
             message: "Успішний вхід!",
             token,
             role: user.role,
-            userId: user.id
+            userId: user.id,
+            name: user.name,
+            surname: user.surname || ""
         });
     } catch (err) {
         console.error("Login error:", err);
@@ -82,8 +84,8 @@ router.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const [result] = await db.query(
-            "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)",
-            [name.trim(), email.toLowerCase().trim(), hashedPassword, "user"]
+            "INSERT INTO users (name, surname, email, password, role) VALUES (?, ?, ?, ?, ?)",
+            [name.trim(), "", email.toLowerCase().trim(), hashedPassword, "user"]
         );
 
         const userId = result.insertId;
@@ -101,7 +103,8 @@ router.post("/register", async (req, res) => {
             message: "Реєстрація успішна!",
             token,
             role: "user",
-            userId: userId
+            userId: userId,
+            name: name.trim() 
         });
 
     } catch (err) {

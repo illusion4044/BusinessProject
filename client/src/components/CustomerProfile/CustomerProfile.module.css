@@ -1,8 +1,9 @@
 .profileContainer {
     background-color: #ffffff;
-    padding: 30px;
-    padding-top: 120px;
+    padding: clamp(12px, 3vw, 30px);
+    padding-top: clamp(80px, 10vw, 120px);
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .profileWrapper {
@@ -10,40 +11,45 @@
     margin: 0 auto;
     background: #f1ebf5;
     border-radius: 12px;
-    padding: 20px;
+    padding: clamp(12px, 2vw, 20px);
 }
 
 .userPanel {
     background: #ffffff;
     border-radius: 10px;
-    padding: 18px 25px;
+    padding: clamp(12px, 2vw, 18px) clamp(16px, 2.5vw, 25px);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .userInfo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-right: 40px;
+    gap: 10px;
+    margin-right: clamp(16px, 3vw, 40px);
+    flex-shrink: 0;
 }
 
 .userInfo img {
-    width: 48px;
-    height: 48px;
+    width: clamp(32px, 4vw, 48px);
+    height: clamp(32px, 4vw, 48px);
 }
 
 .userInfo span {
-    font-size: 20px;
+    font-size: clamp(14px, 2vw, 20px);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .userActions {
     display: flex;
-    gap: 30px;
-    width: 100%;
+    gap: clamp(10px, 2vw, 30px);
     align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
 }
 
 .navBtn {
@@ -51,17 +57,18 @@
     border: none;
     cursor: pointer;
     border-left: 1px solid #ccc;
-    padding-left: 15px;
-    font-size: 17px;
+    padding-left: clamp(8px, 1.5vw, 15px);
+    font-size: clamp(13px, 1.5vw, 17px);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     position: relative;
+    white-space: nowrap;
 }
 
 .navBtn img {
-    width: 20px;
-    height: 20px;
+    width: clamp(16px, 2vw, 20px);
+    height: clamp(16px, 2vw, 20px);
 }
 
 .active {
@@ -86,13 +93,13 @@
 .profileCard {
     background: #ffffff;
     border-radius: 12px;
-    padding: 25px;
+    padding: clamp(16px, 3vw, 25px);
 }
 
 .profileCard h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: clamp(18px, 2.5vw, 24px);
 }
 
 .form {
@@ -118,7 +125,7 @@
     border: none;
     border-bottom: 2px solid #ccc;
     background: transparent;
-    font-size: 16px;
+    font-size: clamp(14px, 1.5vw, 16px);
     outline: none;
 }
 
@@ -160,6 +167,7 @@
 .statusMessage {
     color: #333;
     margin-top: 6px;
+    font-size: clamp(13px, 1.5vw, 15px);
 }
 
 .saveBtn {
@@ -170,8 +178,8 @@
     border: none;
     color: #fff;
     border-radius: 10px;
-    height: 42px;
-    font-size: 16px;
+    height: clamp(38px, 4vw, 42px);
+    font-size: clamp(14px, 1.5vw, 16px);
     font-weight: 700;
     cursor: pointer;
     padding: 0 18px;
@@ -194,17 +202,84 @@
     transform: none;
 }
 
+/* ===== 768px ===== */
 @media (max-width: 768px) {
     .row {
         grid-template-columns: 1fr;
     }
 
-    .userPanel {
-        flex-wrap: wrap;
-        gap: 12px;
+    .userInfo {
+        margin-right: 0;
     }
 
     .userActions {
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .saveBtn {
+        width: 100%;
+        align-self: stretch;
+    }
+}
+
+/* ===== 480px ===== */
+@media (max-width: 480px) {
+    .profileContainer {
+        padding-top: 80px;
+        padding: 10px;
+        padding-top: 80px;
+    }
+
+    .userPanel {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .userInfo {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .userActions {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .navBtn {
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-left: 0;
+        padding-top: 8px;
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .active::after {
+        display: none;
+    }
+
+    .logout {
+        margin-left: 0;
+        width: 100%;
+        border-top: 1px solid #eee;
+        padding-top: 8px;
+    }
+
+    .profileCard {
+        padding: 16px;
+    }
+
+    .profileCard h2 {
+        font-size: 18px;
+    }
+
+    .saveBtn {
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
     }
 }
