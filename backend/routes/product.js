@@ -54,7 +54,7 @@ router.get("/products/search", async (req, res) => {
             SELECT id, name, price, image,
             CASE
                 WHEN name LIKE ? THEN 1
-                WHEN name LIKE ? THEN 2discountgallery
+                WHEN name LIKE ? THEN 2
                 ELSE 3
             END AS relevance
             FROM products
