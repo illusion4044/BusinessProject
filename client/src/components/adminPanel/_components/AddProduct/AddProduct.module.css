@@ -167,6 +167,20 @@
     background: #e63a3a;
 }
 
+.pricePreview {
+    padding: 8px 12px;
+    background: #f0eaff;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.oldPrice {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 6px;
+}
+
 /* Медиазапросы */
 @media (max-width: 900px) {
     .BlockItems {

@@ -35,7 +35,7 @@ router.get("/discountgallery", async (req, res) => {
             FROM products
             WHERE discount > 0
             ORDER BY discount DESC
-            LIMIT 15
+            LIMIT 40
         `);
 
         res.status(200).json(rows);
@@ -54,7 +54,7 @@ router.get("/products/search", async (req, res) => {
             SELECT id, name, price, image,
             CASE
                 WHEN name LIKE ? THEN 1
-                WHEN name LIKE ? THEN 2
+                WHEN name LIKE ? THEN 2discountgallery
                 ELSE 3
             END AS relevance
             FROM products

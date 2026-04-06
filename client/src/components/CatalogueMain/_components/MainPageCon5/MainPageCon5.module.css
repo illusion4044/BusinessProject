@@ -56,7 +56,7 @@
 @media (max-width: 1440px) {
     .mainPageCon5 {
         height: auto;
-        padding: 60px 20px;
+        padding: 60px 0px 70px 0px;
     }
 
     .title {
@@ -93,6 +93,18 @@
     .ReflexImg {
         width: 420px;
         height: 260px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .ReflexText {
+        width: 320px;
+        font-size: 18px;
+    }
+
+    .ReflexImg {
+        width: 320px;
+        height: 160px;
     }
 }
 

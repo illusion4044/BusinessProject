@@ -249,7 +249,6 @@
 }
 
 .mobileMenu {
-    display: flex;
     width: 100%;
     background: #774A8D;
     padding: 12px 16px 16px;
@@ -257,6 +256,7 @@
     gap: 12px;
     border-top: 1px solid rgba(255,255,255,0.15);
     animation: slideDown 0.2s ease;
+    display: none;
 }
 
 @keyframes slideDown {
@@ -307,48 +307,61 @@
         padding: 10px 0;
     }
 
+    .mobileMenu {
+        display: flex;
+    }
+
     .headerItems {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         width: 95%;
         gap: 8px;
+        justify-content: space-between;
     }
 
     .Logo {
         height: 50px;
-        width: 100px;
+        width: clamp(80px, 12vw, 120px);
+        flex-shrink: 0;
     }
 
     .searchContainer {
-        order: 3;
-        max-width: 100%;
-        width: 100%;
-        flex: unset;
+        display: none;
     }
 
     .rightBtnCon {
         gap: 6px;
+        flex-shrink: 0;
     }
 
     .btnSignUp,
     .btnCart,
     .btnCustomer {
         min-width: unset;
-        padding: 0 10px;
-        font-size: 12px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .btnCart span,
-    .btnCustomer span,
-    .btnSignUp span {
+    .btnText {
         display: none;
     }
-}
 
-.btnCart {
-    position: relative;
-}
+    .icon {
+        margin-right: 0;
+    }
 
+    .catalogueWrap {
+        display: none;
+    }
+
+    .burgerBtn {
+        display: flex;
+    }
+}
 
 @media (max-width: 480px) {
     .mainHeader {
@@ -363,9 +376,7 @@
     }
 
     .mobileMenu {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 12px 16px 16px;
+        display: flex;
     }
 
     .headerItems {
@@ -379,28 +390,12 @@
         align-items: center;
     }
 
-    .burgerBtn {
-        display: flex;
-    }
-
-    .catalogueWrap {
-        display: none;
-    }
-
-    .searchContainer {
-        display: none;
-    }
-
     .Logo {
         height: 44px;
         width: 100px;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-    }
-
-    .btnText {
-        display: none;
     }
 
     .adminBtn {
@@ -410,14 +405,8 @@
     .btnSignUp,
     .btnCart,
     .btnCustomer {
-        min-width: unset;
         width: 42px;
         height: 42px;
-        padding: 0;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .rightBtnCon {
@@ -426,9 +415,13 @@
     }
 
     .icon {
-        margin-right: 0;
         width: 22px;
         height: 22px;
     }
 
+    .mobileMenu {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 16px 16px;
+    }
 }

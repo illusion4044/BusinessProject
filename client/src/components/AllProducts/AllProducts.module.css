@@ -297,3 +297,97 @@
 .scrollTopBtn:active {
     transform: translateY(0);
 }
+
+.mobileFilterBtn {
+    display: none;
+}
+
+.filterToggleBtn {
+    background: white;
+    border: 1.5px solid #d4b8e8;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #3d1f54;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.filterToggleBtn:hover {
+    border-color: #774A8D;
+    background: #faf4ff;
+}
+
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: 20px 4%;
+        margin-top: 70px;
+    }
+
+    .title {
+        font-size: 26px;
+        margin-bottom: 16px;
+    }
+
+    .contentRow {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .mobileFilterBtn {
+        display: flex;
+        margin-bottom: 8px;
+    }
+
+    .filterPanel {
+        width: 100%;
+        position: static;
+        max-height: none;
+        border-radius: 12px;
+        display: none; /* ховаємо за замовчуванням на мобільному */
+    }
+
+    .filterPanel.open {
+        display: flex;
+    }
+
+    .grid {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pageContainer {
+        padding: 12px 3%;
+        margin-top: 70px;
+    }
+
+    .title {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .sortContainer {
+        justify-content: flex-start;
+    }
+
+    .sortBtn {
+        font-size: 13px;
+        padding: 7px 14px;
+    }
+
+    .scrollTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+}

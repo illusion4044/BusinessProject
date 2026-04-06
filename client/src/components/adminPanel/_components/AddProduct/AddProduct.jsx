@@ -32,7 +32,7 @@ export default function AddProduct ({ setActivePage }) {
         formData.append("seller", state.seller);
         formData.append("unit", state.unit || "шт");
         formData.append("category_id", state.category_id || "");
-
+        formData.append("discount", state.discount || 0);
         if (image) {
             formData.append("image", image);
         }
@@ -147,10 +147,31 @@ export default function AddProduct ({ setActivePage }) {
                         />
                     </div>
 
-                    <input
+                    {/* <input
                         className={styles.input || ""}
                         placeholder="Акційна ціна"
-                    />
+                    /> */}
+
+                    <div className={styles.row}>
+                        <input className={styles.smallInput} placeholder="Ціна (грн)"
+                            value={state.price || ""}
+                            onChange={e => setField("price", e.target.value)}
+                        />
+                        <input className={styles.smallInput} placeholder="Знижка (%)"
+                            type="number"
+                            min="0"
+                            max="99"
+                            value={state.discount || ""}
+                            onChange={e => setField("discount", e.target.value)}
+                        />
+                    </div>
+
+                    {state.price && state.discount > 0 && (
+                        <div className={styles.pricePreview}>
+                            Акційна ціна: <b>{Math.round(state.price * (1 - state.discount / 100))}₴</b>
+                            <span className={styles.oldPrice}> {state.price}₴</span>
+                        </div>
+                    )}
 
                     <button 
                         className={styles.saveBtn}

@@ -7,7 +7,8 @@ export default function ListCardProduct ({ product, onEdit, onDelete, setActiveP
     const [form, setForm] = useState({
         name: product.name,
         price: product.price,
-        qty: product.qty
+        qty: product.qty,
+        discount: product.discount || 0  // ← додай
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -63,29 +64,32 @@ export default function ListCardProduct ({ product, onEdit, onDelete, setActiveP
                     <input
                         type="number"
                         value={form.price}
-                        onChange={e =>
-                            setForm({ ...form, price: e.target.value })
-                        }
+                        onChange={e => setForm({ ...form, price: e.target.value })}
                     />
                 ) : (
                     <span> {product.price} грн</span>
                 )}
             </div>
 
-            {/* <div className={styles.blockDiscountPrice}>
-                Акційна ціна:
+            <div className={styles.blockDiscountPrice}>
+                Знижка:
                 {isEditing ? (
                     <input
                         type="number"
-                        value={form.price}
-                        onChange={e =>
-                            setForm({ ...form, price: e.target.value })
-                        }
+                        min="0"
+                        max="99"
+                        value={form.discount || ""}
+                        onChange={e => setForm({ ...form, discount: e.target.value })}
                     />
+                ) : Number(product.discount) > 0 ? (
+                    <span>
+                        {" "}{Math.round(product.price * (1 - Number(product.discount) / 100))} грн
+                        <span style={{ color: "#774A8D", marginLeft: 6 }}>-{Math.round(Number(product.discount))}%</span>
+                    </span>
                 ) : (
-                    <span> {product.price} грн</span>
+                    <span style={{ color: "#aaa" }}> немає</span>
                 )}
-            </div> */}
+            </div>
 
             <div className={styles.blockQty}>
                 Кількість:

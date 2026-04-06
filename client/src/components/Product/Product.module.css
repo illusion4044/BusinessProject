@@ -64,6 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    min-width: 0;
 }
 
 .productName {
@@ -129,7 +130,7 @@
     height: 24px;
 }
 
-/* ===== ОПИС (СКРОЛ + ФІКС РОЗМІР) ===== */
+/* ===== ОПИС ===== */
 .section {
     margin-top: 10px;
     padding-top: 12px;
@@ -144,7 +145,6 @@
     margin: 0 0 10px;
 }
 
-/* ОПИС З СКРОЛОМ */
 .sectionText {
     font-size: 14px;
     font-weight: 400;
@@ -152,17 +152,13 @@
     color: #777;
     line-height: 1.7;
     margin: 0;
-
     width: 513px;
     max-height: 376px;
-
     overflow-y: auto;
     overflow-x: hidden;
-
     word-break: break-word;
 }
 
-/* красивий скрол */
 .sectionText::-webkit-scrollbar {
     width: 6px;
 }
@@ -192,7 +188,7 @@
     color: #1a1a1a;
 }
 
-/* ===== ТАБЛИЦЯ (ОДНАКОВИЙ СІРИЙ ТЕКСТ) ===== */
+/* ===== ТАБЛИЦЯ ===== */
 .infoTable {
     width: 100%;
     border-collapse: collapse;
@@ -323,4 +319,431 @@
     height: calc(100vh - 97px);
     font-size: 22px;
     color: #774a8d;
+}
+
+/* ===== АДАПТИВ 1280px — Nest Hub / малі ноутбуки ===== */
+@media (max-width: 1280px) {
+    .productBlock {
+        width: 90%;
+        gap: 40px;
+        padding: 24px;
+    }
+
+    .imageWrap {
+        width: 420px;
+        height: 420px;
+        flex-shrink: 0;
+    }
+
+    .productName {
+        font-size: 22px;
+    }
+
+    .priceNow {
+        font-size: 30px;
+    }
+
+    .priceOld {
+        font-size: 18px;
+    }
+
+    .priceRow {
+        gap: 30px;
+    }
+
+    .sectionText {
+        width: 100%;
+    }
+
+    .detailsBlock {
+        width: 90%;
+    }
+
+    .similarSection {
+        width: 90%;
+    }
+}
+
+/* ===== АДАПТИВ 1024px — iPad ===== */
+@media (max-width: 1024px) {
+    .main {
+        margin-top: 110px;
+        padding: 20px 0 50px;
+    }
+
+    .breadcrumb {
+        width: 90%;
+        font-size: 13px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
+    .productBlock {
+        width: 90%;
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .imageWrap {
+        width: 100%;
+        height: 380px;
+    }
+
+    .infoBlock {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .productName {
+        font-size: 22px;
+        word-break: break-word;
+    }
+
+    .priceRow {
+        gap: 40px;
+        justify-content: flex-start;
+    }
+
+    .priceNow {
+        font-size: 30px;
+    }
+
+    .priceOld {
+        font-size: 18px;
+    }
+
+    .cartBtn {
+        width: 160px;
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .sectionTitle {
+        font-size: 18px;
+    }
+
+    .sectionText {
+        width: 100%;
+        font-size: 14px;
+        max-height: 200px;
+    }
+
+    .detailsBlock {
+        width: 90%;
+        gap: 30px;
+        padding: 24px;
+    }
+
+    .similarSection {
+        width: 90%;
+        padding: 24px;
+        margin-top: 24px;
+    }
+
+    .similarTitle {
+        font-size: 20px;
+    }
+
+    .btnScrollLeft,
+    .btnScrollRight {
+        width: 44px;
+        height: 44px;
+    }
+
+    .similarGrid {
+        gap: 30px;
+    }
+}
+
+/* ===== АДАПТИВ 480px ===== */
+@media (max-width: 480px) {
+    .main {
+        margin-top: 70px;
+        padding: 12px 0 40px;
+    }
+
+    .breadcrumb {
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+        font-size: 12px;
+        flex-wrap: wrap;
+    }
+
+    .productBlock {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .imageWrap {
+        width: 100%;
+        height: 260px;
+    }
+
+    .infoBlock {
+        gap: 0;
+        padding-top: 20px;
+        width: 100%;
+    }
+
+    .productName {
+        font-size: 16px;
+        margin-bottom: 20px;
+        word-break: break-word;
+        padding-right: 16px;
+    }
+
+    .priceRow {
+        justify-content: center;
+        gap: 60px;
+        margin-bottom: 20px;
+    }
+
+    .priceNow {
+        font-size: 22px;
+    }
+
+    .priceOld {
+        font-size: 13px;
+    }
+
+    .cartBtn {
+        width: 130px;
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .cartBtn img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .section {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        margin-bottom: 20px;
+    }
+
+    .sectionTitle {
+        font-size: 15px;
+    }
+
+    .sectionText {
+        width: 100%;
+        max-height: 160px;
+        font-size: 13px;
+    }
+
+    .detailsBlock {
+        width: 100%;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .tdLabel,
+    .tdValue {
+        font-size: 13px;
+    }
+
+    .similarSection {
+        width: 100%;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .similarHeader {
+        margin-bottom: 16px;
+    }
+
+    .similarTitle {
+        font-size: 16px;
+    }
+
+    .similarControls {
+        gap: 12px;
+    }
+
+    .btnScrollLeft,
+    .btnScrollRight {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+    }
+
+    .similarGrid {
+        gap: 24px;
+    }
+}
+
+/* ===== АДАПТИВ 392px ===== */
+@media (max-width: 392px) {
+    .main {
+        margin-top: 80px;
+        padding: 0 0 40px;
+    }
+
+    .breadcrumb {
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        margin-top: 16px;
+        font-size: 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .productBlock {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 39px 16px 16px;
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+        background: #fff;
+        margin-top: 16px;
+    }
+
+    .imageWrap {
+        width: 100%;
+        height: 240px;
+    }
+
+    .infoBlock {
+        gap: 0;
+        padding-top: 28px;
+        width: 100%;
+    }
+
+    .productName {
+        font-size: 15px;
+        font-weight: 700;
+        margin-right: 16px;
+        margin-bottom: 35px;
+        word-break: break-word;
+        line-height: 1.4;
+        padding-right: 0;
+    }
+
+    .priceRow {
+        justify-content: center;
+        align-items: center;
+        gap: 89px;
+        flex-wrap: nowrap;
+        margin-bottom: 30px;
+    }
+
+    .priceBlock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .priceNow {
+        font-size: 20px;
+    }
+
+    .priceOld {
+        font-size: 12px;
+    }
+
+    .cartBtn {
+        width: 120px;
+        height: 42px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .cartBtn img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .section {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        margin-bottom: 30px;
+    }
+
+    .sectionTitle {
+        font-size: 14px;
+    }
+
+    .sectionText {
+        width: 100%;
+        max-height: 150px;
+        font-size: 13px;
+    }
+
+    .detailsBlock {
+        width: 100%;
+        flex-direction: column;
+        gap: 13px;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+        margin-top: 0;
+    }
+
+    .tdLabel,
+    .tdValue {
+        font-size: 13px;
+        padding: 7px 0;
+    }
+
+    .similarSection {
+        width: 100%;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+        margin-top: 60px;
+    }
+
+    .similarHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 21px;
+        margin-bottom: 39px;
+    }
+
+    .similarTitle {
+        font-size: 15px;
+        margin: 0;
+    }
+
+    .similarControls {
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .btnScrollLeft,
+    .btnScrollRight {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+
+    .similarGrid {
+        gap: 54px;
+    }
 }
