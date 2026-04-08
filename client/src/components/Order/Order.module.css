@@ -69,6 +69,7 @@
 
 /* RADIO */
 .radio {
+    width: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -334,7 +335,7 @@
 /* ===== EXTRA SMALL (392px) ===== */
 @media (max-width: 392px) {
     .page {
-        padding: 70px 10px 12px;
+        padding: 50px 10px 12px;
     }
     
     .modal {

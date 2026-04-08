@@ -1,11 +1,9 @@
 import styles from './mainPageCon3.module.css'
 
 export default function MainPageCon3 () {
-
-
     return (
         <>
-            <div className={styles.mainPageCon3}>
+            <div id="about-section" className={styles.mainPageCon3}>
                 <span className={styles.textAboutUs}>Про нас</span>
 
                 <div className={styles.blockAbout}>

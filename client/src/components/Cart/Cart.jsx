@@ -48,7 +48,7 @@ export default function Cart({ isOpen, onClose }) {
                                 <div className={styles.itemInfo}>
                                     <p className={styles.itemName}>{item.name}</p>
                                     <p className={styles.itemUnit}>{item.unit || ""}</p>
-                                    <p className={styles.itemPrice}>{item.price}₴</p>
+                                    <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p> {/* ← виправлено */}
                                     <div className={styles.bottomRow}>
                                         <div className={styles.qtyControls}>
                                             <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
@@ -70,7 +70,7 @@ export default function Cart({ isOpen, onClose }) {
                     </div>
                     <button
                         className={styles.checkoutBtn}
-                        onClick={handleCheckout} 
+                        onClick={handleCheckout}
                     >
                         Оформити замовлення
                     </button>

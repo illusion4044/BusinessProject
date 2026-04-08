@@ -13,39 +13,52 @@ export default function AllProducts() {
     const [qtyRange, setQtyRange] = useState([1, 1000]);
     const [selectedTrademarks, setSelectedTrademarks] = useState([]);
     const [selectedDiscounts, setSelectedDiscounts] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedSubcategories, setSelectedSubcategories] = useState([]);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [openSections, setOpenSections] = useState({
+        category: true,
+        subcategory: true,
         discount: true,
         trademark: true,
         price: true,
         qty: true,
     });
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
     const location = useLocation();
+    const selectedCategoryFromMenu = location.state?.category || null;
+    const selectedSubcategoryFromMenu = location.state?.subcategory || null;
+    const selectedSubcategoriesFromMenu = location.state?.subcategories || null;
 
     useEffect(() => {
         fetch("http://localhost:3001/products")
             .then(res => res.json())
             .then(data => {
                 setProducts(data);
+
                 const maxPrice = Math.max(...data.map(p => p.price));
                 const maxQty = Math.max(...data.map(p => p.qty));
                 setPriceRange([1, maxPrice]);
                 setQtyRange([1, maxQty]);
+
                 setLoading(false);
 
-                const params = new URLSearchParams(location.search);
-                if (params.get("filter") === "discount") {
-                    const discounts = [...new Set(
-                        data.filter(p => Number(p.discount) > 0)
-                            .map(p => Math.round(Number(p.discount)))
-                    )];
-                    setSelectedDiscounts(discounts);
-                    setSortBy("discount");
+                if (selectedCategoryFromMenu) {
+                    setSelectedCategories([selectedCategoryFromMenu]);
                 }
+
+                if (selectedSubcategoryFromMenu) {
+                    setSelectedSubcategories([selectedSubcategoryFromMenu]);
+                }
+
+                if (selectedSubcategoriesFromMenu) {
+                    setSelectedSubcategories(selectedSubcategoriesFromMenu);
+                }
+
             })
             .catch(console.error);
-    }, [location.search]);
+    }, [location.state]);
 
     useEffect(() => {
         const handleScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -53,21 +66,19 @@ export default function AllProducts() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const trademarks = [...new Set(products.map(p => p.trademark).filter(Boolean))];
-    
-    const discountValues = [...new Set(
-        products
-            .filter(p => Number(p.discount) > 0)
-            .map(p => Math.round(Number(p.discount)))
-    )].sort((a, b) => b - a);
-
     const toggleSection = (key) => {
         setOpenSections(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    const toggleTrademark = (tm) => {
-        setSelectedTrademarks(prev =>
-            prev.includes(tm) ? prev.filter(t => t !== tm) : [...prev, tm]
+    const toggleCategory = (cat) => {
+        setSelectedCategories(prev =>
+            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+        );
+    };
+
+    const toggleSubcategory = (sub) => {
+        setSelectedSubcategories(prev =>
+            prev.includes(sub) ? prev.filter(s => s !== sub) : [...prev, sub]
         );
     };
 
@@ -76,6 +87,19 @@ export default function AllProducts() {
             prev.includes(val) ? prev.filter(d => d !== val) : [...prev, val]
         );
     };
+
+    const toggleTrademark = (tm) => {
+        setSelectedTrademarks(prev =>
+            prev.includes(tm) ? prev.filter(t => t !== tm) : [...prev, tm]
+        );
+    };
+    const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+    const subcategories = [...new Set(products.map(p => p.subcategory).filter(Boolean))];
+    const trademarks = [...new Set(products.map(p => p.trademark).filter(Boolean))];
+    const discountValues = [...new Set(
+        products.filter(p => Number(p.discount) > 0)
+                .map(p => Math.round(Number(p.discount)))
+    )].sort((a, b) => b - a);
 
     const sortOptions = [
         { value: "default", label: "За замовчуванням" },
@@ -88,7 +112,19 @@ export default function AllProducts() {
     const maxPrice = products.length ? Math.max(...products.map(p => p.price)) : 10000;
     const maxQty = products.length ? Math.max(...products.map(p => p.qty)) : 1000;
 
+    // 🔹 Фільтрація
     const filtered = products
+        .filter(p => {
+            if (selectedCategoryFromMenu) return p.category === selectedCategoryFromMenu;
+            if (selectedCategories.length > 0) return selectedCategories.includes(p.category);
+            return true;
+        })
+        .filter(p => {
+            if (selectedSubcategories.length > 0) {
+                return selectedSubcategories.includes(p.subcategory);
+            }
+            return true;
+        })
         .filter(p => p.price >= priceRange[0] && p.price <= priceRange[1])
         .filter(p => p.qty >= qtyRange[0] && p.qty <= qtyRange[1])
         .filter(p => selectedTrademarks.length === 0 || selectedTrademarks.includes(p.trademark))
@@ -105,7 +141,11 @@ export default function AllProducts() {
         <>
             <Header />
             <div className={styles.pageContainer}>
-                <h2 className={styles.title}>Усі товари</h2>
+                <h2 className={styles.title}>
+                    {selectedSubcategoryFromMenu 
+                    || selectedCategoryFromMenu 
+                    || (selectedSubcategoriesFromMenu ? "Обрана група" : "Усі товари")}
+                </h2>
 
                 <div className={styles.mobileFilterBtn}>
                     <button
@@ -118,6 +158,56 @@ export default function AllProducts() {
 
                 <div className={styles.contentRow}>
                     <aside className={`${styles.filterPanel} ${isFilterOpen ? styles.open : ""}`}>
+
+                        {/* Категорії */}
+                        <div className={styles.filterBlock}>
+                            <div className={styles.filterTitle} onClick={() => toggleSection("category")}>
+                                <span>Категорії</span>
+                                <span className={`${styles.arrow} ${openSections.category ? styles.arrowOpen : ""}`}>›</span>
+                            </div>
+                            {openSections.category && (
+                                <div className={styles.filterContent}>
+                                    {categories.map(cat => (
+                                        <label key={cat} className={styles.checkboxRow}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedCategories.includes(cat)}
+                                                onChange={() => toggleCategory(cat)}
+                                            />
+                                            <span className={styles.checkboxLabel}>{cat}</span>
+                                            <span className={styles.count}>
+                                                {products.filter(p => p.category === cat).length}
+                                            </span>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Підкатегорії */}
+                        <div className={styles.filterBlock}>
+                            <div className={styles.filterTitle} onClick={() => toggleSection("subcategory")}>
+                                <span>Підкатегорії</span>
+                                <span className={`${styles.arrow} ${openSections.subcategory ? styles.arrowOpen : ""}`}>›</span>
+                            </div>
+                            {openSections.subcategory && (
+                                <div className={styles.filterContent}>
+                                    {subcategories.map(sub => (
+                                        <label key={sub} className={styles.checkboxRow}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSubcategories.includes(sub)}
+                                                onChange={() => toggleSubcategory(sub)}
+                                            />
+                                            <span className={styles.checkboxLabel}>{sub}</span>
+                                            <span className={styles.count}>
+                                                {products.filter(p => p.subcategory === sub).length}
+                                            </span>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
                         {/* Акції */}
                         <div className={styles.filterBlock}>
@@ -288,3 +378,4 @@ export default function AllProducts() {
         </>
     );
 }
+
