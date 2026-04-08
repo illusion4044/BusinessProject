@@ -39,10 +39,9 @@ export default function MainPageCon1() {
     };
 
     return (
-        <div className={styles.mainPageCon1}>
+        <div id="news-section" className={styles.mainPageCon1}>
             <div className={styles.carousel}>
 
-                {/* Слайди */}
                 <div className={styles.slidesWrapper}>
                     {slides.map((slide, index) => (
                         <div
@@ -54,7 +53,6 @@ export default function MainPageCon1() {
                     ))}
                 </div>
 
-                {/* Кнопки */}
                 <div className={styles.btnLeft} onClick={goLeft}>
                     <img src="/images/buttonRowLeft.png" alt="left" />
                 </div>
@@ -62,7 +60,6 @@ export default function MainPageCon1() {
                     <img src="/images/buttonRowRight.png" alt="right" />
                 </div>
 
-                {/* Dots */}
                 <div className={styles.dots}>
                     {slides.map((_, index) => (
                         <div

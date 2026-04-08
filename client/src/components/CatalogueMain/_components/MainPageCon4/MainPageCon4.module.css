@@ -1,4 +1,4 @@
-.mainPageCon4{
+.mainPageCon4 {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -8,7 +8,7 @@
 
 /* Заголовок */
 
-.title{
+.title {
     font-family: 'Montserrat', sans-serif;
     font-size: 48px;
     font-weight: 600;
@@ -19,31 +19,57 @@
 
 /* Контейнер */
 
-.content{
+.content {
     width: 80%;
     display: flex;
+    justify-content: center;
     margin-top: 20px;
     gap: 40px;
     margin-bottom: 120px;
 }
 
+/* Обгортка карти */
+
+.mapContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
 /* Карта */
 
-.map{
-    width: 624px;
-    height: 563px;
+.map {
+    width: 100%;
+    height: 560px;
     border-radius: 28px;
-    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border: none;
 }
 
-/* Текст */
+/* Адреса під картою */
 
-.textContainer{
+.address {
     font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+    line-height: 1.8;
+}
+
+.addressStreet {
+    font-weight: 700;
     font-size: 20px;
+    color: #111;
+}
+
+.welcome {
     font-weight: 600;
-    line-height: 1.6;
+    font-size: 18px;
+    color: #555;
+    font-style: italic;
 }
 
 /* ====== MEDIA ====== */
@@ -55,28 +81,20 @@
 
     .content {
         width: 85%;
-        gap: 35px;
     }
 
     .map {
-        width: 540px;
         height: 500px;
-    }
-
-    .textContainer {
-        font-size: 18px;
     }
 }
 
 @media (max-width: 1024px) {
     .map {
-        width: 480px;
         height: 440px;
     }
 
     .content {
         width: 90%;
-        gap: 25px;
     }
 }
 
@@ -97,13 +115,19 @@
     }
 
     .map {
-        width: 100%;
         height: 360px;
     }
 
-    .textContainer {
-        font-size: 16px;
-        text-align: justify;
+    .address {
+        font-size: 15px;
+    }
+
+    .addressStreet {
+        font-size: 17px;
+    }
+
+    .welcome {
+        font-size: 15px;
     }
 }
 
@@ -117,17 +141,22 @@
     .content {
         width: 95%;
         margin-bottom: 40px;
-        gap: 16px;
     }
 
     .map {
-        height: 240px;
+        height: 260px;
         border-radius: 12px;
     }
 
-    .textContainer {
-        width: 85%;
+    .address {
         font-size: 13px;
-        padding: 0 4px;
+    }
+
+    .addressStreet {
+        font-size: 15px;
+    }
+
+    .welcome {
+        font-size: 13px;
     }
 }

@@ -1,7 +1,15 @@
-import { useState, useEffect } from 'react'
 import styles from './Footer.module.css'
 
 export default function Footer() {
+
+    const scrollTo = (id) => (e) => {
+        e.preventDefault()
+        const section = document.getElementById(id)
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+
     return (
         <>
             <div className={styles.Footer}>
@@ -33,10 +41,10 @@ export default function Footer() {
                     <div className={styles.secondRowBlock}>
                         <h3 className={styles.blockTitle}>Про нас</h3>
                         <ul>
-                            <li><a href="#">Хто ми?</a></li>
-                            <li><a href="#">Наше місце знаходження</a></li>
-                            <li><a href="#">Наше кафе</a></li>
-                            <li><a href="#">Новини</a></li>
+                            <li><a href="#about-section" onClick={scrollTo('about-section')}>Хто ми?</a></li>
+                            <li><a href="#location-section" onClick={scrollTo('location-section')}>Наше місце знаходження</a></li>
+                            <li><a href="#cafe-section" onClick={scrollTo('cafe-section')}>Наше кафе</a></li>
+                            <li><a href="#news-section" onClick={scrollTo('news-section')}>Новини</a></li>
                         </ul>
                     </div>
 

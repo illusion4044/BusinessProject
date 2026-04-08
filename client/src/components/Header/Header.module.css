@@ -65,6 +65,7 @@
     align-items: center;
     white-space: nowrap;
     cursor: pointer;
+    position: relative;
 }
 
 .link {
@@ -216,6 +217,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
 }
 
 .burgerBtn {
