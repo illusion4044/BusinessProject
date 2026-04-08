@@ -20,6 +20,7 @@ export default function AllProducts() {
         price: true,
         qty: true,
     });
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     // useEffect(() => {
     //     fetch("http://localhost:3001/products")
@@ -69,7 +70,9 @@ export default function AllProducts() {
     const trademarks = [...new Set(products.map(p => p.trademark).filter(Boolean))];
     
     const discountValues = [...new Set(
-        products.filter(p => Number(p.discount) > 0).map(p => Math.round(Number(p.discount)))
+        products
+            .filter(p => Number(p.discount) > 0)
+            .map(p => Math.round(Number(p.discount)))
     )].sort((a, b) => b - a);
 
     const toggleSection = (key) => {
@@ -118,8 +121,17 @@ export default function AllProducts() {
             <div className={styles.pageContainer}>
                 <h2 className={styles.title}>Усі товари</h2>
 
+                <div className={styles.mobileFilterBtn}>
+                    <button
+                        className={styles.filterToggleBtn}
+                        onClick={() => setIsFilterOpen(prev => !prev)}
+                    >
+                        Фільтр ▼
+                    </button>
+                </div>
+
                 <div className={styles.contentRow}>
-                    <aside className={styles.filterPanel}>
+                    <aside className={`${styles.filterPanel} ${isFilterOpen ? styles.open : ""}`}>
 
                         {/* Акції */}
                         <div className={styles.filterBlock}>
