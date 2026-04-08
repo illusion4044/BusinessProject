@@ -21,20 +21,6 @@ export default function AllProducts() {
         qty: true,
     });
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-    // useEffect(() => {
-    //     fetch("http://localhost:3001/products")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setProducts(data);
-    //             const maxPrice = Math.max(...data.map(p => p.price));
-    //             const maxQty = Math.max(...data.map(p => p.qty));
-    //             setPriceRange([1, maxPrice]);
-    //             setQtyRange([1, maxQty]);
-    //             setLoading(false);
-    //         })
-    //         .catch(console.error);
-    // }, []);
     const location = useLocation();
 
     useEffect(() => {
