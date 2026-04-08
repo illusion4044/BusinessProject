@@ -30,7 +30,8 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload
             country,
             trademark, 
             seller,
-            unit
+            unit,
+            discount
         } = req.body;
 
         if (!name || !price || !qty) {
@@ -41,8 +42,8 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload
 
         const [result] = await db.query(
             `INSERT INTO products
-            (name, description, qty, price, category_id, country, trademark, seller, unit, image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [ 
+            (name, description, qty, price, category_id, country, trademark, seller, unit, image, discount)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [ 
             name,
             description,
             qty,
@@ -52,7 +53,8 @@ router.post('/admin/addproduct', authenticateToken, requireRole("admin"), upload
             trademark,
             seller, 
             unit || 'шт',
-            imagePath]
+            imagePath,
+            discount]
         );
 
         res.status(201).json({
@@ -70,7 +72,7 @@ router.put("/admin/editproduct/:id", authenticateToken, requireRole("admin"), up
     try {
 
         const { id } = req.params;
-        const { name, description, qty, price, category_id, country, trademark, seller, unit, removeImage } = req.body;
+        const { name, description, qty, price, category_id, country, trademark, seller, unit, removeImage, discount } = req.body;
 
         let fields = [];
         let values = [];
@@ -115,9 +117,9 @@ router.put("/admin/editproduct/:id", authenticateToken, requireRole("admin"), up
             values.push(seller);
         }
 
-        if (unit !== undefined) {
-            fields.push("unit=?");
-            values.push(unit);
+        if (discount !== undefined) {
+            fields.push("discount=?");
+            values.push(discount);
         }
 
         if (removeImage === "true") {
@@ -182,7 +184,7 @@ router.get("/productlist", async (req, res) => {
     try {
         const [rows] = await db.query(`
             SELECT 
-            p.id, p.name, p.image, p.qty, p.price, p.category_id
+            p.id, p.name, p.image, p.qty, p.price, p.category_id, p.discount
             FROM products p
         `);
 

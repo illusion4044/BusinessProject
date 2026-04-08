@@ -89,7 +89,7 @@
 
 .GalleryItem{
     display: flex;
-    gap: 54px;
+    gap: 35px;
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 20px 0;

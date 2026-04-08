@@ -13,14 +13,14 @@ export default function Gallery({ title, imageSrc, items }) {
     useEffect(() => {
         fetch("http://localhost:3001/products")
             .then(res => res.json())
-            .then(data => setProducts(data.slice(0, 10)))
+            .then(data => setProducts(data.slice(0, 20)))
             .catch(err => console.error("Error:", err));
     }, []);
 
     useEffect(() => {
         fetch("http://localhost:3001/discountgallery")
             .then(res => res.json())
-            .then(data => setDiscountProducts(data.slice(0, 10)))
+            .then(data => setDiscountProducts(data.slice(0, 20)))
             .catch(err => console.error("Error:", err));
     }, []);
 

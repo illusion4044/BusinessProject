@@ -35,7 +35,7 @@ router.get("/discountgallery", async (req, res) => {
             FROM products
             WHERE discount > 0
             ORDER BY discount DESC
-            LIMIT 15
+            LIMIT 40
         `);
 
         res.status(200).json(rows);
