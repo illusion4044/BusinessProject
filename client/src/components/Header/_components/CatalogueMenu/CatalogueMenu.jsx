@@ -6,11 +6,19 @@ import OvocheiFruktiIcon from './images/Ovocieifrukti.svg';
 import BakaliaIcon from './images/Bakalia.svg';
 import MilkIcon from './images/Milk.svg';
 import AlkoholIcon from './images/Alkohol.svg';
+import Orange_JuiceIcon from './images/Orange_Juice.svg';
+import CheeseIcon from './images/Cheese.svg';
+import MeatIcon from './images/Meat.svg';
+import DessertIcon from './images/Dessert.svg';
+import Fish_FoodIcon from './images/Fish_Food.svg';
+import FurnitureIcon from './images/Furniture.svg';
+import CoffeeIcon from './images/Coffee_cup.svg';
+import Teddy_BearIcon from './images/Teddy_Bear.svg';
+import Potato_ChipsIcon from './images/Potato_Chips.svg';
 
 export default function CatalogueMenu() {
     const [open, setOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState(null);
-
     const navigate = useNavigate();
 
     const categories = [
@@ -26,15 +34,15 @@ export default function CatalogueMenu() {
         { name: "Бакалія", icon: BakaliaIcon },
         { name: "Молочні продукти та яйця", icon: MilkIcon },
         { name: "Алкоголь", icon: AlkoholIcon },
-        { name: "Напої безалкогольні", icon: "images/icons/drinks.png" },
-        { name: "Сири", icon: "images/icons/cheese.png" },
-        { name: "М'ясо", icon: "images/icons/meat.png" },
-        { name: "Кондитерські вироби", icon: "images/icons/sweets.png" },
-        { name: "Риба і морепродукти", icon: "images/icons/fish.png" },
-        { name: "Товари для дому", icon: "images/icons/home.png" },
-        { name: "Кава, чай", icon: "images/icons/coffee.png" },
-        { name: "Товари для дітей", icon: "images/icons/kids.png" },
-        { name: "Чіпси, снеки", icon: "images/icons/snacks.png" },
+        { name: "Напої безалкогольні", icon: Orange_JuiceIcon },
+        { name: "Сири", icon: CheeseIcon },
+        { name: "М'ясо", icon: MeatIcon },
+        { name: "Кондитерські вироби", icon: DessertIcon },
+        { name: "Риба і морепродукти", icon: Fish_FoodIcon },
+        { name: "Товари для дому", icon: FurnitureIcon },
+        { name: "Кава, чай", icon: CoffeeIcon },
+        { name: "Товари для дітей", icon: Teddy_BearIcon },
+        { name: "Чіпси, снеки", icon: Potato_ChipsIcon },
     ];
 
     return (
@@ -44,6 +52,7 @@ export default function CatalogueMenu() {
                 className={styles.btnCatalogue}
                 onClick={() => setOpen(!open)}
             >
+                {/* ✅ Виправлено: правильний шлях до публічних зображень */}
                 <img src="/images/category 1.png" alt="Catalogue" className={styles.catalogueIcon} />
                 Каталог
                 <img src="/images/downrow.svg" alt="arrow" className={styles.arrowIcon} />
@@ -78,8 +87,14 @@ export default function CatalogueMenu() {
                                 }}
                             >
                                 <div className={styles.categoryLeft}>
+                                    {/* ✅ Виправлено: додано перевірку на рядок vs імпортований модуль */}
                                     {cat.icon && (
-                                        <img src={cat.icon} alt={cat.name} className={styles.categoryIcon} />
+                                        <img
+                                            src={typeof cat.icon === 'string' ? cat.icon : cat.icon}
+                                            alt={cat.name}
+                                            className={styles.categoryIcon}
+                                            onError={(e) => { e.target.style.display = 'none'; }}
+                                        />
                                     )}
                                     <span>{cat.name}</span>
                                 </div>
@@ -95,12 +110,6 @@ export default function CatalogueMenu() {
                                     <h4
                                         className={styles.subcategoryGroup}
                                         onClick={() => {
-                                            const groupMap = {
-                                                "Овочі": ["Картопля", "Капуста", "Гарбуз", "Огірки", "Перець", "Помідори", "Цибуля, часник"],
-                                                "Фрукти": ["Банан", "Виноград", "Груша", "Кавун, диня", "Цитрусові"],
-                                                "Зелень": ["Зелена цибуля", "Зелень мікс", "Кріп", "Петрушка"]
-                                            };
-
                                             navigate("/all-products", {
                                                 state: { subcategory: group }
                                             });

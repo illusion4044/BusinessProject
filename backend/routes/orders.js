@@ -4,80 +4,10 @@ import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// router.get("/my", authenticateToken, async (req, res) => {
-//     try {
-//         const userId = req.user.id;
-
-//         const [rows] = await db.query(`
-//         SELECT 
-//             o.id AS order_id,
-//             o.order_date,
-//             o.total_amount,
-//             o.status,
-//             u.name AS first_name,
-//             u.surname AS last_name,
-//             oi.product_id,
-//             oi.qty,
-//             oi.price_at_purchase,
-//             p.name,
-//             p.image
-//         FROM orders o
-//         JOIN users u ON o.user_id = u.id
-//         JOIN order_items oi ON o.id = oi.order_id
-//         JOIN products p ON oi.product_id = p.id
-//         WHERE o.user_id = ?
-//         ORDER BY o.id DESC
-//     `, [userId]);
-
-//         let user = null;
-//         const result = [];
-
-//         rows.forEach(row => {
-//             if (!user) {
-//                 user = {
-//                     firstName: row.first_name || "Ім'я",
-//                     lastName: row.last_name || "Прізвище"
-//                 };
-//             }
-
-//             let order = result.find(o => o.id === row.order_id);
-
-//             if (!order) {
-//                 order = {
-//                     id: row.order_id,
-//                     date: row.order_date,
-//                     total: row.total_amount,
-//                     status: row.status,
-//                     items: []
-//                 };
-//                 result.push(order);
-//             }
-
-//             order.items.push({
-//                 name: row.name,
-//                 price: row.price_at_purchase,
-//                 quantity: row.qty,
-//                 image: row.image
-//             });
-//         });
-
-//         res.json({
-//             user,
-//             orders: result
-//         });
-
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: "Помилка сервера" });
-//     }
-// });
-
-
 router.get("/my", authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
 
-        // 🔹 1. Отримуємо користувача окремо
         const [[userRow]] = await db.query(
             "SELECT name, surname FROM users WHERE id = ?",
             [userId]
@@ -88,7 +18,6 @@ router.get("/my", authenticateToken, async (req, res) => {
             lastName: userRow?.surname || "Прізвище"
         };
 
-        // 🔹 2. Отримуємо замовлення
         const [rows] = await db.query(`
             SELECT 
                 o.id AS order_id,
@@ -131,10 +60,7 @@ router.get("/my", authenticateToken, async (req, res) => {
             });
         });
 
-        res.json({
-            user,
-            orders: result
-        });
+        res.json({ user, orders: result });
 
     } catch (err) {
         console.error(err);
@@ -146,12 +72,37 @@ router.get("/my", authenticateToken, async (req, res) => {
 router.post("/orders", authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
-        const { items, totalAmount, comment, paymentMethod, shippingAddress } = req.body;
+        const {
+            items,
+            totalAmount,
+            comment,
+            paymentMethod,
+            shippingAddress,
+            firstName,
+            lastName,
+            phone,
+            email
+        } = req.body;
+
+        if (!items || items.length === 0) {
+            return res.status(400).json({ message: "Кошик порожній" });
+        }
 
         const [orderResult] = await db.query(
-            `INSERT INTO orders (user_id, total_amount, status, comment, payment_method, shipping_address, order_date) 
-            VALUES (?, ?, 'pending', ?, ?, ?, NOW())`,
-            [userId, totalAmount, comment || "", paymentMethod || "cash", shippingAddress || ""]
+            `INSERT INTO orders 
+                (user_id, total_amount, status, comment, payment_method, shipping_address, first_name, last_name, phone, email, order_date) 
+             VALUES (?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, NOW())`,
+            [
+                userId,
+                totalAmount,
+                comment || "",
+                paymentMethod || "cash",
+                shippingAddress || "",
+                firstName || "",
+                lastName || "",
+                phone || "",
+                email || ""
+            ]
         );
 
         const orderId = orderResult.insertId;
@@ -159,17 +110,19 @@ router.post("/orders", authenticateToken, async (req, res) => {
         for (const item of items) {
             await db.query(
                 `INSERT INTO order_items (order_id, product_id, qty, price_at_purchase) 
-                VALUES (?, ?, ?, ?)`,
+                 VALUES (?, ?, ?, ?)`,
                 [orderId, item.id, item.quantity, item.price]
             );
         }
 
         res.json({ success: true, orderId });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Помилка сервера" });
     }
 });
+
 
 router.get("/profile", authenticateToken, async (req, res) => {
     try {
@@ -188,11 +141,13 @@ router.get("/profile", authenticateToken, async (req, res) => {
             phone: user.number || "",
             gender: user.gender || "m"
         });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Помилка сервера" });
     }
 });
+
 
 router.put("/profile", authenticateToken, async (req, res) => {
     try {
@@ -201,8 +156,8 @@ router.put("/profile", authenticateToken, async (req, res) => {
 
         await db.query(
             `UPDATE users 
-                SET name = ?, surname = ?, number = ?, email = ?, gender = ?
-                WHERE id = ?`,
+             SET name = ?, surname = ?, number = ?, email = ?, gender = ?
+             WHERE id = ?`,
             [
                 firstName || "",
                 lastName || "",
@@ -214,8 +169,9 @@ router.put("/profile", authenticateToken, async (req, res) => {
         );
 
         res.json({ success: true });
+
     } catch (err) {
-        console.error("Profile update error:", err);
+        console.error(err);
         res.status(500).json({ message: "Помилка сервера" });
     }
 });

@@ -58,10 +58,14 @@ export default function Order() {
                 },
                 body: JSON.stringify({
                     items: cartItems,
-                    totalAmount: totalPrice,
-                    comment: form.comment,
-                    paymentMethod: form.payment,
-                    shippingAddress: form.address
+    totalAmount: totalPrice,
+    comment: form.comment,
+    paymentMethod: form.payment,
+    shippingAddress: form.address,
+    firstName: form.firstName,
+    lastName: form.lastName,
+    phone: form.phone,
+    email: form.email
                 })
             });
 
