@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../AddProduct/AddProduct.module.css';
+import React from "react";
 
 export default function EditProduct({ setActivePage, product }) {
     const [image, setImage] = useState(null);
@@ -48,7 +49,7 @@ export default function EditProduct({ setActivePage, product }) {
                     trademark: data.trademark || "",
                     seller: data.seller || "",
                     unit: data.unit || "шт",
-                    category_id: data.category_id || "",
+                    category_id: data.category_id ? Number(data.category_id) : "",
                     discount: data.discount || 0
                 });
             })
@@ -139,23 +140,29 @@ export default function EditProduct({ setActivePage, product }) {
                 <div className={styles.RightPanelBlock}>
                     <select
                         className={styles.input}
-                        value={state.category_id || ""}
-                        onChange={e => setField("category_id", e.target.value)}
+                        value={state.category_id ?? ""}
+                        onChange={e => setField("category_id", Number(e.target.value))}
                     >
                         <option value="">Обрати категорію</option>
+
                         {categories
                             .filter(c => c.parent_id === null)
                             .map(parent => {
                                 const children = categories.filter(c => c.parent_id === parent.id);
-                                console.log("parent:", parent.name, "children:", children);
+
                                 return (
-                                    <optgroup key={parent.id} label={parent.name}>
+                                    <React.Fragment key={parent.id}>
+
+                                        <option value={parent.id}>
+                                            {parent.name}
+                                        </option>
+
                                         {children.map(child => (
                                             <option key={child.id} value={child.id}>
-                                                {child.name}
+                                                - {child.name}
                                             </option>
                                         ))}
-                                    </optgroup>
+                                    </React.Fragment>
                                 );
                             })
                         }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import "./PurchaseHistory.css";
 import placeholderImg from "./images/none.jpg";
 import { useNavigate } from "react-router-dom";
@@ -186,6 +187,7 @@ const PurchaseHistory = () => {
 
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

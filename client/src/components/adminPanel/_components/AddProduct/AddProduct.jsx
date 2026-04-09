@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from './AddProduct.module.css';
 import useAddProduct from '../../hooks/useAddProduct';
+import React from "react";
 
 export default function AddProduct ({ setActivePage }) {
     const { state, setField, submitProduct } = useAddProduct();
@@ -102,19 +103,25 @@ export default function AddProduct ({ setActivePage }) {
                         onChange={e => setField("category_id", e.target.value)}
                     >
                         <option value="">Обрати категорію</option>
+
                         {categories
                             .filter(c => c.parent_id === null)
                             .map(parent => {
                                 const children = categories.filter(c => c.parent_id === parent.id);
-                                console.log("parent:", parent.name, "children:", children);
+
                                 return (
-                                    <optgroup key={parent.id} label={parent.name}>
+                                    <React.Fragment key={parent.id}>
+                                        
+                                        <option value={parent.id}>
+                                            {parent.name}
+                                        </option>
+
                                         {children.map(child => (
                                             <option key={child.id} value={child.id}>
-                                                {child.name}
+                                                - {child.name}
                                             </option>
                                         ))}
-                                    </optgroup>
+                                    </React.Fragment>
                                 );
                             })
                         }

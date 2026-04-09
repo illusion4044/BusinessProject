@@ -6,13 +6,42 @@ import db from "../db.js";
 const router = express.Router();
 const saltRounds = 10;
 
+// router.get("/products", async (req, res) => {
+//     try {
+//         const [rows] = await db.query(`
+//             SELECT 
+//             p.id, p.name, p.description, p.qty, p.price, p.image,
+//             p.trademark, ROUND(p.discount, 0) AS discount
+//             FROM products p
+//         `);
+//         res.status(200).json(rows);
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).json({ message: err.message });
+//     }
+// });
+
+
 router.get("/products", async (req, res) => {
     try {
         const [rows] = await db.query(`
-            SELECT 
+        SELECT 
             p.id, p.name, p.description, p.qty, p.price, p.image,
-            p.trademark, ROUND(p.discount, 0) AS discount
-            FROM products p
+            p.trademark, ROUND(p.discount, 0) AS discount,
+
+            -- якщо є parent → це category
+            -- якщо нема → беремо child
+            COALESCE(parent.name, child.name) AS category,
+
+            -- subcategory тільки якщо реально є parent
+            CASE 
+                WHEN parent.name IS NOT NULL THEN child.name
+                ELSE NULL
+            END AS subcategory
+
+        FROM products p
+        LEFT JOIN categories child ON p.category_id = child.id
+        LEFT JOIN categories parent ON child.parent_id = parent.id
         `);
         res.status(200).json(rows);
     } catch (err) {
