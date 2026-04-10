@@ -137,7 +137,9 @@ export default function ProductInfo({ setActivePage }) {
                             {isOpen && (
                                 <div className={styles.orderDetails}>
                                     <div className={styles.detailMeta}>
+                                        <span>👤 {order.first_name} {order.last_name}</span>
                                         <span>📧 {order.email}</span>
+                                        <span>📞 {order.phone}</span>
                                         <span>📍 {order.shipping_address}</span>
                                         <span>💳 {order.payment_method === "cash" ? "При отриманні" : "Безготівково"}</span>
                                         {order.comment && <span>💬 {order.comment}</span>}

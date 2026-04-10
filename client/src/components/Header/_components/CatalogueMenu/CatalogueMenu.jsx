@@ -6,6 +6,15 @@ import OvocheiFruktiIcon from './images/Ovocieifrukti.svg';
 import BakaliaIcon from './images/Bakalia.svg';
 import MilkIcon from './images/Milk.svg';
 import AlkoholIcon from './images/Alkohol.svg';
+import Juice from './images/Juice.svg';
+import Cheese from './images/Cheese.svg';
+import Meat from './images/Meat.svg';
+import Dessert from './images/Dessert.svg';
+import Fishfood from './images/Fish Food.svg';
+import Furniture from './images/Furniture.svg';
+import Coffeecup from './images/Coffee cup.svg';
+import Teddy from './images/Teddy Bear.svg';
+import Potatochips from './images/Potato Chips.svg';
 
 export default function CatalogueMenu() {
     const [open, setOpen] = useState(false);
@@ -26,15 +35,15 @@ export default function CatalogueMenu() {
         { name: "Бакалія", icon: BakaliaIcon },
         { name: "Молочні продукти та яйця", icon: MilkIcon },
         { name: "Алкоголь", icon: AlkoholIcon },
-        { name: "Напої безалкогольні", icon: "images/icons/drinks.png" },
-        { name: "Сири", icon: "images/icons/cheese.png" },
-        { name: "М'ясо", icon: "images/icons/meat.png" },
-        { name: "Кондитерські вироби", icon: "images/icons/sweets.png" },
-        { name: "Риба і морепродукти", icon: "images/icons/fish.png" },
-        { name: "Товари для дому", icon: "images/icons/home.png" },
-        { name: "Кава, чай", icon: "images/icons/coffee.png" },
-        { name: "Товари для дітей", icon: "images/icons/kids.png" },
-        { name: "Чіпси, снеки", icon: "images/icons/snacks.png" },
+        { name: "Напої безалкогольні", icon: Juice },
+        { name: "Сири", icon: Cheese },
+        { name: "М'ясо", icon: Meat },
+        { name: "Кондитерські вироби", icon: Dessert },
+        { name: "Риба і морепродукти", icon: Fishfood },
+        { name: "Товари для дому", icon: Furniture },
+        { name: "Кава, чай", icon: Coffeecup },
+        { name: "Товари для дітей", icon: Teddy },
+        { name: "Чіпси, снеки", icon: Potatochips },
     ];
 
     return (

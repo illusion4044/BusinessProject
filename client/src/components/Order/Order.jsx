@@ -2,7 +2,7 @@ import styles from "./Order.module.css";
 import { useCart } from "../CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Order() {
     const { cartItems, updateQuantity, clearCart } = useCart();
@@ -22,6 +22,26 @@ export default function Order() {
         (sum, item) => sum + item.price * item.quantity, 0
     );
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        fetch("http://localhost:3001/profile", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setForm((prev) => ({
+                    ...prev,
+                    firstName: data.firstName || "",
+                    lastName: data.lastName || "",
+                    phone: data.phone || "",
+                    email: data.email || "",
+                }));
+            })
+            .catch((err) => console.error("Помилка завантаження профілю:", err));
+    }, []);
+
     const handleChange = (e) => {
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -34,18 +54,13 @@ export default function Order() {
             return;
         }
 
-        if (!form.firstName || !form.lastName || !form.phone || !form.email) {
+        if (!form.firstName || !form.lastName || !form.phone || !form.email || !form.address) {
             alert("Заповніть всі контактні дані");
             return;
         }
 
         if (cartItems.length === 0) {
             alert("Кошик порожній");
-            return;
-        }
-
-        if (!form.firstName || !form.lastName || !form.phone || !form.email || !form.address) {
-            alert("Заповніть всі контактні дані");
             return;
         }
 
@@ -61,7 +76,11 @@ export default function Order() {
                     totalAmount: totalPrice,
                     comment: form.comment,
                     paymentMethod: form.payment,
-                    shippingAddress: form.address
+                    shippingAddress: form.address,
+                    firstName: form.firstName,
+                    lastName: form.lastName,
+                    email: form.email,
+                    phone: form.phone
                 })
             });
 

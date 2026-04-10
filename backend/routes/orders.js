@@ -146,20 +146,19 @@ router.get("/my", authenticateToken, async (req, res) => {
 router.post("/orders", authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
-        const { items, totalAmount, comment, paymentMethod, shippingAddress } = req.body;
+        const { items, totalAmount, comment, paymentMethod, shippingAddress, firstName, lastName, email, phone } = req.body;
 
         const [orderResult] = await db.query(
-            `INSERT INTO orders (user_id, total_amount, status, comment, payment_method, shipping_address, order_date) 
-            VALUES (?, ?, 'pending', ?, ?, ?, NOW())`,
-            [userId, totalAmount, comment || "", paymentMethod || "cash", shippingAddress || ""]
+            `INSERT INTO orders (user_id, total_amount, status, comment, payment_method, shipping_address, first_name, last_name, email, phone, order_date) 
+            VALUES (?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, NOW())`,
+            [userId, totalAmount, comment || "", paymentMethod || "cash", shippingAddress || "", firstName || "", lastName || "", email || "", phone || ""]
         );
 
         const orderId = orderResult.insertId;
 
         for (const item of items) {
             await db.query(
-                `INSERT INTO order_items (order_id, product_id, qty, price_at_purchase) 
-                VALUES (?, ?, ?, ?)`,
+                `INSERT INTO order_items (order_id, product_id, qty, price_at_purchase) VALUES (?, ?, ?, ?)`,
                 [orderId, item.id, item.quantity, item.price]
             );
         }
