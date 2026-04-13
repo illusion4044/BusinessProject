@@ -41,14 +41,14 @@ export default function Cart({ isOpen, onClose }) {
                         cartItems.map(item => (
                             <div key={item.id} className={styles.cartItem}>
                                 <img
-                                    src={item.image ? `http://localhost:3001${item.image}` : "/images/NoImageCard.png"}
+                                    src={item.image ? `${import.meta.env.VITE_API_URL}${item.image}` : "/images/NoImageCard.png"}
                                     alt={item.name}
                                     className={styles.itemImage}
                                 />
                                 <div className={styles.itemInfo}>
                                     <p className={styles.itemName}>{item.name}</p>
                                     <p className={styles.itemUnit}>{item.unit || ""}</p>
-                                    <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p> {/* ← виправлено */}
+                                    <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p>
                                     <div className={styles.bottomRow}>
                                         <div className={styles.qtyControls}>
                                             <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>

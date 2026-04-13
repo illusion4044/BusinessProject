@@ -18,10 +18,10 @@ export default function AdminPanel () {
     const [collapsed, setCollapsed] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const goToDefaultPage = () => {
-        setActivePage("defaultPage");
-        setCollapsed(false);
-    };
+    // const goToDefaultPage = () => {
+    //     setActivePage("defaultPage");
+    //     setCollapsed(false);
+    // };
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -32,7 +32,7 @@ export default function AdminPanel () {
             return;
         }
 
-        fetch("http://localhost:3001/auth/check", {
+        fetch(`${import.meta.env.VITE_API_URL}/auth/check`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -77,7 +77,7 @@ export default function AdminPanel () {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("http://localhost:3001/productlist");
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/productlist`);
                 const data = await response.json();
                 setProducts(data);
             } catch (err) {
@@ -100,7 +100,7 @@ export default function AdminPanel () {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3001/admin/deleteproduct/${product.id}`,
+                `${import.meta.env.VITE_API_URL}/admin/deleteproduct/${product.id}`,
                 {
                     method: "DELETE",
                     headers: {

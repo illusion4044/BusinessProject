@@ -15,7 +15,7 @@ export default function AddingCategory({setActivePage}) {
 
     const fetchCategories = async () => {
         try {
-            const res = await fetch("http://localhost:3001/categories");
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
             const data = await res.json();
             setCategories(data);
         } catch (err) {
@@ -37,7 +37,7 @@ export default function AddingCategory({setActivePage}) {
         if (!category.trim()) return;
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:3001/admin/addcategory", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/addcategory`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ name: category })
@@ -55,7 +55,7 @@ export default function AddingCategory({setActivePage}) {
         if (!subcategory.trim() || !parentId) return;
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:3001/admin/addsubcategory", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/addsubcategory`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ name: subcategory, parent_id: parseInt(parentId) })
@@ -72,7 +72,7 @@ export default function AddingCategory({setActivePage}) {
 
     async function deleteCategory(id) {
         try {
-            await fetch(`http://localhost:3001/admin/deletecategory/${id}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/admin/deletecategory/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -83,7 +83,7 @@ export default function AddingCategory({setActivePage}) {
     async function saveEdit(id) {
         if (!editingName.trim()) return;
         try {
-            await fetch(`http://localhost:3001/admin/editcategory/${id}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/admin/editcategory/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ name: editingName })

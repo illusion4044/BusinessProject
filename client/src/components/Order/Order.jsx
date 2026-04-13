@@ -26,7 +26,7 @@ export default function Order() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        fetch("http://localhost:3001/profile", {
+        fetch(`${import.meta.env.VITE_API_URL}/profile`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => res.json())
@@ -65,7 +65,7 @@ export default function Order() {
         }
 
         try {
-            const res = await fetch("http://localhost:3001/orders", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -137,7 +137,7 @@ export default function Order() {
                                 {cartItems.map((item) => (
                                     <div key={item.id} className={styles.product}>
                                         <img
-                                            src={item.image ? `http://localhost:3001${item.image}` : "images/NoImageCard.png"}
+                                            src={item.image ? `${import.meta.env.VITE_API_URL}${item.image}` : "images/NoImageCard.png"}
                                             alt={item.name}
                                         />
                                         <div className={styles.productInfo}>

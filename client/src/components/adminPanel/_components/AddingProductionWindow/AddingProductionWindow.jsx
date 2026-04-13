@@ -28,7 +28,7 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await fetch("http://localhost:3001/categories");
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
                 const data = await res.json();
                 setCategories(data);
             } catch (err) {
@@ -42,7 +42,7 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("http://localhost:3001/productlist");
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/productlist`);
                 const data = await response.json();
                 setProducts(data);
             } catch (err) {
@@ -66,7 +66,7 @@ export default function AddingProductionWindow({ setActivePage, onEditFull}) {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3001/admin/deleteproduct/${product.id}`,
+                `${import.meta.env.VITE_API_URL}/admin/deleteproduct/${product.id}`,
                 {
                     method: "DELETE",
                     headers: {

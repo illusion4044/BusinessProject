@@ -13,7 +13,7 @@ export default function ProductSmallCard({ product }) {
     return (
         <div className={styles.card} onClick={() => navigate(`/product/${product.id}`)}>
             <img
-                src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
+                src={product.image ? `${import.meta.env.VITE_API_URL}${product.image}` : "/images/NoImageCard.png"}
                 alt={product.name}
                 className={styles.cardImage}
             />
