@@ -39,11 +39,7 @@ export default function ListCardProduct({ product, onEdit, onDelete, setActivePa
             <div className={styles.blockImage}>
                 {product.image ? (
                     <img
-<<<<<<< HEAD
-                        src={`http://localhost:3001${product.image}`}
-=======
                         src={`${import.meta.env.VITE_API_URL}${product.image}`}
->>>>>>> origin/main
                         alt={product.name}
                     />
                 ) : (

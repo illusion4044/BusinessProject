@@ -12,7 +12,11 @@ export default function Header({ onCartOpen }) {
     const [isLogined, setIsLogined] = useState(null)
     const [isBtnLoginClicked, setIsBtnLoginClicked] = useState(null)
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // ← нове
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // === ЗМІНА: додано стейт для акордеону каталогу і список категорій ===
+    const [isMobileCatalogOpen, setIsMobileCatalogOpen] = useState(false);
+    const [mobileCategories, setMobileCategories] = useState([]);
+    // =====================================================================
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -49,6 +53,18 @@ export default function Header({ onCartOpen }) {
         const token = localStorage.getItem("token");
         if (token) setIsLogined(true);
     }, []);
+
+    // === ЗМІНА: завантажуємо категорії для мобільного акордеону ===
+    useEffect(() => {
+        fetch(`${import.meta.env.VITE_API_URL}/categories`)
+            .then(res => res.json())
+            .then(data => {
+                const parents = data.filter(c => !c.parent_id);
+                setMobileCategories(parents);
+            })
+            .catch(console.error);
+    }, []);
+    // ==============================================================
 
     const role = localStorage.getItem("role");
 
@@ -240,8 +256,42 @@ export default function Header({ onCartOpen }) {
                                 </div>
                             )}
                         </div>
+
                         <div className={styles.mobileLinks}>
-                            <span onClick={() => { navigate("/catalogue"); setIsMobileMenuOpen(false); }}>Каталог</span>
+
+                            {/* === ЗМІНА: "Каталог" тепер акордеон з категоріями === */}
+                            <span
+                                className={styles.mobileCatalogToggle}
+                                onClick={() => setIsMobileCatalogOpen(prev => !prev)}
+                            >
+                                Каталог
+                                <span className={`${styles.mobileCatalogArrow} ${isMobileCatalogOpen ? styles.mobileCatalogArrowOpen : ""}`}>
+                                    ›
+                                </span>
+                            </span>
+
+                            {isMobileCatalogOpen && (
+                                <div className={styles.mobileCatalogList}>
+                                    <span onClick={() => {
+                                        navigate("/all-products");
+                                        setIsMobileMenuOpen(false);
+                                        setIsMobileCatalogOpen(false);
+                                    }}>
+                                        Усі товари
+                                    </span>
+                                    {mobileCategories.map(cat => (
+                                        <span key={cat.id} onClick={() => {
+                                            navigate("/all-products", { state: { category: cat.name } });
+                                            setIsMobileMenuOpen(false);
+                                            setIsMobileCatalogOpen(false);
+                                        }}>
+                                            {cat.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                            {/* ================================================== */}
+
                             <span onClick={() => { navigate("/all-products"); setIsMobileMenuOpen(false); }}>Всі товари</span>
                             <span onClick={() => { navigate("/profile"); setIsMobileMenuOpen(false); }}>Профіль</span>
                             <span onClick={() => { navigate("/orders"); setIsMobileMenuOpen(false); }}>Замовлення</span>

@@ -6,17 +6,6 @@ import OvocheiFruktiIcon from './images/Ovocieifrukti.svg';
 import BakaliaIcon from './images/Bakalia.svg';
 import MilkIcon from './images/Milk.svg';
 import AlkoholIcon from './images/Alkohol.svg';
-<<<<<<< HEAD
-import Orange_JuiceIcon from './images/Orange_Juice.svg';
-import CheeseIcon from './images/Cheese.svg';
-import MeatIcon from './images/Meat.svg';
-import DessertIcon from './images/Dessert.svg';
-import Fish_FoodIcon from './images/Fish_Food.svg';
-import FurnitureIcon from './images/Furniture.svg';
-import CoffeeIcon from './images/Coffee_cup.svg';
-import Teddy_BearIcon from './images/Teddy_Bear.svg';
-import Potato_ChipsIcon from './images/Potato_Chips.svg';
-=======
 import Juice from './images/Juice.svg';
 import Cheese from './images/Cheese.svg';
 import Meat from './images/Meat.svg';
@@ -26,7 +15,6 @@ import Furniture from './images/Furniture.svg';
 import Coffeecup from './images/Coffee cup.svg';
 import Teddy from './images/Teddy Bear.svg';
 import Potatochips from './images/Potato Chips.svg';
->>>>>>> origin/main
 
 export default function CatalogueMenu() {
     const [open, setOpen] = useState(false);
@@ -70,28 +58,11 @@ export default function CatalogueMenu() {
             } catch (err) {
                 console.error(err);
             }
-<<<<<<< HEAD
-        },
-        { name: "Бакалія", icon: BakaliaIcon },
-        { name: "Молочні продукти та яйця", icon: MilkIcon },
-        { name: "Алкоголь", icon: AlkoholIcon },
-        { name: "Напої безалкогольні", icon: Orange_JuiceIcon },
-        { name: "Сири", icon: CheeseIcon },
-        { name: "М'ясо", icon: MeatIcon },
-        { name: "Кондитерські вироби", icon: DessertIcon },
-        { name: "Риба і морепродукти", icon: Fish_FoodIcon },
-        { name: "Товари для дому", icon: FurnitureIcon },
-        { name: "Кава, чай", icon: CoffeeIcon },
-        { name: "Товари для дітей", icon: Teddy_BearIcon },
-        { name: "Чіпси, снеки", icon: Potato_ChipsIcon },
-    ];
-=======
         };
         fetchCategories();
     }, []);
 
     const activeCat = categories.find(c => c.name === activeCategory);
->>>>>>> origin/main
 
     return (
         <div className={styles.catalogContainer}>
@@ -128,19 +99,7 @@ export default function CatalogueMenu() {
                                 }}
                             >
                                 <div className={styles.categoryLeft}>
-<<<<<<< HEAD
-                                    {/* ✅ Виправлено: додано перевірку на рядок vs імпортований модуль */}
-                                    {cat.icon && (
-                                        <img
-                                            src={typeof cat.icon === 'string' ? cat.icon : cat.icon}
-                                            alt={cat.name}
-                                            className={styles.categoryIcon}
-                                            onError={(e) => { e.target.style.display = 'none'; }}
-                                        />
-                                    )}
-=======
                                     {cat.icon && <img src={cat.icon} alt={cat.name} className={styles.categoryIcon} />}
->>>>>>> origin/main
                                     <span>{cat.name}</span>
                                 </div>
                                 {cat.subcategories.length > 0 && <span className={styles.arrow}>›</span>}
@@ -155,13 +114,7 @@ export default function CatalogueMenu() {
                                     <h4
                                         className={styles.subcategoryGroup}
                                         onClick={() => {
-<<<<<<< HEAD
-                                            navigate("/all-products", {
-                                                state: { subcategory: group }
-                                            });
-=======
                                             navigate("/all-products", { state: { subcategory: sub.name } });
->>>>>>> origin/main
                                             setOpen(false);
                                         }}
                                     >

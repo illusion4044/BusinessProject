@@ -73,16 +73,6 @@ export default function Order() {
                 },
                 body: JSON.stringify({
                     items: cartItems,
-<<<<<<< HEAD
-    totalAmount: totalPrice,
-    comment: form.comment,
-    paymentMethod: form.payment,
-    shippingAddress: form.address,
-    firstName: form.firstName,
-    lastName: form.lastName,
-    phone: form.phone,
-    email: form.email
-=======
                     totalAmount: totalPrice,
                     comment: form.comment,
                     paymentMethod: form.payment,
@@ -91,7 +81,6 @@ export default function Order() {
                     lastName: form.lastName,
                     email: form.email,
                     phone: form.phone
->>>>>>> origin/main
                 })
             });
 
