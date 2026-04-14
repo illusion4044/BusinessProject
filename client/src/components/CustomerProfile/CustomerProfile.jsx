@@ -93,7 +93,7 @@ export default function CustomerProfile() {
                         <div className={styles.userInfo}>
                             <img src={userIcon} alt="user" />
                             <span>
-                                {profile.firstName || "Ім'я"} {profile.lastName || "Прізвище"}
+                                {profile.firstName || "Ім'я"} {profile.lastName}
                             </span>
                         </div>
 
