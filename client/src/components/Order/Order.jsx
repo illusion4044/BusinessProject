@@ -2,7 +2,7 @@ import styles from "./Order.module.css";
 import { useCart } from "../CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Order() {
     const { cartItems, updateQuantity, clearCart } = useCart();
@@ -22,6 +22,26 @@ export default function Order() {
         (sum, item) => sum + item.price * item.quantity, 0
     );
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        fetch(`${import.meta.env.VITE_API_URL}/profile`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setForm((prev) => ({
+                    ...prev,
+                    firstName: data.firstName || "",
+                    lastName: data.lastName || "",
+                    phone: data.phone || "",
+                    email: data.email || "",
+                }));
+            })
+            .catch((err) => console.error("Помилка завантаження профілю:", err));
+    }, []);
+
     const handleChange = (e) => {
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -34,7 +54,7 @@ export default function Order() {
             return;
         }
 
-        if (!form.firstName || !form.lastName || !form.phone || !form.email) {
+        if (!form.firstName || !form.lastName || !form.phone || !form.email || !form.address) {
             alert("Заповніть всі контактні дані");
             return;
         }
@@ -44,13 +64,8 @@ export default function Order() {
             return;
         }
 
-        if (!form.firstName || !form.lastName || !form.phone || !form.email || !form.address) {
-            alert("Заповніть всі контактні дані");
-            return;
-        }
-
         try {
-            const res = await fetch("http://localhost:3001/orders", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,6 +73,7 @@ export default function Order() {
                 },
                 body: JSON.stringify({
                     items: cartItems,
+<<<<<<< HEAD
     totalAmount: totalPrice,
     comment: form.comment,
     paymentMethod: form.payment,
@@ -66,6 +82,16 @@ export default function Order() {
     lastName: form.lastName,
     phone: form.phone,
     email: form.email
+=======
+                    totalAmount: totalPrice,
+                    comment: form.comment,
+                    paymentMethod: form.payment,
+                    shippingAddress: form.address,
+                    firstName: form.firstName,
+                    lastName: form.lastName,
+                    email: form.email,
+                    phone: form.phone
+>>>>>>> origin/main
                 })
             });
 
@@ -122,7 +148,7 @@ export default function Order() {
                                 {cartItems.map((item) => (
                                     <div key={item.id} className={styles.product}>
                                         <img
-                                            src={item.image ? `http://localhost:3001${item.image}` : "images/NoImageCard.png"}
+                                            src={item.image ? `${import.meta.env.VITE_API_URL}${item.image}` : "images/NoImageCard.png"}
                                             alt={item.name}
                                         />
                                         <div className={styles.productInfo}>

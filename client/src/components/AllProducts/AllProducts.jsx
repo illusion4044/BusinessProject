@@ -32,7 +32,7 @@ export default function AllProducts() {
     const selectedSubcategoriesFromMenu = location.state?.subcategories || null;
 
     useEffect(() => {
-        fetch("http://localhost:3001/products")
+        fetch(`${import.meta.env.VITE_API_URL}/products`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data);

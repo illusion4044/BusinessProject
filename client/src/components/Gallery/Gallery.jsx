@@ -11,14 +11,14 @@ export default function Gallery({ title, imageSrc, items }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:3001/products")
+        fetch(`${import.meta.env.VITE_API_URL}/products`)
             .then(res => res.json())
             .then(data => setProducts(data.slice(0, 20)))
             .catch(err => console.error("Error:", err));
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:3001/discountgallery")
+        fetch(`${import.meta.env.VITE_API_URL}/discountgallery`)
             .then(res => res.json())
             .then(data => setDiscountProducts(data.slice(0, 20)))
             .catch(err => console.error("Error:", err));

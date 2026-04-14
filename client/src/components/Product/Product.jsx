@@ -16,7 +16,7 @@ export default function Product() {
     const { addToCart } = useCart();
 
     useEffect(() => {
-        fetch(`http://localhost:3001/products/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data);
@@ -26,7 +26,7 @@ export default function Product() {
     }, [id]);
 
     useEffect(() => {
-        fetch("http://localhost:3001/products")
+        fetch(`${import.meta.env.VITE_API_URL}/products`)
             .then(res => res.json())
             .then(data => {
                 // Фільтруємо поточний товар та обираємо рандомні товари
@@ -95,7 +95,7 @@ export default function Product() {
                         <img
                             src={
                                 product.image
-                                    ? `http://localhost:3001${product.image}`
+                                    ? `${import.meta.env.VITE_API_URL}${product.image}`
                                     : '/images/NoImageCard.png'
                             }
                             alt={product.name}

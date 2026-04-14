@@ -44,7 +44,7 @@ const PurchaseHistory = () => {
             try {
                 const token = localStorage.getItem("token");
 
-                const res = await fetch("http://localhost:3001/my", {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/my`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -127,7 +127,7 @@ const PurchaseHistory = () => {
                                                         <img
                                                             src={
                                                                 item.image
-                                                                    ? `http://localhost:3001${item.image}`
+                                                                    ? `${import.meta.env.VITE_API_URL}${item.image}`
                                                                     : placeholderImg
                                                             }
                                                             alt=""

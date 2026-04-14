@@ -17,7 +17,7 @@ export default function EditProduct({ setActivePage, product }) {
     };
 
     useEffect(() => {
-        fetch("http://localhost:3001/categories")
+        fetch(`${import.meta.env.VITE_API_URL}/categories`)
             .then(res => res.json())
             .then(data => {
                 console.log("categories:", data);
@@ -33,7 +33,7 @@ export default function EditProduct({ setActivePage, product }) {
             return;
         }
 
-        fetch(`http://localhost:3001/product/${product.id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/product/${product.id}`)
             .then(res => {
                 console.log("response status:", res.status);
                 return res.json();
@@ -76,7 +76,7 @@ export default function EditProduct({ setActivePage, product }) {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3001/admin/editproduct/${product.id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/editproduct/${product.id}`, {
                 method: "PUT",
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData
@@ -107,7 +107,7 @@ export default function EditProduct({ setActivePage, product }) {
                         {image ? (
                             <img src={URL.createObjectURL(image)} className={styles.previewImage} alt="preview" />
                         ) : product?.image && !removeImage ? (
-                            <img src={`http://localhost:3001${product.image}`} className={styles.previewImage} alt="current" />
+                            <img src={`${import.meta.env.VITE_API_URL}${product.image}`} className={styles.previewImage} alt="current" />
                         ) : (
                             <div className={styles.imagePlaceholder}></div>
                         )}

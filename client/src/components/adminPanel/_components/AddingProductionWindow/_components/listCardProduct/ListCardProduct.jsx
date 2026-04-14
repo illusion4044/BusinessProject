@@ -16,7 +16,7 @@ export default function ListCardProduct({ product, onEdit, onDelete, setActivePa
         try {
             const token = localStorage.getItem("token");
 
-            await fetch(`http://localhost:3001/admin/editproduct/${product.id}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/admin/editproduct/${product.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,7 +39,11 @@ export default function ListCardProduct({ product, onEdit, onDelete, setActivePa
             <div className={styles.blockImage}>
                 {product.image ? (
                     <img
+<<<<<<< HEAD
                         src={`http://localhost:3001${product.image}`}
+=======
+                        src={`${import.meta.env.VITE_API_URL}${product.image}`}
+>>>>>>> origin/main
                         alt={product.name}
                     />
                 ) : (

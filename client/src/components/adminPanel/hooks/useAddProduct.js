@@ -15,7 +15,7 @@ export default function useAddProduct() {
         try {
             const token = localStorage.getItem("token");
 
-            const response = await fetch("http://localhost:3001/admin/addproduct", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/addproduct`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`

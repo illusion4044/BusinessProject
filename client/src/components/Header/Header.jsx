@@ -26,7 +26,7 @@ export default function Header({ onCartOpen }) {
         if (!searchQuery.trim()) { setSearchResults([]); return; }
         setSearchLoading(true);
         const timeout = setTimeout(() => {
-            fetch(`http://localhost:3001/products/search?q=${encodeURIComponent(searchQuery)}`)
+            fetch(`${import.meta.env.VITE_API_URL}/products/search?q=${encodeURIComponent(searchQuery)}`)
                 .then(res => res.json())
                 .then(data => { setSearchResults(data.slice(0, 6)); setSearchLoading(false); })
                 .catch(() => setSearchLoading(false));
@@ -145,7 +145,7 @@ export default function Header({ onCartOpen }) {
                                         }}
                                     >
                                         <img
-                                            src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
+                                            src={product.image ? `${import.meta.env.VITE_API_URL}${product.image}` : "/images/NoImageCard.png"}
                                             alt={product.name}
                                             className={styles.searchItemImage}
                                         />
@@ -210,7 +210,7 @@ export default function Header({ onCartOpen }) {
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
                             />
-                            {/* ← додай дропдаун сюди */}
+
                             {(searchResults.length > 0 || searchLoading) && (
                                 <div className={styles.searchDropdown}>
                                     {searchLoading ? (
@@ -227,7 +227,7 @@ export default function Header({ onCartOpen }) {
                                             }}
                                         >
                                             <img
-                                                src={product.image ? `http://localhost:3001${product.image}` : "/images/NoImageCard.png"}
+                                                src={product.image ? `${import.meta.env.VITE_API_URL}${product.image}` : "/images/NoImageCard.png"}
                                                 alt={product.name}
                                                 className={styles.searchItemImage}
                                             />

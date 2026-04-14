@@ -13,7 +13,7 @@ export default function ProductInfo({ setActivePage }) {
     const fetchOrders = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3001/admin/orders", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/orders`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -32,7 +32,7 @@ export default function ProductInfo({ setActivePage }) {
     const handleStatusChange = async (orderId, newStatus) => {
         try {
             const token = localStorage.getItem("token");
-            await fetch(`http://localhost:3001/admin/orders/${orderId}/status`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/admin/orders/${orderId}/status`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function ProductInfo({ setActivePage }) {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem("token");
-            await fetch(`http://localhost:3001/admin/orders/${deleteModal}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/admin/orders/${deleteModal}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -137,7 +137,9 @@ export default function ProductInfo({ setActivePage }) {
                             {isOpen && (
                                 <div className={styles.orderDetails}>
                                     <div className={styles.detailMeta}>
+                                        <span>👤 {order.first_name} {order.last_name}</span>
                                         <span>📧 {order.email}</span>
+                                        <span>📞 {order.phone}</span>
                                         <span>📍 {order.shipping_address}</span>
                                         <span>💳 {order.payment_method === "cash" ? "При отриманні" : "Безготівково"}</span>
                                         {order.comment && <span>💬 {order.comment}</span>}
@@ -146,7 +148,7 @@ export default function ProductInfo({ setActivePage }) {
                                         {order.items?.map((item, i) => (
                                             <div key={i} className={styles.itemRow}>
                                                 <img
-                                                    src={item.image ? `http://localhost:3001${item.image}` : "images/NoImageCard.png"}
+                                                    src={item.image ? `${import.meta.env.VITE_API_URL}${item.image}` : "images/NoImageCard.png"}
                                                     alt={item.name}
                                                     className={styles.itemImg}
                                                 />

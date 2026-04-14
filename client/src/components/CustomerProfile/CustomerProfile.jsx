@@ -26,7 +26,7 @@ export default function CustomerProfile() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        fetch("http://localhost:3001/profile", {
+        fetch(`${import.meta.env.VITE_API_URL}/profile`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => res.json())
@@ -58,7 +58,7 @@ export default function CustomerProfile() {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3001/profile", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/profile`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export default function CustomerProfile() {
                         <div className={styles.userInfo}>
                             <img src={userIcon} alt="user" />
                             <span>
-                                {profile.firstName || "Ім'я"} {profile.lastName || "Прізвище"}
+                                {profile.firstName || "Ім'я"} {profile.lastName}
                             </span>
                         </div>
 

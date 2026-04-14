@@ -9,7 +9,7 @@ export default function AddProduct ({ setActivePage }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3001/categories")
+        fetch(`${import.meta.env.VITE_API_URL}/categories`)
             .then(res => res.json())
             .then(data => {
                 console.log("categories:", data);
