@@ -31,9 +31,10 @@ export default function AddProduct ({ setActivePage }) {
         formData.append("country", state.country);
         formData.append("trademark", state.trademark);
         formData.append("seller", state.seller);
-        formData.append("unit", state.unit || "шт");
+        formData.append("unit", state.unit || (state.isWeightProduct ? "кг" : "шт"));
         formData.append("category_id", state.category_id || "");
         formData.append("discount", state.discount || 0);
+        formData.append("isWeightProduct", state.isWeightProduct || false);
         if (image) {
             formData.append("image", image);
         }
@@ -43,14 +44,12 @@ export default function AddProduct ({ setActivePage }) {
 
     return (
         <div className={styles.MainAddProductWindow}>
-
             <div className={styles.BackToLobby} onClick={() => setActivePage("addProduction")} >
                 <img src="images/BackRow.png" className={styles.leftRow} alt="" />
                 <h3>Додавання товару</h3>
             </div>
 
             <div className={styles.BlockItems}>
-
                 <div className={styles.LeftPanelBlock}>
                     <div className={styles.imageBlock}>
                         {image ? (
@@ -86,17 +85,6 @@ export default function AddProduct ({ setActivePage }) {
                 </div>
 
                 <div className={styles.RightPanelBlock}>
-                    {/* <select
-                        className={styles.input}
-                        value={state.category_id || ""}
-                        onChange={e => setField("category_id", e.target.value)}
-                    >
-                        <option value="">Обрати категорію</option>
-                        {categories.map(c => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}
-                    </select> */}
-
                     <select
                         className={styles.input}
                         value={state.category_id || ""}
@@ -111,7 +99,6 @@ export default function AddProduct ({ setActivePage }) {
 
                                 return (
                                     <React.Fragment key={parent.id}>
-                                        
                                         <option value={parent.id}>
                                             {parent.name}
                                         </option>
@@ -126,7 +113,6 @@ export default function AddProduct ({ setActivePage }) {
                             })
                         }
                     </select>
-
 
                     <h4 className={styles.sectionTitle}>Загальна інформація</h4>
 
@@ -154,11 +140,6 @@ export default function AddProduct ({ setActivePage }) {
                         />
                     </div>
 
-                    {/* <input
-                        className={styles.input || ""}
-                        placeholder="Акційна ціна"
-                    /> */}
-
                     <div className={styles.row}>
                         <input className={styles.smallInput} placeholder="Ціна (грн)"
                             value={state.price || ""}
@@ -180,6 +161,16 @@ export default function AddProduct ({ setActivePage }) {
                         </div>
                     )}
 
+                    <div className={styles.checkboxRow}>
+                        <input 
+                            type="checkbox" 
+                            id="isWeightProduct"
+                            checked={state.isWeightProduct || false}
+                            onChange={e => setField("isWeightProduct", e.target.checked)}
+                        />
+                        <label htmlFor="isWeightProduct">Товар на вагу (кг)</label>
+                    </div>
+
                     <button 
                         className={styles.saveBtn}
                         onClick={async () => {
@@ -188,7 +179,6 @@ export default function AddProduct ({ setActivePage }) {
                         }}
                     > Зберегти</button>
                 </div>
-
             </div>
         </div>
     );
