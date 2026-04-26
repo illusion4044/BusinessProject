@@ -36,29 +36,26 @@ export default function Cart({ isOpen, onClose }) {
                     ) : (
                         cartItems.map(item => (
                             <div key={item.id} className={styles.cartItem}>
+                                <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)}>🗑</button>
                                 <img
                                     src={item.image ? `${import.meta.env.VITE_API_URL}${item.image}` : "/images/NoImageCard.png"}
                                     alt={item.name}
                                     className={styles.itemImage}
                                 />
                                 <div className={styles.itemInfo}>
-                                    <p className={styles.itemName}>{item.name}</p>
-                                    <p className={styles.itemUnit}>{item.unit || ""}</p>
-                                    <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p>
-                                    <div className={styles.bottomRow}>
+                                    <div className={styles.nameBlock}>
+                                        <p className={styles.itemName}>{item.name}</p>
+                                        {!isWeighed(item) && <p className={styles.itemUnit}>{item.unit || ""}</p>}
+                                    </div>
+                                    <div className={styles.priceBlock}>
+                                        <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p>
                                         <div className={styles.qtyControls}>
                                             {isWeighed(item) ? (
-                                                <div>
-                                                    <input
-                                                        type="number"
-                                                        step="0.1"
-                                                        min="0.1"
-                                                        value={item.quantity}
-                                                        onChange={(e) => handleWeightChange(item.id, e.target.value)}
-                                                        style={{ width: '60px' }}
-                                                    />
-                                                    <span> кг</span>
-                                                </div>
+                                                <>
+                                                    <button onClick={() => handleWeightChange(item.id, (item.quantity - 0.1).toFixed(1))}>−</button>
+                                                    <span>{item.quantity.toFixed(1)} кг</span>
+                                                    <button onClick={() => handleWeightChange(item.id, (item.quantity + 0.1).toFixed(1))}>+</button>
+                                                </>
                                             ) : (
                                                 <>
                                                     <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
@@ -67,7 +64,6 @@ export default function Cart({ isOpen, onClose }) {
                                                 </>
                                             )}
                                         </div>
-                                        <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)}>🗑</button>
                                     </div>
                                 </div>
                             </div>
