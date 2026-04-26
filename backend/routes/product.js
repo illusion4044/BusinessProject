@@ -27,7 +27,7 @@ router.get("/products", async (req, res) => {
         const [rows] = await db.query(`
         SELECT 
             p.id, p.name, p.description, p.qty, p.price, p.image,
-            p.trademark, ROUND(p.discount, 0) AS discount,
+            p.trademark, ROUND(p.discount, 0) AS discount, p.unit,
 
             -- якщо є parent → це category
             -- якщо нема → беремо child
@@ -108,7 +108,7 @@ router.get("/products/:id", async (req, res) => {
         const { id } = req.params;
         const [rows] = await db.query(
             `SELECT p.id, p.name, p.description, p.qty, p.price, p.image,
-                p.country, p.trademark, p.seller,
+                p.country, p.trademark, p.seller, p.unit,
                 ROUND(p.discount, 0) AS discount,
                 child.name AS subcategory,
                 parent.name AS category
