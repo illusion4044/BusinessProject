@@ -287,6 +287,54 @@
     padding-bottom: 10px;
 }
 
+/* ===== WEIGHING SECTION ===== */
+.weighingSection {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.weighingSection label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.quickWeights {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.quickWeights button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.quickWeights button:hover {
+    background: #f0f0f0;
+}
+
+.customWeight {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150px;
+    font-size: 14px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 /* ===== LOADER ===== */
 .loadingWrap {
     margin-top: 97px;

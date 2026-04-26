@@ -10,17 +10,29 @@ export function CartProvider({ children }) {
     const openCart = () => setIsCartOpen(true);
     const closeCart = () => setIsCartOpen(false);   
 
-    const addToCart = (product) => {
+    const isWeighed = (product) => product.unit === 'кг';
+
+    const addToCart = (product, weight = null) => {
         setCartItems(prev => {
             const existing = prev.find(item => item.id === product.id);
             if (existing) {
-                return prev.map(item =>
-                    item.id === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
+                if (weight !== null) {
+                    // For weighed products, update weight
+                    return prev.map(item =>
+                        item.id === product.id
+                            ? { ...item, quantity: weight }
+                            : item
+                    );
+                } else {
+                    // For non-weighed, increase quantity
+                    return prev.map(item =>
+                        item.id === product.id
+                            ? { ...item, quantity: item.quantity + 1 }
+                            : item
+                    );
+                }
             }
-            return [...prev, { ...product, quantity: 1 }];
+            return [...prev, { ...product, quantity: weight !== null ? weight : 1 }];
         });
     };
 
@@ -45,7 +57,7 @@ export function CartProvider({ children }) {
     );
 
     const totalCount = cartItems.reduce(
-        (sum, item) => sum + item.quantity, 0
+        (sum, item) => sum + (isWeighed(item) ? 1 : item.quantity), 0
     );
 
     return (

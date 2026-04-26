@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from "../CartContext/CartContext";
 
-export default function Header({ onCartOpen }) {
+export default function Header() {
 
     const [isLogined, setIsLogined] = useState(null)
     const [isBtnLoginClicked, setIsBtnLoginClicked] = useState(null)

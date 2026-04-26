@@ -173,6 +173,15 @@ export default function AddProduct ({ setActivePage }) {
                         />
                     </div>
 
+                    <select
+                        className={styles.input}
+                        value={state.unit || "шт"}
+                        onChange={e => setField("unit", e.target.value)}
+                    >
+                        <option value="шт">шт</option>
+                        <option value="кг">кг</option>
+                    </select>
+
                     {state.price && state.discount > 0 && (
                         <div className={styles.pricePreview}>
                             Акційна ціна: <b>{Math.round(state.price * (1 - state.discount / 100))}₴</b>

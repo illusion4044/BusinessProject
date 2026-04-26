@@ -10,15 +10,21 @@ export default function Product() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isCartOpen, setIsCartOpen] = useState(false);
     const [similarProducts, setSimilarProducts] = useState([]);
     const similarRef = useRef(null);
     const { addToCart } = useCart();
+
+    const [weight, setWeight] = useState(1);
+    const [weightError, setWeightError] = useState('');
+
+    const isWeighed = product && product.unit === 'кг';
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
             .then(res => res.json())
             .then(data => {
+                console.log("Product data:", data);
+                console.log("Unit:", data.unit);
                 setProduct(data);
                 setLoading(false);
             })
@@ -47,6 +53,34 @@ export default function Product() {
         }
     };
 
+    const handleWeightChange = (value) => {
+        const val = parseFloat(value);
+        if (isNaN(val) || val < 0.1) {
+            setWeightError('Введіть вагу не менше 0.1 кг');
+            return;
+        }
+        const grams = val * 1000;
+        if (grams % 100 !== 0) {
+            setWeightError('Вага має бути кратна 100 г');
+            return;
+        }
+        setWeightError('');
+        setWeight(val);
+    };
+
+    const handleQuickWeight = (w) => {
+        setWeight(w);
+        setWeightError('');
+    };
+
+    const handleAddToCart = () => {
+        if (isWeighed) {
+            addToCart(product, weight);
+        } else {
+            addToCart(product);
+        }
+    };
+
     const discount = product?.discount || 0;
     const oldPrice = discount > 0
         ? Math.round(product.price / (1 - discount / 100))
@@ -54,7 +88,7 @@ export default function Product() {
 
     if (loading) return (
         <>
-            <Header onCartOpen={() => setIsCartOpen(true)} />
+            <Header />
             <div className={styles.loadingWrap}>
                 <div className={styles.spinner} />
             </div>
@@ -63,14 +97,14 @@ export default function Product() {
 
     if (!product) return (
         <>
-            <Header onCartOpen={() => setIsCartOpen(true)} />
+            <Header />
             <div className={styles.notFound}>Товар не знайдено</div>
         </>
     );
 
     return (
         <>
-            <Header onCartOpen={() => setIsCartOpen(true)} />
+            <Header />
 
             <main className={styles.main}>
 
@@ -110,19 +144,50 @@ export default function Product() {
                         {/* Ціна + кнопка */}
                         <div className={styles.priceRow}>
                             <div className={styles.priceBlock}>
-                                <span className={styles.priceNow}>{product.price}₴</span>
+                                <span className={styles.priceNow}>
+                                    {isWeighed ? `${product.price}₴/кг` : `${product.price}₴`}
+                                </span>
                                 {discount > 0 && oldPrice && (
                                     <span className={styles.priceOld}>{oldPrice}₴</span>
+                                )}
+                                {isWeighed && (
+                                    <div>
+                                        <p>Ціна: {(product.price * weight).toFixed(2)} ₴</p>
+                                    </div>
                                 )}
                             </div>
                             <button
                                 className={styles.cartBtn}
-                                onClick={() => addToCart(product)}
+                                onClick={handleAddToCart}
                             >
                                 <img src="/images/shopping-cart 1.svg" alt="" />
                                 У кошик
                             </button>
                         </div>
+
+                        {/* Weighing options for weighed products */}
+                        {isWeighed && (
+                            <div className={styles.weighingSection}>
+                                <label>Оберіть вагу:</label>
+                                <div className={styles.quickWeights}>
+                                    <button type="button" onClick={() => handleQuickWeight(0.1)}>100 г</button>
+                                    <button type="button" onClick={() => handleQuickWeight(0.25)}>250 г</button>
+                                    <button type="button" onClick={() => handleQuickWeight(0.5)}>500 г</button>
+                                    <button type="button" onClick={() => handleQuickWeight(1)}>1 кг</button>
+                                </div>
+                                <p>Або введіть свою вагу (кратно 100 г):</p>
+                                <input
+                                    type="number"
+                                    className={styles.customWeight}
+                                    step="0.1"
+                                    min="0.1"
+                                    value={weight}
+                                    onChange={(e) => handleWeightChange(e.target.value)}
+                                    placeholder="Наприклад: 1.2"
+                                />
+                                {weightError && <p className={styles.error} style={{color:'red'}}>{weightError}</p>}
+                            </div>
+                        )}
 
                         {/* Опис */}
                         <div className={styles.section}>

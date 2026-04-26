@@ -1,27 +1,23 @@
 import styles from "./Cart.module.css";
 import { useCart } from "../CartContext/CartContext";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart({ isOpen, onClose }) {
-    const [isOrderOpen, setIsOrderOpen] = useState(false);
     const { cartItems, removeFromCart, updateQuantity, totalPrice } = useCart();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [isOpen]);
+    const isWeighed = (item) => item.unit === 'кг';
 
     const handleCheckout = () => {
         onClose();
         navigate("/order");
+    };
+
+    const handleWeightChange = (itemId, value) => {
+        const weight = parseFloat(value);
+        if (!isNaN(weight) && weight > 0) {
+            updateQuantity(itemId, weight);
+        }
     };
 
     return (
@@ -51,9 +47,25 @@ export default function Cart({ isOpen, onClose }) {
                                     <p className={styles.itemPrice}>{(item.price * item.quantity).toFixed(2)}₴</p>
                                     <div className={styles.bottomRow}>
                                         <div className={styles.qtyControls}>
-                                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
-                                            <span>{item.quantity}</span>
-                                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                            {isWeighed(item) ? (
+                                                <div>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        min="0.1"
+                                                        value={item.quantity}
+                                                        onChange={(e) => handleWeightChange(item.id, e.target.value)}
+                                                        style={{ width: '60px' }}
+                                                    />
+                                                    <span> кг</span>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
+                                                    <span>{item.quantity}</span>
+                                                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                                </>
+                                            )}
                                         </div>
                                         <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)}>🗑</button>
                                     </div>

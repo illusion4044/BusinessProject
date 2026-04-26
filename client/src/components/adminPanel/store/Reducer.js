@@ -13,7 +13,8 @@ export const initialState = {
     price: "",
     quantity: "",
     discountPrice: "",
-    image: null
+    image: null,
+    unit: "шт"
 }
 
 export function Reducer(state, action){

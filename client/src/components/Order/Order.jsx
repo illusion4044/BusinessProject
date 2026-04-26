@@ -22,6 +22,8 @@ export default function Order() {
         (sum, item) => sum + item.price * item.quantity, 0
     );
 
+    const isWeighed = (item) => item.unit === 'кг';
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) return;
@@ -142,11 +144,19 @@ export default function Order() {
                                         />
                                         <div className={styles.productInfo}>
                                             <p>{item.name}</p>
-                                            <span className={styles.productPrice}>{item.price}₴</span>
+                                            <span className={styles.productPrice}>
+                                                {isWeighed(item) ? `${(item.price * item.quantity).toFixed(2)}₴ (${item.quantity} кг)` : `${item.price}₴ x ${item.quantity}`}
+                                            </span>
                                             <div className={styles.qtyControls}>
-                                                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
-                                                <span>{item.quantity}</span>
-                                                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                                {isWeighed(item) ? (
+                                                    <span>{item.quantity} кг</span>
+                                                ) : (
+                                                    <>
+                                                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
+                                                        <span>{item.quantity}</span>
+                                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
